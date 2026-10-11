@@ -392,7 +392,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   section{padding-block:40px}
   .lede{font-size:19px;max-width:36ch}
   .steps{gap:12px;margin-top:20px}
-  .design{gap:20px}
   .dframe{max-width:320px;margin-inline:auto}
 }
 @media (max-width:560px){
@@ -422,7 +421,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   .mascot.lg{width:96px}
   .mascot-slot{gap:12px;padding-block:4px}
   .mascot-slot p{font-size:18px}
-  .design{gap:16px}
   .dframe{max-width:280px}
   .stats{gap:10px}
   .contact{margin-inline:12px;padding:40px 0}
@@ -468,14 +466,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
 .wa-fab i{animation:dotPulse 2.4s ease-out infinite}
 .progress{position:fixed;left:0;top:0;height:3px;width:100%;background:var(--ink);transform:scaleX(var(--p,0));transform-origin:left;z-index:60;pointer-events:none}
 
-/* PHONE LAYOUT: swipe rows instead of long stacks, sticky preview while designing */
-@media (max-width:900px){
-  .design{display:block}
-  .preview{position:sticky;top:57px;z-index:6;background:var(--paper);padding:8px var(--gut,18px) 10px;margin-inline:calc(-1*var(--gut,18px));border-bottom:1px solid var(--line)}
-  .preview .dframe{max-width:190px;margin-inline:auto;animation:none}
-  .preview-note{display:none}
-  .preview + div{margin-top:16px}
-}
+/* PHONE LAYOUT: swipe rows instead of long stacks */
 @media (max-width:760px){
   .cats{gap:22px}
   .cat-title{margin-bottom:10px;font-size:20px}
@@ -486,7 +477,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
 }
 @media (max-width:560px){
   :root{--gut:16px}
-  .preview .dframe{max-width:150px}
   .steps{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:16px;margin-inline:-16px;padding:2px 16px 14px;margin-top:16px;scrollbar-width:none}
   .steps::-webkit-scrollbar{display:none}
   .step{flex:0 0 72vw;max-width:300px;scroll-snap-align:start;padding:18px}
@@ -532,23 +522,55 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   .strip{border-top:0}
 }
 
-/* DESIGNER: details on the left, preview on the right, on phones too */
-@media (max-width:900px){
-  .design{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:16px;align-items:start}
-  .preview{grid-column:2;grid-row:1;position:sticky;top:76px;z-index:2;background:transparent;border:0;padding:6px 0;margin:0}
-  .preview + div{grid-column:1;grid-row:1;margin-top:0}
-  .preview .dframe{max-width:none;width:100%;margin:0;animation:none}
-  .preview-note{display:none}
+
+/* RAIL: the wide home wall card fills its space */
+.pcard.wide{flex-basis:min(600px,88vw)}
+.pcard.wide .pimg{flex:1 1 auto;position:relative;min-height:190px}
+.pcard.wide .pimg img{position:absolute;left:16px;right:16px;top:0;width:calc(100% - 32px);height:100%;object-fit:cover;object-position:42% 50%}
+.pcard.wide .pbody{flex:0 0 auto}
+
+/* IDEAS: six cards fill the grid evenly */
+.spaces{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.space{padding:28px;min-height:190px}
+@media (max-width:900px){.spaces{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.space{padding:14px;min-height:0}}
+
+/* WORD IDEAS: type variety and a small flourish */
+.poster{flex-direction:column;gap:12px}
+.poster::after{content:"";width:26px;height:1px;background:currentColor;opacity:.45;flex:none}
+.poster .q.f2{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-weight:600;line-height:1.15}
+.poster .q.f3{font-family:"Cinzel",Georgia,serif;font-weight:600;text-transform:uppercase;letter-spacing:.08em;line-height:1.4}
+
+/* DESIGNER: wrappers keep the desktop two-column layout identical */
+.dz-a{display:contents}
+.design{row-gap:0}
+.preview{grid-column:1;grid-row:1 / span 2}
+.ctrl-a{grid-column:2;grid-row:1}
+.ctrl-b{grid-column:2;grid-row:2}
+.cd{display:none}
+@media (min-width:701px) and (max-width:900px){
+  .design{grid-template-columns:1fr 1fr;gap:24px}
+  .preview{position:sticky;top:76px}
 }
-@media (max-width:560px){
-  .design{grid-template-columns:minmax(0,1fr) 50%;gap:12px}
-  .preview .dframe{max-width:none}
-  .field input,.field select,.field textarea{font-size:16px;padding:10px 11px}
-  .design .glabel{font-size:10px}
-  .design .btn{white-space:normal;text-align:center;width:100%;justify-content:center}
-  .design .sw.big{padding:7px 10px;font-size:10px}
-  .price-box{padding:12px 12px}
-  .price-box .total{font-size:26px}
+@media (max-width:700px){
+  .design{display:block}
+  .dz-a{display:block}
+  .preview{position:sticky;top:57px;z-index:6;background:var(--paper);padding:12px var(--gut,18px);margin-inline:calc(-1*var(--gut,18px));border-bottom:1px solid var(--line)}
+  .preview .dframe{max-width:190px;margin:0 auto;animation:none}
+  .preview-note{display:none}
+  .ctrl-a{margin-top:20px}
+  .ctrl-b{margin-top:4px}
+  .field input,.field select,.field textarea{font-size:16px}
+  .group{margin-bottom:18px}
+  .cd{display:flex;align-items:center;gap:10px;width:100%;background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:11px 13px;font-size:15px;cursor:pointer;color:var(--ink);text-align:left}
+  .cd-dot{width:20px;height:20px;border-radius:50%;border:1px solid rgba(22,20,26,.25);flex:none}
+  .cd-name{flex:1}
+  .cd svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s ease}
+  .cdrop.open .cd svg{transform:rotate(180deg)}
+  .cdrop .swatches{display:none}
+  .cdrop.open .swatches{display:flex;gap:10px;padding:14px;margin-top:8px;border:1px solid var(--line);border-radius:6px;background:var(--card);animation:riseIn .25s ease both}
+  .cdrop .sw{width:34px;height:34px}
+  .cdrop .sel-name{display:none}
 }
 </style>
 </head>
@@ -770,6 +792,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
     <p class="lede rv">Type your words, then choose the border, the paper colour, the text colour and the font. The preview updates as you go.</p>
 
     <div class="design" style="margin-top:30px">
+      <div class="dz-a">
       <div class="preview rv">
         <div class="dframe" id="pvFrame">
           <div class="dmat" id="pvMat"><p class="dline" id="pvLine">Your line appears here</p></div>
@@ -777,7 +800,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
         <p class="preview-note">Preview only. Colours may look slightly different on print.</p>
       </div>
 
-      <div class="rv">
+      <div class="rv ctrl-a">
         <div class="group">
           <label class="glabel" for="words">Your words</label>
           <textarea id="words" maxlength="120" rows="3" placeholder="Type the line you want printed"></textarea>
@@ -806,7 +829,10 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
           <label class="glabel" for="font">Font</label>
           <select id="font"></select>
         </div>
+      </div>
+      </div>
 
+      <div class="rv ctrl-b">
         <div class="group" style="padding-top:6px;border-top:1px solid var(--line)">
           <span class="glabel" style="margin-top:14px">Size and quantity</span>
           <div class="field">
@@ -922,11 +948,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
           <a class="btn btn-ink" id="enWa" href="https://wa.me/919004217186" target="_blank" rel="noopener">Send on WhatsApp</a>
           <a class="btn" id="enMail" href="mailto:customizedarttbytuba@gmail.com">Send by email</a>
         </div>
-        <p class="enq-note">WhatsApp opens with your details filled in. If your email app does not open, copy the address below and write to us.</p>
-        <div class="copy-row">
-          <code>customizedarttbytuba@gmail.com</code>
-          <button class="copy-btn" id="copyEmail" type="button">Copy email</button>
-        </div>
+        <p class="enq-note">WhatsApp opens with your details filled in. Email opens your mail app with the same details.</p>
       </form>
     </div>
   </div>
@@ -1040,11 +1062,11 @@ const FRAMES = [
   {img:'family.jpg', name:'Family frame', detail:'A family photo with names and a short line about home. Walnut border.', ask:'Family frame with a photo, names and a short line'},
   {img:'couple.jpg', name:'Playing card frame', detail:'A couple photo inside a red playing card design. Black border.', ask:'Playing card frame for a couple photo'},
   {img:'cafe-quotes.jpg', name:'Café quote frame', detail:'Menu lines and mood quotes in matching frames. Black or oak.', ask:'Café quote frames, a matching set for the counter'},
-  {img:'cafe-wall-home.jpg', name:'Home wall frame', detail:'Words and photos for living room walls. Mixed sizes.', ask:'Home wall frame set with words and photos'}
+  {img:'cafe-wall-home.jpg', wide:true, name:'Home wall frame', detail:'Words and photos for living room walls. Mixed sizes.', ask:'Home wall frame set with words and photos'}
 ];
 const rail = document.getElementById('rail');
 rail.innerHTML = FRAMES.map(f=>`
-  <article class="pcard">
+  <article class="pcard${f.wide?' wide':''}">
     <div class="pimg"><img src="${f.img}" alt="${f.name}" loading="lazy"></div>
     <div class="pbody">
       <h3>${f.name}</h3>
@@ -1093,24 +1115,24 @@ sheet.addEventListener('click',e=>{ if(e.target===sheet) sheet.close(); });
 /* COLLECTIONS */
 const CATS = [
   {name:'Motivational', icon:'sparkle', wall:'w1', quotes:[
-    ['Stay hungry, stay foolish.','bk'],
-    ['The secret of getting ahead is getting started.','bp'],
-    ['Small steps, every day.','wd']]},
+    ['Begin where you are, build what you dream.','bk','f2'],
+    ['Small steps. Big stories.','bp','f1'],
+    ['Make today worth framing.','wd','f3']]},
   {name:'Witty', icon:'quote', wall:'w2', quotes:[
-    ['Coffee first, plans later.','wd'],
-    ['I am not lazy, I am on energy saving mode.','bk'],
-    ['Adulting, unpaid internship.','bp']]},
+    ['Coffee first. Brilliant ideas after.','wd','f2'],
+    ['Running on caffeine and good intentions.','bk','f1'],
+    ['Plot twist: I actually did it.','bp','f3']]},
   {name:'Home and warmth', icon:'home', wall:'w3', quotes:[
-    ['Home is where the good stories start.','wd'],
-    ['Gather here, stay a while.','bp'],
-    ['Bloom where you are planted.','bk']]}
+    ['Home is where the best stories begin.','wd','f1'],
+    ['Stay awhile. The kettle is on.','bp','f2'],
+    ['Grow where life plants you.','bk','f3']]}
 ];
 const catsEl = document.getElementById('cats');
 CATS.forEach(c=>{
   const block = document.createElement('div');
   block.className='rv';
   block.innerHTML = `<h3 class="cat-title"><span class="ic" data-icon="${c.icon}"></span>${c.name}</h3><div class="posters">${c.quotes.map(q=>`
-    <div class="wall ${c.wall}"><div class="hang"><div class="frame"><div class="mat"><div class="poster ${q[1]}"><p class="q" data-q>${q[0]}</p></div></div></div></div></div>`).join('')}</div>`;
+    <div class="wall ${c.wall}"><div class="hang"><div class="frame"><div class="mat"><div class="poster ${q[1]}"><p class="q ${q[2]||''}" data-q>${q[0]}</p></div></div></div></div></div>`).join('')}</div>`;
   catsEl.appendChild(block);
 });
 
@@ -1219,6 +1241,7 @@ function paintDesign(){
   document.getElementById('borderName').textContent = state.border[0];
   document.getElementById('paperName').textContent = state.paper[0];
   document.getElementById('textName').textContent = state.text[0];
+  syncColourDrops();
   fitDesign();
   updateWa();
 }
@@ -1230,6 +1253,25 @@ function fitDesign(){
 borderSwatches(document.getElementById('borderSw'), BORDERS, c=>{ state.border=c; paintDesign(); });
 swatchGroup(document.getElementById('paperSw'), PAPERS, c=>{ state.paper=c; paintDesign(); });
 swatchGroup(document.getElementById('textSw'), TEXTS, c=>{ state.text=c; paintDesign(); });
+
+/* Colour dropdowns (phone only; desktop keeps the open swatches) */
+const dropFor = {paperSw:()=>state.paper, textSw:()=>state.text};
+function syncColourDrops(){
+  Object.keys(dropFor).forEach(id=>{
+    const g=document.getElementById(id)?.closest('.group'); if(!g) return;
+    const c=dropFor[id](), dot=g.querySelector('.cd-dot'), nm=g.querySelector('.cd-name');
+    if(dot) dot.style.background=c[1]; if(nm) nm.textContent=c[0];
+  });
+}
+Object.keys(dropFor).forEach(id=>{
+  const sw=document.getElementById(id), g=sw.closest('.group'); g.classList.add('cdrop');
+  const b=document.createElement('button'); b.type='button'; b.className='cd'; b.setAttribute('aria-expanded','false');
+  b.innerHTML='<i class="cd-dot"></i><span class="cd-name"></span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  sw.before(b);
+  b.addEventListener('click',()=>{ const o=!g.classList.contains('open'); g.classList.toggle('open',o); b.setAttribute('aria-expanded',o); });
+  sw.addEventListener('click',e=>{ if(e.target.closest('button[data-i]')){ g.classList.remove('open'); b.setAttribute('aria-expanded','false'); } });
+});
+syncColourDrops();
 fontSel.addEventListener('change',()=>{ state.font=fontSel.value; paintDesign(); });
 wordsEl.addEventListener('input',paintDesign);
 
@@ -1306,16 +1348,6 @@ function refreshEnquiry(){
 ['enName','enPhone','enInterest','enMsg'].forEach(id=>document.getElementById(id).addEventListener('input',refreshEnquiry));
 document.getElementById('enInterest').addEventListener('change',refreshEnquiry);
 document.getElementById('enqForm').addEventListener('submit',e=>e.preventDefault());
-document.getElementById('copyEmail').addEventListener('click',()=>{
-  const done = ()=>{ const b=document.getElementById('copyEmail'); b.textContent='Copied'; setTimeout(()=>b.textContent='Copy email',1600); };
-  try{
-    navigator.clipboard.writeText(EMAIL).then(done).catch(()=>{ selectText(); });
-  }catch(err){ selectText(); }
-});
-function selectText(){
-  const r = document.createRange(); r.selectNodeContents(document.querySelector('.copy-row code'));
-  const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
-}
 refreshEnquiry();
 
 /* HEADINGS */
