@@ -494,6 +494,62 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   .both-list li{grid-template-columns:1fr;gap:8px;padding:14px;font-size:12.5px}
   .both-list b{font-size:13px}
 }
+
+/* PHONE MENU */
+.nav-tools{display:flex;align-items:center;gap:10px}
+.burger{display:none;width:40px;height:34px;border:1px solid var(--ink);border-radius:999px;background:var(--card);padding:0;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.burger span{display:block;width:16px;height:1.5px;background:var(--ink);transition:transform .25s ease,opacity .2s ease}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+@media (max-width:900px){
+  .burger{display:inline-flex}
+  .links{position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;background:var(--paper);border-bottom:1px solid var(--line);padding:4px var(--gut,18px) 10px;box-shadow:0 18px 24px -20px rgba(22,20,26,.35)}
+  .links.open{display:flex;animation:riseIn .25s ease both}
+  .links a{display:block;padding:15px 2px;font-size:12px;border-top:1px solid var(--line)}
+  .links li:first-child a{border-top:0}
+}
+
+/* ENQUIRY: single column now that the contact box is at the end */
+.enquire{grid-template-columns:minmax(0,760px)}
+
+/* HERO: title and details first, photos below on phones; side by side from 701px */
+@media (min-width:701px) and (max-width:900px){
+  .hero-grid{grid-template-columns:1fr 1fr;gap:28px}
+  .slideshow{order:0;max-width:340px}
+}
+@media (max-width:700px){
+  .hero{padding-block:22px 0}
+  .hero-grid{gap:22px}
+  .slideshow{order:0;max-width:none;width:calc(100% + 2*var(--gut,18px));margin-inline:calc(-1*var(--gut,18px))}
+  .slides{aspect-ratio:1/1;padding:0;border:0;box-shadow:none}
+  .slide{inset:0;background:var(--card)}
+  .slide img{object-position:50% var(--pos,50%)}
+  .slide.wide::before{content:"";position:absolute;inset:-12%;background:url("space-three-posters.jpg") center/cover;filter:blur(16px) saturate(1.05)}
+  .slide.wide img{position:relative;object-fit:contain;object-position:50% 50%}
+  .dots{margin-top:12px}
+  .tap-hint{display:none}
+  .strip{border-top:0}
+}
+
+/* DESIGNER: details on the left, preview on the right, on phones too */
+@media (max-width:900px){
+  .design{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:16px;align-items:start}
+  .preview{grid-column:2;grid-row:1;position:sticky;top:76px;z-index:2;background:transparent;border:0;padding:6px 0;margin:0}
+  .preview + div{grid-column:1;grid-row:1;margin-top:0}
+  .preview .dframe{max-width:none;width:100%;margin:0;animation:none}
+  .preview-note{display:none}
+}
+@media (max-width:560px){
+  .design{grid-template-columns:minmax(0,1fr) 50%;gap:12px}
+  .preview .dframe{max-width:none}
+  .field input,.field select,.field textarea{font-size:16px;padding:10px 11px}
+  .design .glabel{font-size:10px}
+  .design .btn{white-space:normal;text-align:center;width:100%;justify-content:center}
+  .design .sw.big{padding:7px 10px;font-size:10px}
+  .price-box{padding:12px 12px}
+  .price-box .total{font-size:26px}
+}
 </style>
 </head>
 <body>
@@ -503,7 +559,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
 <header class="nav">
   <div class="wrap">
     <a class="mark" href="#top">customizedartt</a>
-    <ul class="links">
+    <ul class="links" id="navLinks">
       <li><a href="#frames">Frames</a></li>
       <li><a href="#ideas">Ideas</a></li>
       <li><a href="#finish">Finish</a></li>
@@ -511,7 +567,10 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
       <li><a href="#process">Process</a></li>
       <li><a href="#enquire">Enquire</a></li>
     </ul>
-    <button class="theme" id="themeBtn" type="button" aria-label="Switch light and dark theme">Dark</button>
+    <div class="nav-tools">
+      <button class="theme" id="themeBtn" type="button" aria-label="Switch light and dark theme">Dark</button>
+      <button class="burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks"><span></span><span></span><span></span></button>
+    </div>
   </div>
   <div class="ribbon" aria-label="Highlights">
     <div class="ribbon-track">
@@ -537,10 +596,10 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
     </div>
     <div class="slideshow">
       <div class="slides" id="slides" title="Tap for the next photo">
-        <div class="slide on"><img src="home-new.jpg" alt="The meaning is yours, the finish is ours, in a wooden frame"></div>
-        <div class="slide"><img src="space-stay-hungry.jpg" alt="Office wall with the framed quote Stay hungry, stay foolish"></div>
-        <div class="slide"><img src="space-secret-start.jpg" alt="Framed quote The secret of getting ahead is getting started"></div>
-        <div class="slide"><img src="space-three-posters.jpg" alt="Boardroom with three framed posters"></div>
+        <div class="slide on"><img src="home-new.jpg" style="--pos:42%" alt="The meaning is yours, the finish is ours, in a wooden frame"></div>
+        <div class="slide"><img src="space-stay-hungry.jpg" style="--pos:24%" alt="Office wall with the framed quote Stay hungry, stay foolish"></div>
+        <div class="slide"><img src="space-secret-start.jpg" style="--pos:18%" alt="Framed quote The secret of getting ahead is getting started"></div>
+        <div class="slide wide"><img src="space-three-posters.jpg" alt="Boardroom with three framed posters"></div>
       </div>
       <div class="dots" id="dots"></div>
       <p class="tap-hint">Tap the photo to see the next one</p>
@@ -572,8 +631,24 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   </div>
 </section>
 
+<!-- SIZES -->
+<section style="padding-top:20px">
+  <div class="wrap">
+    <p class="kicker rv">Sizes</p>
+    <h2 class="fit rv" data-max="52" data-min="26">Sizes on the wall</h2>
+    <figure class="sizes-fig rv" style="margin-top:24px">
+      <img src="sizes-wall.jpg" alt="A wall of framed prints in different sizes">
+      <figcaption>Standard sizes shown on one wall. Enter a custom size in the designer for any other shape.</figcaption>
+    </figure>
+    <div class="mascot-slot rv" style="margin-top:14px">
+      <img class="mascot" src="mascot.png" alt="" loading="lazy">
+      <p>Not sure which size suits? Pick one in the designer and we will confirm.</p>
+    </div>
+  </div>
+</section>
+
 <!-- IDEAS -->
-<section id="ideas" style="padding-top:20px">
+<section id="ideas" style="padding-top:0">
   <div class="wrap">
     <p class="kicker rv">See ideas</p>
     <h2 class="fit rv" data-max="52" data-min="26">Ideas for every room<br>and every person</h2>
@@ -593,22 +668,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   </div>
 </section>
 
-<!-- SIZES -->
-<section style="padding-top:0">
-  <div class="wrap">
-    <p class="kicker rv">Sizes</p>
-    <h2 class="fit rv" data-max="52" data-min="26">Sizes on the wall</h2>
-    <figure class="sizes-fig rv" style="margin-top:24px">
-      <img src="sizes-wall.jpg" alt="A wall of framed prints in different sizes">
-      <figcaption>Standard sizes shown on one wall. Enter a custom size in the designer for any other shape.</figcaption>
-    </figure>
-    <div class="mascot-slot rv" style="margin-top:14px">
-      <img class="mascot" src="mascot.png" alt="" loading="lazy">
-      <p>Not sure which size suits? Pick one in the designer and we will confirm.</p>
-    </div>
-  </div>
-</section>
-
 <!-- COLLECTIONS -->
 <section id="collections" style="padding-top:0">
   <div class="wrap">
@@ -616,20 +675,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
     <h2 class="fit rv" data-max="52" data-min="26">A few words<br>to start from</h2>
     <p class="lede rv">A handful of examples to spark ideas. Your frame can say anything you like.</p>
     <div class="cats" id="cats"></div>
-  </div>
-</section>
-
-<!-- PAPER BAND -->
-<section style="padding:0">
-  <div class="paper-band">
-    <div class="wrap">
-      <div class="rv">
-        <p class="kicker">Find your frame</p>
-        <h2 class="fit" data-max="54" data-min="26">One frame.<br>Every kind of space.</h2>
-        <p class="lede">Homes, offices, salons, cafés, gyms, hotels, clinics and stores all work the same way. Send us the wall and the words.</p>
-      </div>
-      <div class="find rv" id="find"></div>
-    </div>
   </div>
 </section>
 
@@ -653,9 +698,28 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
         <figcaption>Brown walnut<span>Natural wood grain, warm finish</span></figcaption>
       </figure>
     </div>
+  </div>
+</section>
 
+<!-- PAPER BAND -->
+<section style="padding:0">
+  <div class="paper-band">
+    <div class="wrap">
+      <div class="rv">
+        <p class="kicker">Find your frame</p>
+        <h2 class="fit" data-max="54" data-min="26">One frame.<br>Every kind of space.</h2>
+        <p class="lede">Homes, offices, salons, cafés, gyms, hotels, clinics and stores all work the same way. Send us the wall and the words.</p>
+      </div>
+      <div class="find rv" id="find"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINISHED ON BOTH SIDES -->
+<section id="both" style="padding-top:0">
+  <div class="wrap">
     <div>
-      <p class="kicker rv" style="margin-top:44px">Finished on both sides</p>
+      <p class="kicker rv" >Finished on both sides</p>
       <div class="both">
         <h2 class="fit rv" data-max="44" data-min="24">Neat at the front and back</h2>
         <ul class="both-list rv">
@@ -668,8 +732,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
     </div>
   </div>
 </section>
-
-<div class="strip"><p>One frame. Every kind of space.</p><small>Homes · Offices · Salons · Cafés · Hotels · Clinics</small></div>
 
 <!-- CHAT MOCK -->
 <section>
@@ -866,12 +928,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
           <button class="copy-btn" id="copyEmail" type="button">Copy email</button>
         </div>
       </form>
-
-      <div class="reach rv">
-        <div class="reach-item"><span class="ic" data-icon="phone"></span><div><b>WhatsApp</b><span>+91 90042 17186</span></div></div>
-        <div class="reach-item"><span class="ic" data-icon="mail"></span><div><b>Email</b><span>customizedarttbytuba@gmail.com</span></div></div>
-        <div class="reach-item"><span class="ic" data-icon="pin"></span><div><b>Studio</b><span>Mira Road, Thane, Maharashtra 401107</span></div></div>
-      </div>
     </div>
   </div>
 </section>
@@ -1340,6 +1396,16 @@ let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(l
   const upd=()=>{ const h=document.documentElement.scrollHeight-innerHeight; bar.style.setProperty('--p',h>0?Math.min(1,scrollY/h):0); tick=false; };
   addEventListener('scroll',()=>{ if(!tick){ tick=true; requestAnimationFrame(upd); } },{passive:true});
   upd();
+})();
+
+/* Phone menu */
+(function(){
+  const b=document.getElementById('burger'), m=document.getElementById('navLinks'); if(!b||!m) return;
+  const set=o=>{ m.classList.toggle('open',o); b.setAttribute('aria-expanded',o); b.setAttribute('aria-label',o?'Close menu':'Open menu'); };
+  b.addEventListener('click',()=>set(!m.classList.contains('open')));
+  m.addEventListener('click',e=>{ if(e.target.closest('a')) set(false); });
+  addEventListener('keydown',e=>{ if(e.key==='Escape') set(false); });
+  addEventListener('resize',()=>{ if(innerWidth>900) set(false); });
 })();
 </script>
 </body>
