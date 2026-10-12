@@ -572,6 +572,49 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   .cdrop .sw{width:34px;height:34px}
   .cdrop .sel-name{display:none}
 }
+
+/* TYPE: a little air between letters */
+.fit{letter-spacing:.02em;word-spacing:.05em}
+.lede{letter-spacing:.015em}
+h3,.pcard h3,.cat-title,.find-item h3,.step h3{letter-spacing:.012em}
+body{letter-spacing:.006em}
+.kicker{letter-spacing:.2em}
+
+/* TIGHTER RHYTHM */
+section{padding-block:46px}
+.strip p{min-height:1.3em;transition:opacity .45s ease}
+.strip{padding-block:20px}
+
+/* Corporate wallpaper */
+.wall.w2{background-color:#e9eef4;background-size:60px 60px;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g fill='none' stroke='rgba(70,100,140,.22)' stroke-width='1'><path d='M0 30H60M30 0V60'/><circle cx='30' cy='30' r='4'/><path d='M8 52l8-8 6 5 10-12'/></g></svg>")}
+
+/* Swatch separators */
+.sw-sep{flex:0 0 100%;font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);margin:8px 0 0}
+.sw-sep:first-child{margin-top:0}
+
+/* Preview follows the chosen size */
+.dmat{aspect-ratio:var(--ar,.8)}
+.dframe{width:min(100%,calc(540px*var(--ar,.8) + 64px));margin-inline:auto}
+
+/* Phone mock header */
+.screen .top{display:flex;align-items:center;gap:10px}
+.screen .top .av{width:30px;height:30px;border-radius:50%;background:#16141a;color:#f7f4f1;font-style:normal;font-size:14px;display:grid;place-items:center;font-family:"Playfair Display",serif}
+.screen .top span{display:flex;flex-direction:column;line-height:1.2}
+.screen .top b{font-size:15px}
+.screen .top small{font-family:"Montserrat",sans-serif;font-size:10px;font-weight:500;color:#6b7280;letter-spacing:.04em}
+
+/* Finished on both sides: compact */
+.both-compact .kicker{margin-bottom:12px}
+.both-compact .both-list{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.both-compact .both-list li{grid-template-columns:28px 1fr;gap:10px;padding:14px 14px;font-size:12px;align-items:center}
+.both-compact .both-list b{font-size:13px;margin-bottom:1px}
+.both-compact .ic{width:24px;height:24px}
+@media (max-width:900px){.both-compact .both-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.both-compact .both-list li{grid-template-columns:1fr;gap:6px;padding:12px}}
+
+/* FAQ: tighter */
+details{padding:14px 18px}
+summary{font-size:17px}
 </style>
 </head>
 <body>
@@ -583,7 +626,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
     <a class="mark" href="#top">customizedartt</a>
     <ul class="links" id="navLinks">
       <li><a href="#frames">Frames</a></li>
-      <li><a href="#ideas">Ideas</a></li>
       <li><a href="#finish">Finish</a></li>
       <li><a href="#design">Design</a></li>
       <li><a href="#process">Process</a></li>
@@ -596,8 +638,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   </div>
   <div class="ribbon" aria-label="Highlights">
     <div class="ribbon-track">
-      <span>Customised frames</span><span>Made to order in Mira Road, Thane</span><span>Black, white and brown borders</span><span>Order at least a week ahead</span><span>Your words, your photos, your logo</span>
-      <span>Customised frames</span><span>Made to order in Mira Road, Thane</span><span>Black, white and brown borders</span><span>Order at least a week ahead</span><span>Your words, your photos, your logo</span>
+      <span>Made to order</span><span>Custom sizes</span><span>Black, white and brown borders</span><span>Approve before we print</span><span>Made to order</span><span>Custom sizes</span><span>Black, white and brown borders</span><span>Approve before we print</span>
     </div>
   </div>
 </header>
@@ -629,7 +670,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   </div>
 </section>
 
-<div class="strip"><p>The meaning is yours. The finish is ours.</p><small>Precision at the edges · Meaning at the centre</small></div>
+<div class="strip"><p id="stripLine">Where words meet wood.</p></div>
 
 <!-- FRAMES: swipe -->
 <section id="frames">
@@ -662,31 +703,6 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
       <img src="sizes-wall.jpg" alt="A wall of framed prints in different sizes">
       <figcaption>Standard sizes shown on one wall. Enter a custom size in the designer for any other shape.</figcaption>
     </figure>
-    <div class="mascot-slot rv" style="margin-top:14px">
-      <img class="mascot" src="mascot.png" alt="" loading="lazy">
-      <p>Not sure which size suits? Pick one in the designer and we will confirm.</p>
-    </div>
-  </div>
-</section>
-
-<!-- IDEAS -->
-<section id="ideas" style="padding-top:0">
-  <div class="wrap">
-    <p class="kicker rv">See ideas</p>
-    <h2 class="fit rv" data-max="52" data-min="26">Ideas for every room<br>and every person</h2>
-    <p class="lede rv">Kids, pets, families, couples and cafés. Select any card for taglines and ideas.</p>
-    <div class="spaces" id="spaces"></div>
-    <div class="also rv">
-      <span><i class="ic" data-icon="hotel"></i>Hotels</span>
-      <span><i class="ic" data-icon="store"></i>Stores</span>
-      <span><i class="ic" data-icon="office"></i>Offices</span>
-      <span><i class="ic" data-icon="salon"></i>Salons</span>
-      <span><i class="ic" data-icon="clinic"></i>Clinics</span>
-      <span><i class="ic" data-icon="gym"></i>Gyms</span>
-      <span><i class="ic" data-icon="fork"></i>Restaurants</span>
-      <span><i class="ic" data-icon="camera"></i>Studios</span>
-      <span><i class="ic" data-icon="home"></i>Homes</span>
-    </div>
   </div>
 </section>
 
@@ -700,96 +716,12 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   </div>
 </section>
 
-<!-- FINISH -->
-<section id="finish">
-  <div class="wrap">
-    <p class="kicker rv">The finish</p>
-    <h2 class="fit rv" data-max="52" data-min="26">Precision at the edges.<br>Meaning at the centre.</h2>
-    <p class="lede rv">Mitred corners, a fine wood grain and a printed insert that sits flat under the glass.</p>
-    <div class="finish" style="margin-top:26px">
-      <figure class="rv">
-        <img src="closeup-black.jpg" alt="Close up of a black frame with a mitred corner">
-        <figcaption>Black mitred edge<span>Matte finish, thin profile</span></figcaption>
-      </figure>
-      <figure class="rv">
-        <img src="closeup-white.jpg" alt="Close up of a white frame with a mitred corner">
-        <figcaption>White finish<span>Soft edge, clean look for bright rooms</span></figcaption>
-      </figure>
-      <figure class="rv">
-        <img src="closeup-brown.jpg" alt="Close up of a walnut brown frame with a mitred corner">
-        <figcaption>Brown walnut<span>Natural wood grain, warm finish</span></figcaption>
-      </figure>
-    </div>
-  </div>
-</section>
-
-<!-- PAPER BAND -->
-<section style="padding:0">
-  <div class="paper-band">
-    <div class="wrap">
-      <div class="rv">
-        <p class="kicker">Find your frame</p>
-        <h2 class="fit" data-max="54" data-min="26">One frame.<br>Every kind of space.</h2>
-        <p class="lede">Homes, offices, salons, cafés, gyms, hotels, clinics and stores all work the same way. Send us the wall and the words.</p>
-      </div>
-      <div class="find rv" id="find"></div>
-    </div>
-  </div>
-</section>
-
-<!-- FINISHED ON BOTH SIDES -->
-<section id="both" style="padding-top:0">
-  <div class="wrap">
-    <div>
-      <p class="kicker rv" >Finished on both sides</p>
-      <div class="both">
-        <h2 class="fit rv" data-max="44" data-min="24">Neat at the front and back</h2>
-        <ul class="both-list rv">
-          <li><span class="ic" data-icon="box"></span><div><b>Backing board</b>Acid-free board that keeps your print flat and safe.</div></li>
-          <li><span class="ic" data-icon="pin"></span><div><b>Hanging hardware</b>Fitted and tested before it leaves the studio.</div></li>
-          <li><span class="ic" data-icon="shield"></span><div><b>Dust cover</b>A paper cover that keeps the back clean and neat.</div></li>
-          <li><span class="ic" data-icon="brush"></span><div><b>Your label or logo</b>Your name, logo or note on the back, on request.</div></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CHAT MOCK -->
-<section>
-  <div class="wrap chat">
-    <div class="chat-copy rv">
-      <p class="kicker">Start a conversation</p>
-      <h2 class="fit" data-max="50" data-min="26">Tell us the idea.<br>We plan the rest.</h2>
-      <ul class="chat-list">
-        <li><span class="ic" data-icon="chat"></span>Share your words, a photo or a logo</li>
-        <li><span class="ic" data-icon="ruler"></span>Pick a standard size or enter your own</li>
-        <li><span class="ic" data-icon="pen"></span>Choose the border, paper and font together</li>
-      </ul>
-      <div class="ctas" style="margin-top:22px">
-        <a class="btn btn-ink" href="https://wa.me/919004217186" target="_blank" rel="noopener">Chat on WhatsApp</a>
-      </div>
-    </div>
-    <div class="phone rv" aria-label="Example WhatsApp conversation">
-      <div class="screen">
-        <div class="top">customizedartt</div>
-        <div class="chatbody" id="chatbody">
-          <div class="bub us in">Hi, can I get my own words on a frame for my salon?</div>
-          <div class="bub me in">Yes. Tell us the words, the wall and your colours. We will plan it with you on a short call.</div>
-          <div class="bub us in">Can I choose my own size and font?</div>
-          <div class="bub me in">Yes. Use the designer to try the border, paper, colour and font. Ordering more than 3? Bulk orders can be negotiated.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- DESIGNER -->
 <section id="design" style="padding-top:0">
   <div class="wrap">
     <p class="kicker rv">Design your frame</p>
     <h2 class="fit rv" data-max="52" data-min="26">Try it before you order</h2>
-    <p class="lede rv">Type your words, then choose the border, the paper colour, the text colour and the font. The preview updates as you go.</p>
+    <p class="lede rv">Type your words, then choose the border, the paper or background, the text colour, the font and the size. The preview updates as you go.</p>
 
     <div class="design" style="margin-top:30px">
       <div class="dz-a">
@@ -814,7 +746,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
         </div>
 
         <div class="group">
-          <span class="glabel">Paper colour</span>
+          <span class="glabel">Paper colour and backgrounds</span>
           <div class="swatches" id="paperSw"></div>
           <p class="sel-name" id="paperName">Pure white</p>
         </div>
@@ -876,12 +808,49 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   </div>
 </section>
 
+<!-- PAPER BAND -->
+<section style="padding:0">
+  <div class="paper-band">
+    <div class="wrap">
+      <div class="rv">
+        <p class="kicker">Find your frame</p>
+        <h2 class="fit" data-max="54" data-min="26">One frame.<br>Every kind of space.</h2>
+        <p class="lede">Homes, offices, salons, cafés, gyms, hotels, clinics and stores all work the same way. Send us the wall and the words.</p>
+      </div>
+      <div class="find rv" id="find"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINISH -->
+<section id="finish">
+  <div class="wrap">
+    <p class="kicker rv">The finish</p>
+    <h2 class="fit rv" data-max="52" data-min="26">Precision at the edges.<br>Meaning at the centre.</h2>
+    <p class="lede rv">Mitred corners, a fine wood grain and a printed insert that sits flat under the glass.</p>
+    <div class="finish" style="margin-top:26px">
+      <figure class="rv">
+        <img src="closeup-black.jpg" alt="Close up of a black frame with a mitred corner">
+        <figcaption>Black mitred edge<span>Matte finish, thin profile</span></figcaption>
+      </figure>
+      <figure class="rv">
+        <img src="closeup-white.jpg" alt="Close up of a white frame with a mitred corner">
+        <figcaption>White finish<span>Soft edge, clean look for bright rooms</span></figcaption>
+      </figure>
+      <figure class="rv">
+        <img src="closeup-brown.jpg" alt="Close up of a walnut brown frame with a mitred corner">
+        <figcaption>Brown walnut<span>Natural wood grain, warm finish</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
 <!-- PROCESS -->
 <section id="process" style="padding-top:0">
   <div class="wrap">
     <p class="kicker rv">How it works</p>
     <h2 class="fit rv" data-max="52" data-min="26">From first message<br>to delivery</h2>
-    <p class="lede rv">Order at least a week ahead so we can plan, print and finish your frame properly.</p>
+    <p class="lede rv">Six simple steps from your first message to a finished frame.</p>
     <div class="steps" id="steps"></div>
   </div>
 </section>
@@ -889,7 +858,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
 <!-- FAQ -->
 <section id="faq" style="padding-top:0">
   <div class="wrap">
-    <p class="kicker rv">Coverage and FAQ</p>
+    <p class="kicker rv">FAQ</p>
     <h2 class="fit rv" data-max="52" data-min="26">Questions, answered</h2>
     <div class="faq rv" id="faqList"></div>
   </div>
@@ -900,18 +869,45 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   <div class="wrap about">
     <div class="rv">
       <p class="kicker">About</p>
-      <h2 class="fit" data-max="52" data-min="26">The meaning is yours.<br>The finish is ours.</h2>
+      <h2 class="fit" data-max="52" data-min="26">Custom frames,<br>made around you</h2>
       <p class="lede">customizedartt makes personalised wooden frames for people and businesses across Mira Road and Thane. We print, frame and finish each piece by hand.</p>
       <div class="mascot-slot" style="justify-content:flex-start;margin-top:20px">
         <img class="mascot" src="mascot.png" alt="" loading="lazy" style="width:80px">
-        <p>Seven years of framing, one careful finish at a time.</p>
+        <p>Every piece starts as your idea.</p>
       </div>
     </div>
     <div class="stats rv">
       <div class="stat"><b>7+</b><span>years of framing</span></div>
-      <div class="stat"><b>Unlimited</b><span>custom sizes</span></div>
-      <div class="stat"><b>Every</b><span>space and person</span></div>
-      <div class="stat"><b>Made</b><span>to order, by hand</span></div>
+      <div class="stat"><b>Any</b><span>custom size</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CHAT MOCK -->
+<section>
+  <div class="wrap chat">
+    <div class="chat-copy rv">
+      <p class="kicker">Start a conversation</p>
+      <h2 class="fit" data-max="50" data-min="26">Tell us the idea.<br>We plan the rest.</h2>
+      <ul class="chat-list">
+        <li><span class="ic" data-icon="chat"></span>Share your words, a photo or a logo</li>
+        <li><span class="ic" data-icon="ruler"></span>Pick a standard size or enter your own</li>
+        <li><span class="ic" data-icon="pen"></span>Choose the border, paper and font together</li>
+      </ul>
+      <div class="ctas" style="margin-top:22px">
+        <a class="btn btn-ink" href="https://wa.me/919004217186" target="_blank" rel="noopener">Chat on WhatsApp</a>
+      </div>
+    </div>
+    <div class="phone rv" aria-label="Example WhatsApp conversation">
+      <div class="screen">
+        <div class="top"><i class="av">Y</i><span><b>You</b><small>Planning your frame</small></span></div>
+        <div class="chatbody" id="chatbody">
+          <div class="bub us in">Hi, can I get my own words on a frame for my salon?</div>
+          <div class="bub me in">Yes. Tell us the words, the wall and your colours. We will plan it with you on a short call.</div>
+          <div class="bub us in">Can I choose my own size and font?</div>
+          <div class="bub me in">Yes. Try the border, paper, colour and font in the designer. Bulk orders can be negotiated.</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -920,7 +916,7 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
 <section id="enquire" style="padding-top:0">
   <div class="wrap">
     <p class="kicker rv">Enquire</p>
-    <h2 class="fit rv" data-max="52" data-min="26">Send us your enquiry</h2>
+    <h2 class="fit rv" data-max="52" data-min="26">Get your frame quote</h2>
     <p class="lede rv">Fill in a few details. Choose WhatsApp for a quick reply, or email for a longer brief.</p>
     <div class="enquire" style="margin-top:28px">
       <form class="enq-card rv" id="enqForm" novalidate>
@@ -954,13 +950,26 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
   </div>
 </section>
 
+<!-- FINISHED ON BOTH SIDES (compact) -->
+<section id="both" class="both-compact" style="padding-block:8px 28px">
+  <div class="wrap">
+    <p class="kicker rv">Finished on both sides</p>
+    <ul class="both-list rv">
+      <li><span class="ic" data-icon="box"></span><div><b>Backing board</b>Acid-free, keeps prints flat.</div></li>
+      <li><span class="ic" data-icon="pin"></span><div><b>Hanging hardware</b>Fitted and tested.</div></li>
+      <li><span class="ic" data-icon="shield"></span><div><b>Dust cover</b>A neat, clean back.</div></li>
+      <li><span class="ic" data-icon="brush"></span><div><b>Your label</b>Name or logo on request.</div></li>
+    </ul>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section style="padding:0 0 12px">
   <div class="contact">
     <div class="wrap">
       <p class="kicker">Contact</p>
-      <h2 class="fit" data-max="52" data-min="26">Start your frame today</h2>
-      <p class="lede">Call or message on WhatsApp, or email with your size, words and space.</p>
+      <h2 class="fit" data-max="52" data-min="26">Let’s frame what<br>matters to you</h2>
+      <p class="lede">Share your words, your wall and your size. We will turn them into a frame you will love.</p>
       <div class="contact-row">
         <a class="btn btn-gold" href="https://wa.me/919004217186" target="_blank" rel="noopener">WhatsApp us</a>
         <a class="btn" style="background:transparent;color:#f7f4f1" href="mailto:customizedarttbytuba@gmail.com">Email us</a>
@@ -976,16 +985,14 @@ dialog::backdrop{background:rgba(22,20,26,.45)}
 
 <footer>
   <div class="wrap">
-    <span>customizedartt · The meaning is yours, the finish is ours</span>
-    <span>Mira Road, Thane 401107</span>
+    <span>customizedartt · Custom wooden frames</span>
+    <span>© 2026</span>
   </div>
 </footer>
 
 <a class="wa-fab" id="waFab" href="https://wa.me/919004217186" target="_blank" rel="noopener"><i></i>WhatsApp us</a>
 
-<dialog id="sheet">
-  <div class="sheet" id="sheetBody"></div>
-</dialog>
+
 
 <script>
 /* ICONS */
@@ -1080,48 +1087,16 @@ const cardStep = () => {
 document.getElementById('prev').addEventListener('click',()=>rail.scrollBy({left:-cardStep(),behavior:'smooth'}));
 document.getElementById('next').addEventListener('click',()=>rail.scrollBy({left:cardStep(),behavior:'smooth'}));
 
-/* IDEAS */
-const SPACES = [
-  {name:'Kids’ rooms', icon:'kids', tag:'Dreams, framed in bright colours.', ideas:['A name, birth date and first details','A bedtime line above the bed','Playful quotes on pink and blue paper']},
-  {name:'Pets', icon:'home', tag:'Their best day, kept on the wall.', ideas:['A pet portrait with name and date','A favourite quote with a paw print','A walnut frame for the living room']},
-  {name:'Families', icon:'home', tag:'The people who matter, in one frame.', ideas:['A family portrait in a walnut border','A line about home above the sofa','Matching frames for a family wall']},
-  {name:'Couples', icon:'quote', tag:'A love note in a playing card frame.', ideas:['A photo with a short line in red','A playing card border in red and black','A pair of frames for the bedroom']},
-  {name:'Cafés', icon:'cafe', tag:'Menu lines and mood, framed for the counter.', ideas:['Menu lines in a matching series','Quotes for the queue and the seating area','Bold black and oak frames for busy walls']},
-  {name:'Homes', icon:'home', tag:'Words for the living room wall.', ideas:['A gallery wall of quotes and photos','A single statement line in a large frame','Mixed sizes that fit one wall']}
-];
-const spacesEl = document.getElementById('spaces');
-SPACES.forEach(s=>{
-  const card = document.createElement('button');
-  card.type='button'; card.className='space rv';
-  card.innerHTML = `<span class="ic" data-icon="${s.icon}"></span><h3>${s.name}</h3><p>${s.tag}</p><span class="more">See ideas</span>`;
-  card.addEventListener('click',()=>openSheet(s));
-  spacesEl.appendChild(card);
-});
-const sheet = document.getElementById('sheet');
-function openSheet(s){
-  document.getElementById('sheetBody').innerHTML = `
-    <h3>${s.name}</h3>
-    <p class="tag">${s.tag}</p>
-    <ul>${s.ideas.map(x=>`<li>${x}</li>`).join('')}</ul>
-    <p style="margin:0;font-size:13px;color:var(--ink-soft)">Next step: send us the wall, the words and a photo of the space. We will suggest the size and finish.</p>
-    <a class="btn btn-ink" href="https://wa.me/${WA}?text=${encodeURIComponent('Hi customizedartt, I would like frame ideas for '+s.name.toLowerCase()+'. How much will it cost?')}" target="_blank" rel="noopener">Ask on WhatsApp</a>
-    <button class="x" type="button" id="closeSheet">Close</button>`;
-  hydrateIcons(document.getElementById('sheetBody'));
-  document.getElementById('closeSheet').onclick=()=>sheet.close();
-  sheet.showModal();
-}
-sheet.addEventListener('click',e=>{ if(e.target===sheet) sheet.close(); });
-
 /* COLLECTIONS */
 const CATS = [
   {name:'Motivational', icon:'sparkle', wall:'w1', quotes:[
     ['Begin where you are, build what you dream.','bk','f2'],
     ['Small steps. Big stories.','bp','f1'],
     ['Make today worth framing.','wd','f3']]},
-  {name:'Witty', icon:'quote', wall:'w2', quotes:[
-    ['Coffee first. Brilliant ideas after.','wd','f2'],
-    ['Running on caffeine and good intentions.','bk','f1'],
-    ['Plot twist: I actually did it.','bp','f3']]},
+  {name:'Corporate spaces', icon:'office', wall:'w2', quotes:[
+    ['Build with purpose. Deliver with pride.','bk','f2'],
+    ['Great teams are built on trust.','bp','f1'],
+    ['Do the work. Own the result.','wd','f3']]},
   {name:'Home and warmth', icon:'home', wall:'w3', quotes:[
     ['Home is where the best stories begin.','wd','f1'],
     ['Stay awhile. The kettle is on.','bp','f2'],
@@ -1160,14 +1135,11 @@ document.getElementById('steps').innerHTML = STEPS.map((s,i)=>`
 
 /* FAQ */
 const FAQ = [
-  ['How far ahead should I order?','Order at least a week before you need the frame. Rush requests can be discussed on WhatsApp, but we cannot promise them.'],
-  ['Can I use my own words or photo?','Yes. Send the text, photo or logo you want printed. Share a clear, high resolution file where you can.'],
-  ['Can I choose a custom size?','Yes. Pick Custom size in the designer and enter your width and height. We use the nearest standard size that fits. Sizes above 12 × 18 are confirmed on WhatsApp.'],
-  ['Do you take bulk orders?','Yes. Bulk orders can be negotiated. Message us on WhatsApp with your quantity and we will reply with a price.'],
-  ['Where do you deliver?','We are based at Mira Road, Thane 401107. Message us with your city and we will confirm delivery.'],
-  ['How do I pay?','We confirm the price and payment method on WhatsApp once you approve the preview.']
+  ['Can I use my own words or photo?','Yes. Send the text, photo or logo you want printed, ideally as a clear, high resolution file.'],
+  ['Can I choose a custom size?','Yes. Choose Custom size in the designer and enter your width and height. Above 12 × 18 we confirm the price on WhatsApp.'],
+  ['Where do you deliver, and how do I pay?','Message us your city and we confirm delivery. Price and payment are confirmed on WhatsApp once you approve the preview.']
 ];
-document.getElementById('faqList').innerHTML = FAQ.map((f,i)=>`<details${i===0?' open':''}><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('');
+document.getElementById('faqList').innerHTML = FAQ.map((f,i)=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('');
 
 /* DESIGNER OPTIONS: outer wooden border has three options */
 const BORDERS = [
@@ -1175,7 +1147,7 @@ const BORDERS = [
   ['White','#f4f2ee','linear-gradient(135deg,#ffffff 0%,#ece8e2 45%,#fbfaf7 70%,#e2ddd5 100%)'],
   ['Brown','#6b4226','repeating-linear-gradient(92deg,rgba(60,30,10,.2) 0 1px,transparent 1px 7px),linear-gradient(135deg,#9a6638 0%,#6b4226 40%,#8a5a34 65%,#5a3520 100%)']
 ];
-const PAPERS = [
+const PAPER_COLOURS = [
   ['Pure white','#ffffff'],['Snow','#f7f9fc'],['Ivory','#fbf6ea'],['Cream','#fff3d6'],['Beige','#eadcc5'],
   ['Sand','#d9c7a6'],['Tan','#c9a77c'],['Camel','#b98a55'],['Caramel','#a86d3a'],['Chocolate','#5c3a24'],
   ['Brown','#7a4a2b'],['Maroon','#6e1e2a'],['Burgundy','#800020'],['Red','#c8102e'],['Scarlet','#e0302a'],
@@ -1186,6 +1158,28 @@ const PAPERS = [
   ['Mustard','#d9a521'],['Yellow','#ffd93b'],['Lemon','#fff59d'],['Orange','#f08a24'],['Grey','#9aa0a6'],
   ['Charcoal','#2e2f33'],['Black','#0f0f10'],['Silver','#d6d9de'],['Gold','#d4af37']
 ];
+const BGS = [
+  ['Chai cat','url(bg-chai-cat.jpg) center bottom/cover no-repeat','dark','top'],
+  ['Rose lamp','url(bg-rose-lamp.jpg) center bottom/cover no-repeat','light'],
+  ['Sunlit wall','linear-gradient(112deg,rgba(255,255,255,.38) 0 14%,transparent 14% 30%,rgba(255,255,255,.22) 30% 38%,transparent 38%),linear-gradient(165deg,#f3d9bf,#e2b48b 60%,#d09a70)','dark'],
+  ['Olive glow','radial-gradient(70% 45% at 50% 30%,rgba(236,246,214,.6),transparent 72%),linear-gradient(#3c4727,#2a3319)','light'],
+  ['Sunset','linear-gradient(170deg,#ffb199,#ff8fa3 48%,#a18cd1)','dark'],
+  ['Ocean','linear-gradient(170deg,#bff0ff,#6aa6ff)','dark'],
+  ['Mint fresh','linear-gradient(170deg,#e9fcf2,#b6ecd2)','dark'],
+  ['Lavender haze','linear-gradient(170deg,#f1e9ff,#c9b3f5)','dark'],
+  ['Golden hour','linear-gradient(170deg,#fff2bd,#ffc56e 58%,#ff9b66)','dark'],
+  ['Aurora','linear-gradient(135deg,#86f0cf,#6aa9ff 50%,#bb82ff)','dark'],
+  ['Midnight glow','radial-gradient(65% 42% at 50% 26%,rgba(125,155,255,.5),transparent 72%),linear-gradient(#12193d,#070b1f)','light'],
+  ['Pastel rainbow','linear-gradient(165deg,#ffd6e0,#ffe9c7 24%,#fffbc9 44%,#d4f5dd 64%,#cfe5ff 84%,#e5d8ff)','dark'],
+  ['Watercolour','radial-gradient(circle at 22% 28%,rgba(255,170,190,.75),transparent 46%),radial-gradient(circle at 78% 24%,rgba(150,190,255,.75),transparent 46%),radial-gradient(circle at 52% 82%,rgba(190,240,200,.8),transparent 52%),#fffaf3','dark'],
+  ['Blush bloom','radial-gradient(circle at 15% 85%,rgba(232,160,180,.8),transparent 38%),radial-gradient(circle at 88% 78%,rgba(255,200,170,.8),transparent 36%),radial-gradient(circle at 70% 12%,rgba(255,220,230,.9),transparent 40%),#fff6f2','dark'],
+  ['Terracotta','linear-gradient(170deg,#e49a73,#c8704b)','dark'],
+  ['Kraft paper','repeating-linear-gradient(45deg,rgba(90,60,30,.05) 0 2px,transparent 2px 5px),linear-gradient(#d2b088,#c19d70)','dark'],
+  ['Pink dots','radial-gradient(circle,rgba(255,255,255,.9) 0 16%,transparent 17%) 0 0/26px 26px,#f7c4d3','dark'],
+  ['Soft stripes','repeating-linear-gradient(90deg,#fde4ea 0 14px,#ffffff 14px 28px)','dark']
+];
+const PAPERS = [...BGS, ...PAPER_COLOURS];
+const PAPER_SEPS = {0:'Backgrounds'}; PAPER_SEPS[BGS.length]='Solid colours';
 const TEXTS = [
   ['Black','#111111'],['White','#ffffff'],['Ivory','#f6efdc'],['Gold','#b8902e'],['Maroon','#6e1e2a'],
   ['Navy','#1d2a4f'],['Red','#b3121f'],['Pink','#d6336c'],['Green','#1f4d3a'],['Brown','#5c3a24'],['Royal blue','#2a4bd7']
@@ -1200,9 +1194,9 @@ const FONTS = [
   ['Italiana','Italiana, Georgia, serif'],
   ['Marcellus','Marcellus, Georgia, serif']
 ];
-function swatchGroup(el, list, onPick){
+function swatchGroup(el, list, onPick, seps={}){
   el.innerHTML = list.map((c,i)=>
-    `<button type="button" class="sw" style="--c:${c[1]}" data-i="${i}" title="${c[0]}" aria-label="${c[0]}" aria-pressed="${i===0}"></button>`
+    (seps[i]?`<span class="sw-sep">${seps[i]}</span>`:'')+`<button type="button" class="sw" style="--c:${c[1]}" data-i="${i}" title="${c[0]}" aria-label="${c[0]}" aria-pressed="${i===0}"></button>`
   ).join('');
   el.addEventListener('click',e=>{
     const b = e.target.closest('button[data-i]'); if(!b) return;
@@ -1228,10 +1222,13 @@ const pvLine = document.getElementById('pvLine');
 const wordsEl = document.getElementById('words');
 const fontSel = document.getElementById('font');
 FONTS.forEach(f=>{ const o=document.createElement('option'); o.value=f[1]; o.textContent=f[0]; fontSel.appendChild(o); });
-let state = {border:BORDERS[0], paper:PAPERS[0], text:TEXTS[0], font:FONTS[0][1]};
+let state = {border:BORDERS[0], paper:PAPER_COLOURS[0], text:TEXTS[0], font:FONTS[0][1]};
 function paintDesign(){
   pvFrame.style.background = state.border[2];
   pvMat.style.background = state.paper[1];
+  const topText = state.paper[3]==='top';
+  pvMat.style.alignItems = topText ? 'flex-start' : '';
+  pvMat.style.paddingTop = topText ? '9%' : '';
   pvLine.style.color = state.text[1];
   pvLine.style.fontFamily = state.font;
   const t = wordsEl.value.trim();
@@ -1246,13 +1243,21 @@ function paintDesign(){
   updateWa();
 }
 function fitDesign(){
-  const pad = Math.min(40, pvMat.clientWidth*.2), max = pvMat.clientWidth - pad, maxH = pvMat.clientHeight - pad;
+  const pad = Math.min(40, pvMat.clientWidth*.2), max = pvMat.clientWidth - pad, maxH = (pvMat.clientHeight - pad) * (state.paper[3]==='top' ? .3 : 1);
   let fs = 44; pvLine.style.fontSize = fs+'px';
   while((pvLine.scrollWidth>max || pvLine.scrollHeight>maxH) && fs>12){ fs--; pvLine.style.fontSize = fs+'px'; }
 }
 borderSwatches(document.getElementById('borderSw'), BORDERS, c=>{ state.border=c; paintDesign(); });
-swatchGroup(document.getElementById('paperSw'), PAPERS, c=>{ state.paper=c; paintDesign(); });
-swatchGroup(document.getElementById('textSw'), TEXTS, c=>{ state.text=c; paintDesign(); });
+swatchGroup(document.getElementById('paperSw'), PAPERS, c=>{
+  state.paper=c;
+  if(!state.textTouched){
+    state.text = c[2]==='light' ? TEXTS[2] : TEXTS[0];
+    [...document.querySelectorAll('#textSw button[data-i]')].forEach(b=>b.setAttribute('aria-pressed', TEXTS[+b.dataset.i]===state.text));
+  }
+  paintDesign();
+}, PAPER_SEPS);
+[...document.querySelectorAll('#paperSw button[data-i]')].forEach(b=>b.setAttribute('aria-pressed', PAPERS[+b.dataset.i]===state.paper));
+swatchGroup(document.getElementById('textSw'), TEXTS, c=>{ state.text=c; state.textTouched=true; paintDesign(); });
 
 /* Colour dropdowns (phone only; desktop keeps the open swatches) */
 const dropFor = {paperSw:()=>state.paper, textSw:()=>state.text};
@@ -1300,10 +1305,23 @@ function resolveSize(){
   if(idx===-1) return {idx:-1, label:w+' × '+h, oversize:true};
   return {idx, label:w+' × '+h+' (nearest size '+CONFIG.sizes[idx][0]+' × '+CONFIG.sizes[idx][1]+')', oversize:false};
 }
+function previewShape(){
+  let ar = 4/5;
+  if(sizeSel.value==='custom'){
+    const w=parseFloat(wIn.value), h=parseFloat(hIn.value);
+    if(w>0 && h>0) ar = w/h;
+  } else {
+    const z = CONFIG.sizes[+sizeSel.value]; ar = Math.min(...z)/Math.max(...z);
+  }
+  ar = Math.min(2.6, Math.max(.38, ar));
+  pvFrame.style.setProperty('--ar', ar.toFixed(4));
+  fitDesign();
+}
 function calc(){
   dims.hidden = sizeSel.value!=='custom';
   const qty = Math.max(1, Math.floor(+qtyIn.value||1));
   const r = resolveSize();
+  previewShape();
   const step = qty>=CONFIG.bulkFrom ? CONFIG.stepBulk : CONFIG.stepSingle;
   document.getElementById('outQty').textContent = qty;
   document.getElementById('outSize').textContent = r.label;
@@ -1438,6 +1456,15 @@ let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(l
   m.addEventListener('click',e=>{ if(e.target.closest('a')) set(false); });
   addEventListener('keydown',e=>{ if(e.key==='Escape') set(false); });
   addEventListener('resize',()=>{ if(innerWidth>900) set(false); });
+})();
+
+/* Hero line: popular frame phrases */
+(function(){
+  const el=document.getElementById('stripLine'); if(!el) return;
+  const lines=['Where words meet wood.','Frame what you love.','Every wall has a story.','Make memories wall-worthy.'];
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let i=0;
+  setInterval(()=>{ el.style.opacity=0; setTimeout(()=>{ i=(i+1)%lines.length; el.textContent=lines[i]; el.style.opacity=1; },450); },3800);
 })();
 </script>
 </body>
