@@ -758,6 +758,79 @@ section{padding-block:32px}
 .rev-card small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-top:auto}
 @media(max-width:900px){.rev-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.rev-grid{display:flex;scroll-padding-inline:16px;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:-16px;padding:2px 16px 14px;scrollbar-width:none}.rev-grid::-webkit-scrollbar{display:none}.rev-card{flex:0 0 82%;scroll-snap-align:start}.rev-sum .btn{margin-left:0}.rev-sum>b{font-size:44px}}
+
+/* DESIGNER: no text, move, size, watermark */
+.dmat{position:relative;display:block}
+.dline{position:absolute;left:var(--tx,50%);top:var(--ty,50%);transform:translate(-50%,-50%);width:max-content;max-width:88%;padding:4px 6px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;outline-offset:2px}
+.dline.drag{cursor:grabbing}
+.dline:hover,.dline:focus-visible{outline:1px dashed rgba(120,120,120,.7)}
+.dline[hidden]{display:none}
+.dframe{position:relative}
+.wm{position:absolute;inset:0;pointer-events:none;z-index:3;opacity:.8;
+  background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='210' height='130'><g transform='rotate(-24 105 65)' font-family='Georgia,serif' font-style='italic' font-size='15'><text x='20' y='71' fill='black' fill-opacity='.16'>customizedartt</text><text x='19' y='70' fill='white' fill-opacity='.5'>customizedartt</text></g></svg>") 0 0/210px 130px repeat}
+.word-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:10px}
+.notext{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--card);padding:8px 14px 8px 10px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:background .2s,color .2s}
+.notext svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.notext[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.treset{border:0;background:none;text-decoration:underline;text-underline-offset:4px;font-size:12px;font-weight:600;letter-spacing:.06em;cursor:pointer;padding:6px 2px}
+.tsize{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-top:12px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.tsize input{width:100%;accent-color:#16141a}
+.tsize output{min-width:3.4em;text-align:right;color:var(--ink-soft)}
+.hint{margin:8px 0 0;font-size:12px;color:var(--ink-soft)}
+.tsize[hidden],.hint[hidden],.treset[hidden]{display:none}
+.send-note{margin:10px 0 0;font-size:12px;color:var(--ink-soft)}
+.ctas:has(#buildGo){flex-direction:column;align-items:flex-start;gap:0}
+
+/* HERO: closer to the frames */
+.slide{overflow:hidden}
+.slide img{transform:scale(var(--z,1.15));transform-origin:var(--ox,50%) var(--oy,50%)}
+.slide.wide img{--z:1.08}
+.slide.wide::before{inset:-12%}
+@media(min-width:901px){
+  .hero{padding-block:30px 36px}
+  .slides{aspect-ratio:5/6}
+  .hero-grid{align-items:center}
+}
+@media(max-width:900px){.hero{padding-block:14px 22px}}
+@media(max-width:560px){.hero{padding-block:12px 20px}}
+
+/* MORE tabs */
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+.tabs button{display:flex;flex-direction:column;gap:4px;text-align:left;background:var(--card);border:1px solid var(--line);padding:16px 18px;cursor:pointer;transition:border-color .2s,transform .3s,box-shadow .3s}
+.tabs button:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.tabs button b{font-family:"Playfair Display",serif;font-size:19px;font-weight:600}
+.tabs button span{font-size:12px;color:var(--ink-soft);letter-spacing:.04em}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.tabs button[aria-selected=true] span{color:inherit;opacity:.8}
+.tabpan{margin-top:22px;padding-top:6px}
+.tabpan[hidden]{display:none}
+@media(max-width:700px){.tabs{grid-template-columns:1fr;gap:10px}.tabs button{padding:13px 16px}}
+
+/* READABLE LETTER SPACING */
+body{letter-spacing:.012em}
+p,li,.lede{word-spacing:.04em}
+.lede,.pdet,.find-item p,.chat-list li,.enq-note,.hint{letter-spacing:.018em;line-height:1.65}
+h1,h2,h3{letter-spacing:.012em}
+
+/* PHONE ENQUIRY: compact */
+@media(max-width:560px){
+  .enq-card{padding:18px 16px}
+  .enq-card .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .field{margin-bottom:12px;gap:5px}
+  #enMsg{min-height:72px}
+  .enq-actions{gap:10px}
+  .enq-actions .btn{flex:1 1 130px;justify-content:center;padding-inline:14px}
+  .reach{gap:10px}
+  .reach-card{padding:12px 14px;grid-template-columns:30px 1fr;gap:12px}
+  .reach-card .ic{width:26px;height:26px}
+  .reach-card b{margin-bottom:2px;font-size:10px}
+  .reach-card strong{font-size:15px}
+  .reach-card em{margin-top:4px}
+}
+
+.tabpan .find{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.tabpan .lede{margin:0}
+@media(max-width:700px){.tabpan .find{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -769,10 +842,10 @@ section{padding-block:32px}
     <a class="mark" href="#top">customizedartt</a>
     <ul class="links" id="navLinks">
       <li><a href="#frames">Frames</a></li>
-      <li><a href="#finish">Finish</a></li>
       <li><a href="#design">Design</a></li>
-      <li><a href="#process">Process</a></li>
+      <li><a href="#finish">Finish</a></li>
       <li><a href="#enquire">Enquire</a></li>
+      <li><a href="#more" data-tab="process">More</a></li>
     </ul>
     <div class="nav-tools">
       <button class="theme" id="themeBtn" type="button" aria-label="Switch light and dark theme">Dark</button>
@@ -800,16 +873,16 @@ section{padding-block:32px}
         <a class="btn" href="#frames">See frames</a>
       </div>
       <ul class="facts">
-        <li><b>7+ years</b><span>of framing</span></li>
-        <li><b>Any size</b><span>made to measure</span></li>
-        <li><b>By hand</b><span>made to order</span></li>
+        <li><b>From ₹400</b><span>per frame</span></li>
+        <li><b>3 borders</b><span>black, white, brown</span></li>
+        <li><b>Preview</b><span>before we print</span></li>
       </ul>
     </div>
     <div class="slideshow">
       <div class="slides" id="slides" title="Tap for the next photo">
-        <div class="slide on"><img src="home-new.jpg" style="--pos:42%" alt="The meaning is yours, the finish is ours, in a wooden frame"></div>
-        <div class="slide"><img src="space-stay-hungry.jpg" style="--pos:24%" alt="Office wall with the framed quote Stay hungry, stay foolish"></div>
-        <div class="slide"><img src="space-secret-start.jpg" style="--pos:18%" alt="Framed quote The secret of getting ahead is getting started"></div>
+        <div class="slide on"><img src="home-coffee.jpg" style="--pos:58%;--z:1.04;--oy:60%" alt="Same coffee, higher standards, framed in walnut"></div>
+        <div class="slide"><img src="space-stay-hungry.jpg" style="--pos:24%;--z:1.25;--ox:48%;--oy:48%" alt="Office wall with the framed quote Stay hungry, stay foolish"></div>
+        <div class="slide"><img src="space-secret-start.jpg" style="--pos:18%;--z:1.25;--ox:50%;--oy:45%" alt="Framed quote The secret of getting ahead is getting started"></div>
         <div class="slide wide"><img src="space-three-posters.jpg" alt="Boardroom with three framed posters"></div>
       </div>
       <div class="dots" id="dots"></div>
@@ -875,7 +948,8 @@ section{padding-block:32px}
       <div class="dz-a">
       <div class="preview rv">
         <div class="dframe" id="pvFrame">
-          <div class="dmat" id="pvMat"><p class="dline" id="pvLine">Your line appears here</p></div>
+          <div class="dmat" id="pvMat"><p class="dline" id="pvLine" tabindex="0" aria-label="Your words. Drag to move.">Your line appears here</p></div>
+          <span class="wm" aria-hidden="true"></span>
         </div>
         <p class="preview-note">Preview only. Colours may look slightly different on print.</p>
       </div>
@@ -885,6 +959,12 @@ section{padding-block:32px}
           <label class="glabel" for="words">Your words</label>
           <textarea id="words" maxlength="120" rows="3" placeholder="Type the line you want printed"></textarea>
           <div class="count"><span id="cnt">0</span> / 120</div>
+          <div class="word-tools">
+            <button type="button" class="notext" id="noText" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg><span>No text needed</span></button>
+            <button type="button" class="treset" id="tReset">Reset text</button>
+          </div>
+          <div class="tsize" id="tSizeRow"><label for="tScale">Text size</label><input id="tScale" type="range" min="40" max="260" step="2" value="100"><output id="tScaleOut">100%</output></div>
+          <p class="hint" id="moveHint">Drag the words inside the frame to move them.</p>
         </div>
 
         <div class="group">
@@ -945,6 +1025,7 @@ section{padding-block:32px}
 
         <div class="ctas">
           <a class="btn btn-ink" id="buildGo" href="https://wa.me/919004217186" target="_blank" rel="noopener">Send this design on WhatsApp</a>
+          <p class="send-note" id="sendNote" role="status" aria-live="polite">Your frame picture goes with the message.</p>
         </div>
       </div>
     </div>
@@ -956,19 +1037,7 @@ section{padding-block:32px}
   </div>
 </section>
 
-<!-- PAPER BAND -->
-<section style="padding:0">
-  <div class="paper-band">
-    <div class="wrap">
-      <div class="rv">
-        <p class="kicker">Find your frame</p>
-        <h2 class="fit" data-max="54" data-min="26">One frame.<br>Every kind of space.</h2>
-        <p class="lede">Homes, offices, salons, cafés, gyms, hotels, clinics and stores all work the same way. Send us the wall and the words.</p>
-      </div>
-      <div class="find rv" id="find"></div>
-    </div>
-  </div>
-</section>
+
 
 <!-- FINISH -->
 <section id="finish">
@@ -993,24 +1062,9 @@ section{padding-block:32px}
   </div>
 </section>
 
-<!-- PROCESS -->
-<section id="process">
-  <div class="wrap">
-    <p class="kicker rv">How it works</p>
-    <h2 class="fit rv" data-max="52" data-min="26">From first message<br>to delivery</h2>
-    <p class="lede rv">Six simple steps from your first message to a finished frame.</p>
-    <div class="steps" id="steps"></div>
-  </div>
-</section>
 
-<!-- FAQ -->
-<section id="faq">
-  <div class="wrap">
-    <p class="kicker rv">FAQ</p>
-    <h2 class="fit rv" data-max="52" data-min="26">Questions, answered</h2>
-    <div class="faq rv" id="faqList"></div>
-  </div>
-</section>
+
+
 
 <!-- ABOUT -->
 <section id="about">
@@ -1137,6 +1191,30 @@ section{padding-block:32px}
   </div>
 </section>
 
+<!-- MORE: three tabs, hidden until opened -->
+<section id="more">
+  <div class="wrap">
+    <p class="kicker">Good to know</p>
+    <h2 class="fit" data-max="46" data-min="26">More about working with us</h2>
+    <div class="tabs" role="tablist" aria-label="More information">
+      <button type="button" role="tab" id="tab-spaces" aria-controls="pan-spaces" aria-selected="false" data-tab="spaces"><b>Every kind of space</b><span>Homes, offices, shops</span></button>
+      <button type="button" role="tab" id="tab-process" aria-controls="pan-process" aria-selected="false" data-tab="process"><b>How it works</b><span>First message to delivery</span></button>
+      <button type="button" role="tab" id="tab-faq" aria-controls="pan-faq" aria-selected="false" data-tab="faq"><b>Questions</b><span>Short answers</span></button>
+    </div>
+    <div class="tabpan" role="tabpanel" id="pan-spaces" aria-labelledby="tab-spaces" hidden>
+      <p class="lede">Homes, offices, salons, cafés, gyms, hotels, clinics and stores all work the same way. Send us the wall and the words.</p>
+      <div class="find" id="find"></div>
+    </div>
+    <div class="tabpan" role="tabpanel" id="pan-process" aria-labelledby="tab-process" hidden>
+      <p class="lede">Six simple steps from your first message to a finished frame.</p>
+      <div class="steps" id="steps"></div>
+    </div>
+    <div class="tabpan" role="tabpanel" id="pan-faq" aria-labelledby="tab-faq" hidden>
+      <div class="faq" id="faqList"></div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section style="padding:0 0 12px">
   <div class="contact">
@@ -1162,7 +1240,7 @@ section{padding-block:32px}
     </div>
     <nav aria-label="Footer">
       <b>Explore</b>
-      <a href="#frames">Frames</a><a href="#design">Design your frame</a><a href="#finish">Finish</a><a href="#process">How it works</a><a href="#enquire">Enquire</a><a href="review.html">Leave a review</a>
+      <a href="#frames">Frames</a><a href="#design">Design your frame</a><a href="#finish">Finish</a><a href="#more" data-tab="process">How it works</a><a href="#enquire">Enquire</a><a href="review.html">Leave a review</a>
     </nav>
     <div class="foot-reach">
       <b>Reach us</b>
@@ -1248,6 +1326,7 @@ restart();
 
 /* FRAMES: swipe rail, arrows, and an enquiry button per frame */
 const FRAMES = [
+  {img:'space-corporate-posters.jpg', name:'Corporate and office frames', detail:'Quote posters for reception, boardrooms and desks. Matching sets in brown or black borders.', ask:'Corporate frames, a matching set of quote posters for our office'},
   {img:'baby.jpg', name:'Kids keepsake frame', detail:'Newborn name, birth date, time, weight and height. Black border.', ask:'Kids keepsake frame, with name, birth date, time, weight and height'},
   {img:'dog.jpg', name:'Pet portrait frame', detail:'A pet photo with name, date and a short line. Walnut border.', ask:'Pet portrait frame with a photo, name, date and a short line'},
   {img:'family.jpg', name:'Family frame', detail:'A family photo with names and a short line about home. Walnut border.', ask:'Family frame with a photo, names and a short line'},
@@ -1429,13 +1508,19 @@ const pvLine = document.getElementById('pvLine');
 const wordsEl = document.getElementById('words');
 const fontSel = document.getElementById('font');
 FONTS.forEach(f=>{ const o=document.createElement('option'); o.value=f[1]; o.textContent=f[0]; fontSel.appendChild(o); });
-let state = {border:BORDERS[0], paper:PAPER_COLOURS[0], text:TEXTS[0], font:FONTS[0][1]};
+let state = {border:BORDERS[0], paper:PAPER_COLOURS[0], text:TEXTS[0], font:FONTS[0][1], noText:false, pos:null, scale:1};
 function paintDesign(){
   pvFrame.style.background = state.border[2];
   pvMat.style.background = state.paper[1];
   const topText = state.paper[3]==='top';
-  pvMat.style.alignItems = topText ? 'flex-start' : '';
-  pvMat.style.paddingTop = topText ? '9%' : '';
+  pvLine.hidden = state.noText;
+  wordsEl.disabled = state.noText;
+  document.getElementById('noText').setAttribute('aria-pressed', state.noText);
+  document.getElementById('moveHint').hidden = state.noText;
+  document.getElementById('tSizeRow').hidden = state.noText;
+  document.getElementById('tReset').hidden = state.noText;
+  pvLine.style.setProperty('--tx', (state.pos?state.pos.x:50)+'%');
+  pvLine.style.setProperty('--ty', (state.pos?state.pos.y:(topText?24:50))+'%');
   pvLine.style.color = state.text[1];
   pvLine.style.fontFamily = state.font;
   const t = wordsEl.value.trim();
@@ -1450,10 +1535,40 @@ function paintDesign(){
   updateWa();
 }
 function fitDesign(){
-  const pad = Math.min(40, pvMat.clientWidth*.2), max = pvMat.clientWidth - pad, maxH = (pvMat.clientHeight - pad) * (state.paper[3]==='top' ? .3 : 1);
+  if(state.noText) return;
+  const topText = state.paper[3]==='top' && !state.pos;
+  const maxW = pvMat.clientWidth*.84, maxH = pvMat.clientHeight*(topText?.3:.6);
   let fs = 44; pvLine.style.fontSize = fs+'px';
-  while((pvLine.scrollWidth>max || pvLine.scrollHeight>maxH) && fs>12){ fs--; pvLine.style.fontSize = fs+'px'; }
+  while((pvLine.scrollWidth>maxW || pvLine.scrollHeight>maxH) && fs>12){ fs--; pvLine.style.fontSize = fs+'px'; }
+  pvLine.style.fontSize = (fs*state.scale)+'px';
 }
+/* No text, text size and dragging the words */
+document.getElementById('noText').addEventListener('click',()=>{ state.noText=!state.noText; paintDesign(); });
+const tScale=document.getElementById('tScale'), tScaleOut=document.getElementById('tScaleOut');
+tScale.addEventListener('input',()=>{ state.scale=tScale.value/100; tScaleOut.textContent=tScale.value+'%'; fitDesign(); });
+document.getElementById('tReset').addEventListener('click',()=>{ state.pos=null; state.scale=1; tScale.value=100; tScaleOut.textContent='100%'; paintDesign(); });
+(function(){
+  let drag=null;
+  const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  pvLine.addEventListener('pointerdown',e=>{
+    const r=pvMat.getBoundingClientRect(), l=pvLine.getBoundingClientRect();
+    drag={dx:e.clientX-(l.left+l.width/2), dy:e.clientY-(l.top+l.height/2), r};
+    pvLine.setPointerCapture(e.pointerId); pvLine.classList.add('drag'); e.preventDefault();
+  });
+  pvLine.addEventListener('pointermove',e=>{
+    if(!drag) return;
+    const r=pvMat.getBoundingClientRect();
+    state.pos={x:clamp((e.clientX-drag.dx-r.left)/r.width*100,6,94), y:clamp((e.clientY-drag.dy-r.top)/r.height*100,6,94)};
+    pvLine.style.setProperty('--tx',state.pos.x+'%'); pvLine.style.setProperty('--ty',state.pos.y+'%');
+  });
+  const end=()=>{ if(drag){ drag=null; pvLine.classList.remove('drag'); fitDesign(); } };
+  pvLine.addEventListener('pointerup',end); pvLine.addEventListener('pointercancel',end);
+  pvLine.addEventListener('keydown',e=>{
+    const k={ArrowLeft:[-2,0],ArrowRight:[2,0],ArrowUp:[0,-2],ArrowDown:[0,2]}[e.key]; if(!k) return;
+    e.preventDefault(); const p=state.pos||{x:50,y:state.paper[3]==='top'?24:50};
+    state.pos={x:clamp(p.x+k[0],6,94),y:clamp(p.y+k[1],6,94)}; paintDesign();
+  });
+})();
 borderSwatches(document.getElementById('borderSw'), BORDERS, c=>{ state.border=c; paintDesign(); });
 function pickPaper(c){
   state.paper=c;
@@ -1554,11 +1669,74 @@ function updateWa(){
   let msg = 'Hi customizedartt, I would like to order a frame.\nSize: '+c.r.label+'\nQuantity: '+c.qty;
   if(c.unit) msg += '\nPrice per frame: ₹'+c.unit+'\nTotal: ₹'+c.total;
   msg += '\nBorder: '+state.border[0]+'\nPaper: '+state.paper[0]+(state.paper.custom?' (I will send my photo here)':'')+'\nText colour: '+state.text[0]+'\nFont: '+fontSel.options[fontSel.selectedIndex].text;
-  msg += '\nText for the frame: '+(wordsEl.value.trim()||'to be confirmed');
+  msg += state.noText ? '\nText for the frame: none (photo only)' : '\nText for the frame: '+(wordsEl.value.trim()||'to be confirmed');
+  msg += '\n(My frame design picture is attached.)';
+  window.__waMsg = msg;
   document.getElementById('buildGo').href = 'https://wa.me/'+CONFIG.wa+'?text='+encodeURIComponent(msg);
 }
+/* Send the design: the frame picture travels with the message */
+(function(){
+  const btn=document.getElementById('buildGo'), note=document.getElementById('sendNote');
+  let lib=null;
+  function loadLib(){
+    if(window.htmlToImage) return Promise.resolve();
+    if(lib) return lib;
+    lib=new Promise((ok,no)=>{ const sc=document.createElement('script'); sc.src='html-to-image.js'; sc.onload=ok; sc.onerror=no; document.head.appendChild(sc); });
+    return lib;
+  }
+  async function framePicture(){
+    await loadLib();
+    if(document.fonts && document.fonts.ready) await document.fonts.ready;
+    const blob = await htmlToImage.toBlob(pvFrame,{pixelRatio:2,cacheBust:false,backgroundColor:null,
+      style:{filter:'none',animation:'none',transform:'none',margin:'0',maxWidth:'none',width:pvFrame.offsetWidth+'px'}});
+    if(!blob) throw new Error('no picture');
+    return blob;
+  }
+  function save(blob){
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-frame-design.png';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
+  }
+  const dummy = ()=>{ try{ return !!(navigator.canShare && navigator.share && navigator.canShare({files:[new File([new Blob(['x'])],'a.png',{type:'image/png'})]})); }catch(e){ return false; } };
+  window.__framePicture = framePicture;
+  btn.addEventListener('click',async e=>{
+    updateWa();
+    if(dummy()){
+      e.preventDefault(); note.textContent='Preparing your frame picture…';
+      try{
+        const blob=await framePicture();
+        const file=new File([blob],'my-frame-design.png',{type:'image/png'});
+        await navigator.share({files:[file],text:window.__waMsg});
+        note.textContent='Choose WhatsApp to send the picture and message together.';
+      }catch(err){
+        if(err && err.name==='AbortError'){ note.textContent='Your frame picture goes with the message.'; return; }
+        note.textContent='WhatsApp is opening. Your message is ready.'; window.open(btn.href,'_blank','noopener');
+      }
+    }else{
+      note.textContent='Saving your frame picture. Attach it in WhatsApp when it opens.';
+      framePicture().then(save).catch(()=>{ note.textContent='WhatsApp is opening. Please send us a screenshot of your design.'; });
+    }
+  });
+})();
 [sizeSel,wIn,hIn,qtyIn].forEach(el=>el.addEventListener('input',updateWa));
 sizeSel.addEventListener('change',updateWa);
+
+/* MORE tabs */
+(function(){
+  const tabs=[...document.querySelectorAll('#more [role=tab]')];
+  function openTab(id){
+    tabs.forEach(t=>{
+      const on = t.dataset.tab===id && t.getAttribute('aria-selected')!=='true';
+      t.setAttribute('aria-selected', on);
+      document.getElementById('pan-'+t.dataset.tab).hidden = !on;
+    });
+    document.querySelectorAll('#more .tabpan:not([hidden]) .rv').forEach(el=>el.classList.add('in'));
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>openTab(t.dataset.tab)));
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href="#more"]'); if(!a) return;
+    tabs.forEach(t=>{ const on=t.dataset.tab===(a.dataset.tab||'process'); t.setAttribute('aria-selected',on); document.getElementById('pan-'+t.dataset.tab).hidden=!on; });
+  });
+})();
 
 /* ENQUIRY: WhatsApp and email open with the details filled in */
 function enquiryText(){
