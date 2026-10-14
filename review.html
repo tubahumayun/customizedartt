@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rate your frame | customizedartt</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#fdfcfa">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cormorant+Garamond:ital,wght@1,500&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+:root{--ink:#16141a;--ink-soft:#5b5661;--paper:#fdfcfa;--card:#fff;--line:rgba(22,20,26,.14);--gold:#c9962b}
+@media(prefers-color-scheme:dark){:root{--ink:#f7f4f1;--ink-soft:#cdc6cc;--paper:#141218;--card:#1d1a23;--line:rgba(255,255,255,.16)}}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;font-family:Montserrat,system-ui,sans-serif;font-size:15px;color:var(--ink);background:var(--paper);line-height:1.6}
+.card{width:100%;max-width:480px;background:var(--card);border:1px solid var(--line);padding:32px 26px;box-shadow:0 22px 44px -28px rgba(22,20,26,.38)}
+.brand{font-family:"Playfair Display",Georgia,serif;font-weight:700;font-size:20px;text-align:center;margin:0 0 18px;color:var(--ink);text-decoration:none;display:block}
+h1{font-family:"Playfair Display",Georgia,serif;font-size:28px;line-height:1.2;margin:0 0 8px;text-align:center}
+.sub{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:20px;color:var(--ink-soft);text-align:center;margin:0 0 22px}
+.stars{display:flex;justify-content:center;gap:6px;margin-bottom:6px}
+.stars button{background:none;border:0;padding:2px;cursor:pointer;font-size:44px;line-height:1;color:var(--line);transition:transform .15s ease,color .15s ease}
+.stars button.on{color:var(--gold)}
+.stars button:hover{transform:scale(1.12)}
+.word{text-align:center;min-height:22px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--ink-soft);margin:0 0 20px}
+.lab{display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:600;margin:0 0 10px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tags button{font:inherit;font-size:13px;padding:8px 14px;border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--ink);cursor:pointer;transition:background .15s,color .15s}
+.tags button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+input,textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:11px 13px;margin-bottom:16px}
+textarea{min-height:80px;resize:vertical}
+.go{width:100%;font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:15px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);cursor:pointer}
+.go:disabled{opacity:.45;cursor:not-allowed}
+.msg{text-align:center;font-size:13px;color:var(--ink-soft);margin:14px 0 0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.done{text-align:center}
+.done .big{font-size:54px;color:var(--gold);line-height:1;margin-bottom:10px}
+.done a{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--ink)}
+</style>
+</head>
+<body>
+<main class="card">
+  <a class="brand" href="/">customizedartt</a>
+  <div id="formView">
+    <h1>How was your frame?</h1>
+    <p class="sub">Tap the stars. It takes ten seconds.</p>
+    <div class="stars" id="stars" role="radiogroup" aria-label="Star rating"></div>
+    <p class="word" id="word" aria-live="polite"></p>
+
+    <span class="lab">What did you like? (tap any)</span>
+    <div class="tags" id="tags"></div>
+
+    <label class="lab" for="comment">Add a line (optional)</label>
+    <textarea id="comment" maxlength="300" placeholder="Tell us about your frame"></textarea>
+    <label class="lab" for="name">Your name (optional)</label>
+    <input id="name" maxlength="50" placeholder="e.g. Aisha, Mira Road" autocomplete="name">
+    <input class="hp" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+    <button class="go" id="send" type="button" disabled>Submit review</button>
+    <p class="msg" id="msg">Your review is shown on our website after we approve it.</p>
+  </div>
+  <div class="done" id="doneView" hidden>
+    <div class="big">★</div>
+    <h1>Thank you</h1>
+    <p class="sub">Your review helps other people choose with confidence.</p>
+    <a href="/">Back to the website</a>
+  </div>
+</main>
+<script>
+const REVIEWS_URL = ''; /* paste the Google Apps Script web app URL here */
+const WORDS = ['','Poor','Fair','Good','Very good','Loved it'];
+const TAGS = ['Beautiful finish','Exactly what I wanted','Delivered on time','Great value','Lovely to work with','Great gift','Neat packing','Would order again'];
+const stars = document.getElementById('stars'), word = document.getElementById('word');
+const tagBox = document.getElementById('tags'), send = document.getElementById('send'), msg = document.getElementById('msg');
+let rating = 0;
+for(let i=1;i<=5;i++){
+  const b=document.createElement('button'); b.type='button'; b.textContent='★'; b.setAttribute('role','radio'); b.setAttribute('aria-label',i+' star'+(i>1?'s':''));
+  b.addEventListener('click',()=>{ rating=i; paint(); }); stars.appendChild(b);
+}
+function paint(){ [...stars.children].forEach((b,i)=>b.classList.toggle('on',i<rating)); word.textContent=WORDS[rating]; send.disabled=!rating; }
+TAGS.forEach(t=>{ const b=document.createElement('button'); b.type='button'; b.textContent=t; b.setAttribute('aria-pressed','false'); b.addEventListener('click',()=>b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true')); tagBox.appendChild(b); });
+send.addEventListener('click',async()=>{
+  if(!rating) return;
+  if(!REVIEWS_URL){ msg.textContent='Reviews are not switched on yet. Please try again soon.'; return; }
+  send.disabled=true; send.textContent='Sending...';
+  const body={stars:rating,tags:[...tagBox.querySelectorAll('[aria-pressed=true]')].map(b=>b.textContent),comment:document.getElementById('comment').value.trim(),name:document.getElementById('name').value.trim(),website:document.getElementById('website').value};
+  try{
+    await fetch(REVIEWS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});
+    document.getElementById('formView').hidden=true; document.getElementById('doneView').hidden=false;
+  }catch(e){ send.disabled=false; send.textContent='Submit review'; msg.textContent='Could not send. Please check your connection and try again.'; }
+});
+</script>
+</body>
+</html>

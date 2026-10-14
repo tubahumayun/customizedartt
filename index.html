@@ -744,6 +744,20 @@ section{padding-block:32px}
 .wrap.chat{max-width:1180px}
 .contact{width:calc(100% - 36px);max-width:1144px;margin-inline:auto}
 @media(max-width:560px){.contact{width:calc(100% - 32px)}}
+
+/* REVIEWS */
+#reviews[hidden]{display:none}
+.rev-sum{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:20px 0 24px}
+.rev-sum>b{font-family:"Playfair Display",serif;font-size:52px;line-height:1;font-weight:600}
+.rev-sum span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.rev-sum .btn{margin-left:auto}
+.rev-stars{color:#c9962b;font-size:20px;letter-spacing:2px;line-height:1.2}
+.rev-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.rev-card{background:var(--card);border:1px solid var(--line);padding:22px;display:flex;flex-direction:column;gap:10px}
+.rev-card p{margin:0;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:20px;line-height:1.35}
+.rev-card small{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-top:auto}
+@media(max-width:900px){.rev-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.rev-grid{display:flex;scroll-padding-inline:16px;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-inline:-16px;padding:2px 16px 14px;scrollbar-width:none}.rev-grid::-webkit-scrollbar{display:none}.rev-card{flex:0 0 82%;scroll-snap-align:start}.rev-sum .btn{margin-left:0}.rev-sum>b{font-size:44px}}
 </style>
 </head>
 <body>
@@ -1021,6 +1035,20 @@ section{padding-block:32px}
 </section>
 
 <!-- CHAT MOCK -->
+<!-- REVIEWS (appears once approved reviews exist) -->
+<section id="reviews" hidden>
+  <div class="wrap">
+    <p class="kicker rv">Reviews</p>
+    <h2 class="fit rv" data-max="52" data-min="26">Loved by our customers</h2>
+    <div class="rev-sum rv">
+      <b id="revAvg">5.0</b>
+      <div><div class="rev-stars" id="revStars" aria-hidden="true"></div><span id="revCount"></span></div>
+      <a class="btn" href="review.html">Rate your frame</a>
+    </div>
+    <div class="rev-grid" id="revGrid"></div>
+  </div>
+</section>
+
 <section>
   <div class="wrap chat">
     <div class="chat-copy rv">
@@ -1134,7 +1162,7 @@ section{padding-block:32px}
     </div>
     <nav aria-label="Footer">
       <b>Explore</b>
-      <a href="#frames">Frames</a><a href="#design">Design your frame</a><a href="#finish">Finish</a><a href="#process">How it works</a><a href="#enquire">Enquire</a>
+      <a href="#frames">Frames</a><a href="#design">Design your frame</a><a href="#finish">Finish</a><a href="#process">How it works</a><a href="#enquire">Enquire</a><a href="review.html">Leave a review</a>
     </nav>
     <div class="foot-reach">
       <b>Reach us</b>
@@ -1687,6 +1715,28 @@ let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(l
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let i=0;
   setInterval(()=>{ el.style.opacity=0; setTimeout(()=>{ i=(i+1)%lines.length; el.textContent=lines[i]; el.style.opacity=1; },450); },3800);
+})();
+
+/* REVIEWS: approved reviews from the Google Sheet */
+const REVIEWS_URL = ''; /* paste the Google Apps Script web app URL here (same as in review.html) */
+(async function(){
+  if(!REVIEWS_URL) return;
+  try{
+    const list = await (await fetch(REVIEWS_URL)).json();
+    if(!Array.isArray(list) || !list.length) return;
+    const esc = t => String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    const stars = n => '★'.repeat(n)+'☆'.repeat(5-n);
+    const avg = list.reduce((a,r)=>a+(+r.stars||0),0)/list.length;
+    document.getElementById('revAvg').textContent = avg.toFixed(1);
+    document.getElementById('revStars').textContent = stars(Math.round(avg));
+    document.getElementById('revCount').textContent = list.length+' review'+(list.length>1?'s':'');
+    document.getElementById('revGrid').innerHTML = list.slice(0,9).map(r=>{
+      const text = r.comment || r.tags || 'Lovely frame.';
+      return `<article class="rev-card"><div class="rev-stars" aria-label="${+r.stars} out of 5">${stars(+r.stars||5)}</div><p>“${esc(text)}”</p><small>${esc(r.name||'Happy customer')}</small></article>`;
+    }).join('');
+    document.getElementById('reviews').hidden = false;
+    if(typeof fitHeads==='function') fitHeads();
+  }catch(e){}
 })();
 </script>
 </body>
