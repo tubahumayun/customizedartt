@@ -831,6 +831,68 @@ h1,h2,h3{letter-spacing:.012em}
 .tabpan .find{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
 .tabpan .lede{margin:0}
 @media(max-width:700px){.tabpan .find{grid-template-columns:1fr}}
+
+/* ===== GALLERY (premium) ===== */
+.cats{gap:54px;margin-top:30px}
+.cat-head{display:flex;align-items:flex-end;gap:18px;margin:0 0 20px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.cat-no{font-family:"Playfair Display",serif;font-size:44px;line-height:.9;font-weight:500;color:#b8902e;opacity:.85;letter-spacing:.02em}
+.cat-head .cat-title{margin:0;font-size:26px}
+.cat-note{margin:4px 0 0;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:20px;color:var(--ink-soft)}
+.posters{gap:22px}
+.wall{padding:40px 24px 34px;box-shadow:0 22px 40px -30px rgba(40,24,8,.55)}
+.ptile{margin:0;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);box-shadow:0 22px 40px -30px rgba(40,24,8,.55);animation:floaty 7s ease-in-out infinite;transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .5s}
+.ptile:nth-child(3n+2){animation-delay:-2.4s}.ptile:nth-child(3n){animation-delay:-4.6s}
+.ptile:hover{animation-play-state:paused;transform:translateY(-10px) rotate(-.7deg);box-shadow:0 34px 50px -28px rgba(40,24,8,.6)}
+.pt-img{aspect-ratio:3/4;display:grid;place-items:center;padding:16px;background:linear-gradient(160deg,#f3ece0,#e4d9c7);overflow:hidden}
+.pt-img img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;box-shadow:0 10px 22px -10px rgba(40,24,8,.55);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+.ptile:hover .pt-img img{transform:scale(1.05)}
+.ptile figcaption{padding:14px 18px 16px;display:flex;flex-direction:column;gap:3px}
+.ptile figcaption b{font-family:"Playfair Display",serif;font-size:17px;font-weight:600;line-height:1.25}
+.ptile figcaption span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){.ptile{animation:none}}
+.vid-band{position:relative;margin-top:22px;overflow:hidden;aspect-ratio:21/9;background:#1a1612;box-shadow:0 22px 40px -30px rgba(40,24,8,.55)}
+.vid-band video{width:100%;height:100%;object-fit:cover;object-position:50% 58%;display:block}
+.vid-band span{position:absolute;left:18px;bottom:16px;color:#fff;font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:600;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+@media(max-width:760px){.ptile{flex:0 0 66vw;max-width:290px;scroll-snap-align:start}.vid-band{aspect-ratio:16/10}}
+@media(max-width:560px){.cats{gap:38px}.cat-no{font-size:34px}.cat-head .cat-title{font-size:21px}.cat-note{font-size:17px}.cat-head{gap:12px;margin-bottom:14px}}
+
+/* HERO: full frames, floating */
+.slide img{transform:none!important}
+.slide.wide{background:#e9e3da}
+.slide.wide::before{content:"";position:absolute;inset:-12%;background:url("space-three-posters.jpg") center/cover;filter:blur(16px) saturate(1.05)}
+.slide.wide img{position:relative;object-fit:contain!important}
+.slides{animation:floaty 8s ease-in-out infinite;transition:box-shadow .5s}
+.slides:hover{animation-play-state:paused;box-shadow:0 40px 60px -34px rgba(40,24,8,.5)}
+.hero{background:radial-gradient(60% 70% at 85% 30%,rgba(232,213,176,.28),transparent 70%)}
+
+/* DESIGNER: single watermark across the frame edge, multi-line text */
+.wm{inset:auto;right:calc(var(--pad,20px) + 12px);bottom:calc(var(--pad,20px) - 8px);background:none;opacity:.92;width:auto;height:auto;font:italic 600 12px/1 Georgia,serif;letter-spacing:.06em;color:#fff;text-shadow:0 0 3px rgba(0,0,0,.9),0 0 1px #000,0 1px 2px rgba(0,0,0,.6);white-space:nowrap;user-select:none;-webkit-user-select:none}
+.dline{white-space:pre-wrap}
+
+/* SIZES picture bigger on phones */
+.sz-hint{display:none}
+@media(max-width:700px){
+  .sizes-fig{padding:10px 0 0}
+  .sz-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;scroll-snap-type:x proximity}
+  .sz-scroll::-webkit-scrollbar{display:none}
+  .sizes-fig img{width:190%;max-width:none}
+  .sz-hint{display:block;margin:8px 14px 0;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+  .sizes-fig figcaption{padding:8px 14px 12px}
+}
+.contact-addr{display:inline-flex;align-items:center;gap:10px;margin-top:6px;color:#e3dce2;font-size:14px;letter-spacing:.04em;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:3px}
+.contact-addr .ic{width:20px;height:20px}
+
+@media(max-width:760px){.slides{aspect-ratio:5/6!important;animation:none}}
+
+.pt-img{position:relative;display:block}
+.pt-img img{position:absolute;left:16px;top:16px;width:calc(100% - 32px);height:calc(100% - 32px);max-width:none;max-height:none;object-fit:contain}
+.vid-band{aspect-ratio:16/9;max-width:860px;margin-inline:auto}
+@media(max-width:760px){.vid-band{aspect-ratio:16/10!important}}
+
+.cat-head{align-items:center}
+.cat-head>div{min-width:0}
+@media(max-width:560px){.cat-head .cat-title{gap:8px}.cat-head .cat-title .ic{width:22px;height:22px}}
 </style>
 </head>
 <body>
@@ -865,7 +927,7 @@ h1,h2,h3{letter-spacing:.012em}
 <section class="hero">
   <div class="wrap hero-grid">
     <div class="hero-text">
-      <p class="kicker">Customised frames · Mira Road, Thane</p>
+      <p class="kicker">Customised wooden frames</p>
       <h1 class="fit" data-max="66" data-min="28">Let the piece lead.<br>Let the frame complete.</h1>
       <p class="lede">Your words, your photos and your logo, set in a wooden frame made to order. Choose a colour, a font and a border, and see it before you order.</p>
       <div class="ctas">
@@ -880,9 +942,9 @@ h1,h2,h3{letter-spacing:.012em}
     </div>
     <div class="slideshow">
       <div class="slides" id="slides" title="Tap for the next photo">
-        <div class="slide on"><img src="home-coffee.jpg" style="--pos:58%;--z:1.04;--oy:60%" alt="Same coffee, higher standards, framed in walnut"></div>
-        <div class="slide"><img src="space-stay-hungry.jpg" style="--pos:24%;--z:1.25;--ox:48%;--oy:48%" alt="Office wall with the framed quote Stay hungry, stay foolish"></div>
-        <div class="slide"><img src="space-secret-start.jpg" style="--pos:18%;--z:1.25;--ox:50%;--oy:45%" alt="Framed quote The secret of getting ahead is getting started"></div>
+        <div class="slide on"><img src="hero-coffee.jpg" alt="Same coffee, higher standards, framed in walnut"></div>
+        <div class="slide"><img src="hero-hungry.jpg" alt="Office wall with the framed quote Stay hungry, stay foolish"></div>
+        <div class="slide"><img src="hero-secret.jpg" alt="Framed quote The secret of getting ahead is getting started"></div>
         <div class="slide wide"><img src="space-three-posters.jpg" alt="Boardroom with three framed posters"></div>
       </div>
       <div class="dots" id="dots"></div>
@@ -921,7 +983,8 @@ h1,h2,h3{letter-spacing:.012em}
     <p class="kicker rv">Sizes</p>
     <h2 class="fit rv" data-max="52" data-min="26">Sizes on the wall</h2>
     <figure class="sizes-fig rv" style="margin-top:24px">
-      <img src="sizes-wall.jpg" alt="A wall of framed prints in different sizes">
+      <div class="sz-scroll"><img src="sizes-wall.jpg" alt="A wall of framed prints in different sizes"></div>
+      <p class="sz-hint">Swipe sideways to see every size</p>
       <figcaption>Standard sizes shown on one wall. Enter a custom size in the designer for any other shape.</figcaption>
     </figure>
   </div>
@@ -930,9 +993,9 @@ h1,h2,h3{letter-spacing:.012em}
 <!-- COLLECTIONS -->
 <section id="collections">
   <div class="wrap">
-    <p class="kicker rv">Word ideas</p>
-    <h2 class="fit rv" data-max="52" data-min="26">A few words<br>to start from</h2>
-    <p class="lede rv">A handful of examples to spark ideas. Your frame can say anything you like.</p>
+    <p class="kicker rv">The gallery</p>
+    <h2 class="fit rv" data-max="52" data-min="26">Words worth<br>framing</h2>
+    <p class="lede rv">Real frames in real spaces, and the lines that fill them. Yours can say anything you like.</p>
     <div class="cats" id="cats"></div>
   </div>
 </section>
@@ -949,7 +1012,7 @@ h1,h2,h3{letter-spacing:.012em}
       <div class="preview rv">
         <div class="dframe" id="pvFrame">
           <div class="dmat" id="pvMat"><p class="dline" id="pvLine" tabindex="0" aria-label="Your words. Drag to move.">Your line appears here</p></div>
-          <span class="wm" aria-hidden="true"></span>
+          <span class="wm" id="wm" aria-hidden="true">customizedartt</span>
         </div>
         <p class="preview-note">Preview only. Colours may look slightly different on print.</p>
       </div>
@@ -1020,7 +1083,7 @@ h1,h2,h3{letter-spacing:.012em}
             <div class="total" id="outTotal">₹400</div>
           </div>
           <p class="bulk">Bulk orders can be negotiated. Message us on WhatsApp with your quantity.</p>
-          <p class="note" id="note">Prices start at ₹400 for 3 × 3, rising by ₹50 per size step. From 4 frames the step is ₹25.</p>
+          <p class="note" id="note">Prices start at ₹400 for 3 × 3 and rise with the size. Order 2 or more frames and each one is ₹25 less.</p>
         </div>
 
         <div class="ctas">
@@ -1072,7 +1135,7 @@ h1,h2,h3{letter-spacing:.012em}
     <div class="rv">
       <p class="kicker">About</p>
       <h2 class="fit" data-max="52" data-min="26">Custom frames,<br>made around you</h2>
-      <p class="lede">customizedartt makes personalised wooden frames for people and businesses across Mira Road and Thane. We print, frame and finish each piece by hand.</p>
+      <p class="lede">customizedartt makes personalised wooden frames for people and businesses. We print, frame and finish each piece by hand.</p>
       <p class="about-more">From a single gift for someone special to a full wall for an office or café, every frame starts with your idea and ends with a finish we are proud of.</p>
       <div class="mascot-slot" style="justify-content:flex-start;margin-top:18px">
         <img class="mascot" src="mascot.png" alt="" loading="lazy" style="width:80px">
@@ -1172,7 +1235,7 @@ h1,h2,h3{letter-spacing:.012em}
       <div class="reach rv">
         <a class="reach-card" href="https://wa.me/919004217186" target="_blank" rel="noopener"><span class="ic" data-icon="phone"></span><div><b>WhatsApp and phone</b><strong>+91 90042 17186</strong><em>Chat now</em></div></a>
         <a class="reach-card" href="mailto:customizedarttbytuba@gmail.com"><span class="ic" data-icon="mail"></span><div><b>Email</b><strong>customizedarttbytuba@gmail.com</strong><em>Write to us</em></div></a>
-        <a class="reach-card" href="https://www.google.com/maps/search/?api=1&amp;query=Mira+Road+Thane+401107" target="_blank" rel="noopener"><span class="ic" data-icon="pin"></span><div><b>Studio</b><strong>Mira Road, Thane, Maharashtra 401107</strong><em>View on map</em></div></a>
+        <div class="reach-card"><span class="ic" data-icon="calendar"></span><div><b>Plan ahead</b><strong>Order a week before you need it</strong><em style="text-decoration:none">Made to order, finished by hand</em></div></div>
       </div>
     </div>
   </div>
@@ -1226,6 +1289,7 @@ h1,h2,h3{letter-spacing:.012em}
         <a class="btn btn-gold" href="https://wa.me/919004217186" target="_blank" rel="noopener">WhatsApp us</a>
         <a class="btn" style="background:transparent;color:#f7f4f1" href="mailto:customizedarttbytuba@gmail.com">Email us</a>
       </div>
+      <a class="contact-addr" href="https://www.google.com/maps/search/?api=1&amp;query=Mira+Road+Thane+401107" target="_blank" rel="noopener"><span class="ic" data-icon="pin"></span>Visit us: Mira Road, Thane, Maharashtra 401107</a>
           </div>
   </div>
 </section>
@@ -1352,27 +1416,50 @@ document.getElementById('next').addEventListener('click',()=>rail.scrollBy({left
 
 /* COLLECTIONS */
 const CATS = [
-  {name:'Motivational', icon:'sparkle', wall:'w1', quotes:[
-    ['Begin where you are, build what you dream.','bk','f2','t-rays'],
-    ['Small steps. Big stories.','bp','f1','t-wash'],
-    ['Make today worth framing.','wd','f3','t-sun']]},
-  {name:'Corporate spaces', icon:'office', wall:'w2', quotes:[
-    ['Build with purpose. Deliver with pride.','bk','f2','t-grid'],
-    ['Great teams are built on trust.','bp','f1','t-hatch'],
-    ['Do the work. Own the result.','wd','f3','t-concrete']]},
-  {name:'Home and warmth', icon:'home', wall:'w3', quotes:[
-    ['Home is where the best stories begin.','wd','f1','t-sprig'],
-    ['Stay awhile. The kettle is on.','bp','f2','t-gingham'],
-    ['Grow where life plants you.','bk','f3','t-leaf']]}
+  {name:'Corporate spaces', note:'For reception walls, desks and meeting rooms.', icon:'office', wall:'w2', items:[
+    {photo:'tile-desk-coffee.jpg', t:'Good ideas start with good coffee', c:'Office desk'},
+    {q:['Build with purpose. Deliver with pride.','bk','f2','t-grid']},
+    {photo:'tile-desk-team.jpg', t:'Same team, bigger things', c:'Team room'},
+    {q:['Great teams are built on trust.','bp','f1','t-hatch']},
+    {photo:'tile-desk-email.jpg', t:'Meetings could have been an email', c:'Work desk'},
+    {q:['Do the work. Own the result.','wd','f3','t-concrete']}],
+    video:true},
+  {name:'Cafés and restaurants', note:'For counters, menus and dining walls.', icon:'store', wall:'w1', items:[
+    {photo:'tile-cafe-chai.jpg', t:'Chai makes everything better', c:'Café wall'},
+    {photo:'tile-cafe-food.jpg', t:'Good food, good mood', c:'Dining room'},
+    {photo:'tile-cafe-eat.jpg', t:'People who love to eat are always good people', c:'Restaurant'}]},
+  {name:'Salons and studios', note:'For mirrors, reception and waiting areas.', icon:'sparkle', wall:'w1', items:[
+    {photo:'tile-salon-hair.jpg', t:'Good hair days hit different', c:'Salon wall'},
+    {photo:'tile-salon-care.jpg', t:'Self care looks good on you', c:'Studio'},
+    {photo:'tile-salon-fresh.jpg', t:'Fresh look, brighter you', c:'Beauty bar'}]},
+  {name:'Motivational', note:'Lines that start the day.', icon:'sparkle', wall:'w1', items:[
+    {q:['Begin where you are, build what you dream.','bk','f2','t-rays']},
+    {q:['Small steps. Big stories.','bp','f1','t-wash']},
+    {q:['Make today worth framing.','wd','f3','t-sun']}]},
+  {name:'Home and warmth', note:'For living rooms, kitchens and bedrooms.', icon:'home', wall:'w3', items:[
+    {q:['Home is where the best stories begin.','wd','f1','t-sprig']},
+    {q:['Stay awhile. The kettle is on.','bp','f2','t-gingham']},
+    {q:['Grow where life plants you.','bk','f3','t-leaf']}]}
 ];
 const catsEl = document.getElementById('cats');
-CATS.forEach(c=>{
+CATS.forEach((c,ci)=>{
   const block = document.createElement('div');
-  block.className='rv';
-  block.innerHTML = `<h3 class="cat-title"><span class="ic" data-icon="${c.icon}"></span>${c.name}</h3><div class="posters">${c.quotes.map(q=>`
-    <div class="wall ${c.wall}"><div class="hang"><div class="frame"><div class="mat"><div class="poster ${q[1]} ${q[3]||''}"><p class="q ${q[2]||''}" data-q>${q[0]}</p></div></div></div></div></div>`).join('')}</div>`;
+  block.className='cat rv';
+  const tiles = c.items.map(it=> it.photo
+    ? `<figure class="ptile"><div class="pt-img"><img src="${it.photo}" alt="${it.t}"></div><figcaption><b>${it.t}</b><span>${it.c}</span></figcaption></figure>`
+    : `<div class="wall ${c.wall}"><div class="hang"><div class="frame"><div class="mat"><div class="poster ${it.q[1]} ${it.q[3]||''}"><p class="q ${it.q[2]||''}" data-q>${it.q[0]}</p></div></div></div></div></div>`).join('');
+  block.innerHTML = `<div class="cat-head"><span class="cat-no">${String(ci+1).padStart(2,'0')}</span><div><h3 class="cat-title"><span class="ic" data-icon="${c.icon}"></span>${c.name}</h3><p class="cat-note">${c.note}</p></div></div>
+    <div class="posters">${tiles}</div>
+    ${c.video?`<div class="vid-band"><video muted loop playsinline preload="none" poster="corp-video-poster.jpg" data-src="corp-video.mp4" aria-label="Corporate frames up close"></video><span>Corporate frames, up close</span></div>`:''}`;
   catsEl.appendChild(block);
 });
+(function(){
+  const v=document.querySelector('.vid-band video'); if(!v) return;
+  if(!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ if(!v.src) v.src=v.dataset.src; v.play().catch(()=>{}); } else v.pause();
+  }),{threshold:.35}).observe(v);
+})();
 
 /* FIND */
 const FIND = [
@@ -1429,6 +1516,9 @@ const BGS = [
   ['Keyhole','url(bg-keyhole.jpg) center 14%/cover no-repeat','dark'],
   ['Bougainvillea','url(bg-sky.jpg) center top/cover no-repeat','light','top'],
   ['Pastel street','url(bg-houses.jpg) center 28%/cover no-repeat','dark'],
+  ['Red drift','url(bg-drift.jpg) center top/cover no-repeat','light','high'],
+  ['Red racer','url(bg-f1.jpg) center top/cover no-repeat','light','high'],
+  ['Maroon bloom','url(bg-maroon.jpg) center/cover no-repeat','light'],
   ['Sunlit wall','linear-gradient(112deg,rgba(255,255,255,.38) 0 14%,transparent 14% 30%,rgba(255,255,255,.22) 30% 38%,transparent 38%),linear-gradient(165deg,#f3d9bf,#e2b48b 60%,#d09a70)','dark'],
   ['Olive glow','radial-gradient(70% 45% at 50% 30%,rgba(236,246,214,.6),transparent 72%),linear-gradient(#3c4727,#2a3319)','light'],
   ['Sunset','linear-gradient(170deg,#ffb199,#ff8fa3 48%,#a18cd1)','dark'],
@@ -1468,7 +1558,7 @@ const PAPERS = [...BGS, ...PAPER_COLOURS];
 const PAPER_SEPS = {0:'Backgrounds'}; PAPER_SEPS[BGS.length]='Solid colours';
 const TEXTS = [
   ['Black','#111111'],['White','#ffffff'],['Ivory','#f6efdc'],['Gold','#b8902e'],['Maroon','#6e1e2a'],
-  ['Navy','#1d2a4f'],['Red','#b3121f'],['Pink','#d6336c'],['Green','#1f4d3a'],['Brown','#5c3a24'],['Royal blue','#2a4bd7']
+  ['Navy','#1d2a4f'],['Red','#b3121f'],['Pink','#d6336c'],['Green','#1f4d3a'],['Brown','#5c3a24'],['Royal blue','#2a4bd7'],['Charcoal','#2e2e33'],['Terracotta','#a4502e'],['Rose gold','#b76e79'],['Teal','#0f766e'],['Mustard','#c98a05'],['Lavender','#7c5cbf'],['Sky blue','#4aa3df'],['Orange','#e8742a'],['Coral','#ff6f61'],['Peach','#ffb48a'],['Mint','#9be0c6'],['Silver','#b4b8c0'],['Olive','#6b6f2a']
 ];
 const FONTS = [
   ['Playfair Display','"Playfair Display", Georgia, serif'],
@@ -1503,6 +1593,7 @@ function borderSwatches(el, list, onPick){
   });
 }
 const pvFrame = document.getElementById('pvFrame');
+const POS_Y = {top:24, high:13, low:78};
 const pvMat = document.getElementById('pvMat');
 const pvLine = document.getElementById('pvLine');
 const wordsEl = document.getElementById('words');
@@ -1520,7 +1611,8 @@ function paintDesign(){
   document.getElementById('tSizeRow').hidden = state.noText;
   document.getElementById('tReset').hidden = state.noText;
   pvLine.style.setProperty('--tx', (state.pos?state.pos.x:50)+'%');
-  pvLine.style.setProperty('--ty', (state.pos?state.pos.y:(topText?24:50))+'%');
+  pvLine.style.setProperty('--ty', (state.pos?state.pos.y:(POS_Y[state.paper[3]]||50))+'%');
+  placeWm();
   pvLine.style.color = state.text[1];
   pvLine.style.fontFamily = state.font;
   const t = wordsEl.value.trim();
@@ -1533,10 +1625,13 @@ function paintDesign(){
   syncColourDrops();
   fitDesign();
   updateWa();
+  if(window.__prepPicture) window.__prepPicture();
 }
+function placeWm(){ pvFrame.style.setProperty('--pad', pvMat.offsetLeft+'px'); }
+if(window.ResizeObserver) new ResizeObserver(placeWm).observe(pvFrame);
 function fitDesign(){
   if(state.noText) return;
-  const topText = state.paper[3]==='top' && !state.pos;
+  const topText = ['top','high'].includes(state.paper[3]) && !state.pos;
   const maxW = pvMat.clientWidth*.84, maxH = pvMat.clientHeight*(topText?.3:.6);
   let fs = 44; pvLine.style.fontSize = fs+'px';
   while((pvLine.scrollWidth>maxW || pvLine.scrollHeight>maxH) && fs>12){ fs--; pvLine.style.fontSize = fs+'px'; }
@@ -1565,7 +1660,7 @@ document.getElementById('tReset').addEventListener('click',()=>{ state.pos=null;
   pvLine.addEventListener('pointerup',end); pvLine.addEventListener('pointercancel',end);
   pvLine.addEventListener('keydown',e=>{
     const k={ArrowLeft:[-2,0],ArrowRight:[2,0],ArrowUp:[0,-2],ArrowDown:[0,2]}[e.key]; if(!k) return;
-    e.preventDefault(); const p=state.pos||{x:50,y:state.paper[3]==='top'?24:50};
+    e.preventDefault(); const p=state.pos||{x:50,y:POS_Y[state.paper[3]]||50};
     state.pos={x:clamp(p.x+k[0],6,94),y:clamp(p.y+k[1],6,94)}; paintDesign();
   });
 })();
@@ -1606,7 +1701,8 @@ wordsEl.addEventListener('input',paintDesign);
 /* CALCULATOR: starts at 400 */
 const CONFIG = {
   base:400, stepSingle:50, stepBulk:25, bulkFrom:4,
-  sizes:[[3,3,0],[4,4,1],[4,6,1],[5,5,1],[5,7,2],[6,6,2],[6,8,3],[8,8,4],[8,10,4],[9,12,5],[10,12,5],[12,12,6],[12,16,6],[12,18,7],[16,20,null],[18,24,null],[20,30,null],[24,36,null]],
+  discount:25, discountFrom:2,
+  sizes:[[3,3,400],[3,4,425],[4,4,450],[4,6,475],[5,5,490],[5,7,515],[6,6,535],[6,8,560],[8,8,600],[8,10,625],[9,9,650],[9,12,690],[10,12,720],[12,12,750],[11,14,765],[12,16,780],[12,18,800],[16,16,null],[16,20,null],[18,24,null],[20,30,null],[24,36,null]],
   wa:WA
 };
 const sizeSel = document.getElementById('size');
@@ -1618,7 +1714,7 @@ const oc = document.createElement('option'); oc.value='custom'; oc.textContent='
 sizeSel.value='0';
 function resolveSize(){
   const S = CONFIG.sizes;
-  const info = i => ({idx:i, tier:S[i][2], onRequest:S[i][2]==null});
+  const info = i => ({idx:i, price:S[i][2], onRequest:S[i][2]==null});
   if(sizeSel.value!=='custom'){
     const i = +sizeSel.value;
     return {...info(i), label:S[i][0]+' × '+S[i][1], oversize:false};
@@ -1647,7 +1743,6 @@ function calc(){
   const qty = Math.max(1, Math.floor(+qtyIn.value||1));
   const r = resolveSize();
   previewShape();
-  const step = qty>=CONFIG.bulkFrom ? CONFIG.stepBulk : CONFIG.stepSingle;
   document.getElementById('outQty').textContent = qty;
   document.getElementById('outSize').textContent = r.label;
   if(r.pending||r.oversize||r.onRequest){
@@ -1657,64 +1752,78 @@ function calc(){
     document.getElementById('note').textContent = ask ? 'Large sizes are priced on WhatsApp, so we can quote the right glass and finish.' : 'Enter a width and height to see the price.';
     return {r, qty, unit:0, total:0};
   }
-  const unit = CONFIG.base + r.tier*step;
+  const off = qty>=CONFIG.discountFrom ? CONFIG.discount : 0;
+  const unit = r.price - off;
   const total = unit*qty;
   document.getElementById('outUnit').textContent = '₹'+unit.toLocaleString('en-IN');
   document.getElementById('outTotal').textContent = '₹'+total.toLocaleString('en-IN');
-  document.getElementById('note').textContent = 'Prices start at ₹'+CONFIG.base+' for 3 × 3, rising by ₹50 per size step. From '+CONFIG.bulkFrom+' frames the step is ₹'+CONFIG.stepBulk+'.';
+  document.getElementById('note').textContent = 'Prices start at ₹'+CONFIG.base+' for 3 × 3 and rise with the size. Order 2 or more frames and each one is ₹'+CONFIG.discount+' less.'+(off?' Your ₹'+off+' discount is applied.':'');
   return {r, qty, unit, total};
 }
+function designLink(){
+  try{
+    const d={b:state.border[0],p:state.paper.custom?'':state.paper[0],t:state.text[0],f:fontSel.selectedIndex,w:state.noText?'':wordsEl.value.trim(),n:state.noText?1:0,
+      s:sizeSel.value,wd:wIn.value,ht:hIn.value,q:qtyIn.value,x:state.pos?+state.pos.x.toFixed(1):null,y:state.pos?+state.pos.y.toFixed(1):null,k:state.scale};
+    const b=btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+    return location.origin+location.pathname+'?d='+b+'#design';
+  }catch(e){ return location.origin; }
+}
+(function loadSharedDesign(){
+  const m=/[?&]d=([^&#]+)/.exec(location.search); if(!m) return;
+  try{
+    let b=m[1].replace(/-/g,'+').replace(/_/g,'/'); while(b.length%4) b+='=';
+    const d=JSON.parse(decodeURIComponent(escape(atob(b))));
+    const pick=(id,name)=>{ const el=[...document.querySelectorAll('#'+id+' button')].find(x=>(x.title||x.textContent.trim())===name); if(el) el.click(); };
+    pick('borderSw',d.b); if(d.p) pick('paperSw',d.p); pick('textSw',d.t);
+    if(d.f>=0) fontSel.selectedIndex=d.f; state.font=fontSel.value;
+    wordsEl.value=d.w||''; if(d.n) state.noText=true;
+    sizeSel.value=d.s; wIn.value=d.wd||''; hIn.value=d.ht||''; qtyIn.value=d.q||1;
+    if(d.x!=null){ state.pos={x:d.x,y:d.y}; } if(d.k){ state.scale=d.k; tScale.value=Math.round(d.k*100); tScaleOut.textContent=tScale.value+'%'; }
+    setTimeout(()=>{ paintDesign(); previewShape(); updateWa(); document.getElementById('design').scrollIntoView(); },300);
+  }catch(e){}
+})();
 function updateWa(){
   const c = calc();
   let msg = 'Hi customizedartt, I would like to order a frame.\nSize: '+c.r.label+'\nQuantity: '+c.qty;
   if(c.unit) msg += '\nPrice per frame: ₹'+c.unit+'\nTotal: ₹'+c.total;
   msg += '\nBorder: '+state.border[0]+'\nPaper: '+state.paper[0]+(state.paper.custom?' (I will send my photo here)':'')+'\nText colour: '+state.text[0]+'\nFont: '+fontSel.options[fontSel.selectedIndex].text;
   msg += state.noText ? '\nText for the frame: none (photo only)' : '\nText for the frame: '+(wordsEl.value.trim()||'to be confirmed');
-  msg += '\n(My frame design picture is attached.)';
+  msg += '\nSee my design: '+designLink()+'\n(I will attach my design picture here.)';
   window.__waMsg = msg;
   document.getElementById('buildGo').href = 'https://wa.me/'+CONFIG.wa+'?text='+encodeURIComponent(msg);
 }
-/* Send the design: the frame picture travels with the message */
+/* Send the design: opens your WhatsApp chat directly, the picture is saved for attaching */
 (function(){
   const btn=document.getElementById('buildGo'), note=document.getElementById('sendNote');
-  let lib=null;
+  let lib=null, cache=null, timer=null, ver=0;
   function loadLib(){
     if(window.htmlToImage) return Promise.resolve();
     if(lib) return lib;
     lib=new Promise((ok,no)=>{ const sc=document.createElement('script'); sc.src='html-to-image.js'; sc.onload=ok; sc.onerror=no; document.head.appendChild(sc); });
     return lib;
   }
-  async function framePicture(){
+  async function picture(){
     await loadLib();
     if(document.fonts && document.fonts.ready) await document.fonts.ready;
-    const blob = await htmlToImage.toBlob(pvFrame,{pixelRatio:2,cacheBust:false,backgroundColor:null,
-      style:{filter:'none',animation:'none',transform:'none',margin:'0',maxWidth:'none',width:pvFrame.offsetWidth+'px'}});
+    const blob = await htmlToImage.toBlob(pvMat,{pixelRatio:2,cacheBust:false,style:{boxShadow:'none',transition:'none'}});
     if(!blob) throw new Error('no picture');
     return blob;
   }
+  window.__framePicture = picture;
   function save(blob){
     const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-frame-design.png';
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
   }
-  const dummy = ()=>{ try{ return !!(navigator.canShare && navigator.share && navigator.canShare({files:[new File([new Blob(['x'])],'a.png',{type:'image/png'})]})); }catch(e){ return false; } };
-  window.__framePicture = framePicture;
-  btn.addEventListener('click',async e=>{
+  /* get the picture ready in the background so the click is instant */
+  window.__prepPicture = function(){
+    ver++; const v=ver; cache=null; clearTimeout(timer);
+    timer=setTimeout(()=>{ picture().then(b=>{ if(v===ver) cache=b; }).catch(()=>{}); },700);
+  };
+  btn.addEventListener('click',async()=>{
     updateWa();
-    if(dummy()){
-      e.preventDefault(); note.textContent='Preparing your frame picture…';
-      try{
-        const blob=await framePicture();
-        const file=new File([blob],'my-frame-design.png',{type:'image/png'});
-        await navigator.share({files:[file],text:window.__waMsg});
-        note.textContent='Choose WhatsApp to send the picture and message together.';
-      }catch(err){
-        if(err && err.name==='AbortError'){ note.textContent='Your frame picture goes with the message.'; return; }
-        note.textContent='WhatsApp is opening. Your message is ready.'; window.open(btn.href,'_blank','noopener');
-      }
-    }else{
-      note.textContent='Saving your frame picture. Attach it in WhatsApp when it opens.';
-      framePicture().then(save).catch(()=>{ note.textContent='WhatsApp is opening. Please send us a screenshot of your design.'; });
-    }
+    if(cache){ save(cache); note.textContent='WhatsApp is opening. Your design picture is saved. Attach it to the chat.'; return; }
+    note.textContent='WhatsApp is opening. Your design picture is being saved. Attach it to the chat.';
+    try{ save(await picture()); }catch(e){ note.textContent='WhatsApp is opening. Please attach a screenshot of your design.'; }
   });
 })();
 [sizeSel,wIn,hIn,qtyIn].forEach(el=>el.addEventListener('input',updateWa));
