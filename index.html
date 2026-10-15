@@ -1008,6 +1008,16 @@ body.gv main>*:not(#galleryView){display:none!important}
 .size-help p{margin:0;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:var(--ink-soft)}
 @media (max-width:760px){.offer-tiers{gap:8px}.tier b{font-size:17px}.size-help{padding:16px}.size-help p{font-size:18px}.rail-note{font-size:18px}}
 .wm{font-size:var(--wmfs,12px)!important}
+.ptools{margin:6px 0 14px}
+.ptools .tsize{margin-top:6px}
+.ptools .word-tools{margin-top:6px}
+.gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+.gal-tile{margin:0;cursor:zoom-in}
+.gal-tile .gp{aspect-ratio:4/3;overflow:hidden;background:#e9e1d6}
+.gal-tile .gp img{width:100%;height:100%;object-fit:cover;object-position:50% 30%}
+.gal-tile .gp.fit img{object-fit:contain}
+.gal-tile figcaption{min-height:62px}
+@media (max-width:760px){.gal-grid{grid-template-columns:1fr 1fr;gap:12px}.gal-tile figcaption{min-height:0}.gal-tile figcaption span{display:none}}
 </style>
 </head>
 <body>
@@ -1168,15 +1178,12 @@ body.gv main>*:not(#galleryView){display:none!important}
 
         <div class="group">
           <span class="glabel">Paper colour and backgrounds</span>
+          <div class="ptools" id="photoTools" hidden>
+            <div class="tsize"><label for="pZoom">Zoom picture</label><input id="pZoom" type="range" min="100" max="300" step="2" value="100"><output id="pZoomOut">100%</output></div>
+            <div class="word-tools"><button type="button" class="treset" id="pReset">Reset picture</button><span class="hint" style="margin:0">Drag the picture inside the frame to move it.</span></div>
+          </div>
           <div class="swatches" id="paperSw"></div>
           <p class="sel-name" id="paperName">Pure white</p>
-        </div>
-
-        <div class="group" id="photoTools" hidden>
-          <span class="glabel">Your picture inside the frame</span>
-          <div class="tsize"><label for="pZoom">Zoom</label><input id="pZoom" type="range" min="100" max="300" step="2" value="100"><output id="pZoomOut">100%</output></div>
-          <div class="word-tools"><button type="button" class="treset" id="pReset">Reset picture</button></div>
-          <p class="hint">Drag the picture to move it inside the frame. Drag the words to move them.</p>
         </div>
 
         <div class="group">
@@ -1445,27 +1452,31 @@ body.gv main>*:not(#galleryView){display:none!important}
     <div class="wrap">
       <a class="gv-back" href="#top"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>Back to home</a>
       <p class="kicker">The gallery</p>
-      <h2 class="fit" data-max="52" data-min="26">Frames in real spaces</h2>
-      <p class="lede" style="max-width:none">Offices, cafés, salons and homes. Every frame is made to order, with your words, your photo and your colours.</p>
-      <div class="chips" id="chips" role="group" aria-label="Filter frames">
+      <h2 class="fit" data-max="52" data-min="26">More frames to explore</h2>
+      <p class="lede" style="max-width:none">Lines to start from, a closer look, and real frames in real spaces. Every frame is made to order.</p>
+      <div class="gv-block" style="margin-top:34px">
+        <h3>Just the words</h3>
+        <p>A few lines to start from. Yours can say anything you like.</p>
+        <div class="qfs"><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper "><p>Build with purpose. Deliver with pride.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-sand"><p>Great teams are built on trust.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-dark"><p>Do the work. Own the result.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-bod" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper "><p>Begin where you are, build what you dream.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-rose"><p>Small steps. Big stories.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-navy"><p>Make today worth framing.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper "><p>Home is where the best stories begin.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-sage"><p>Stay awhile. The kettle is on.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-dark"><p>Grow where life plants you.</p><i></i></div></div><figcaption>Home</figcaption></figure></div></div>
+      </div>
+
+      <div class="gv-block">
+        <h3>Up close</h3>
+        <p>Corporate frames, as they look on the wall.</p>
+        <div class="gv-video"><video id="gvVideo" muted loop playsinline preload="none" poster="corp-video-poster.jpg" data-src="corp-video.mp4" aria-label="Corporate frames up close"></video></div>
+      </div>
+
+      <div class="gv-block">
+        <h3>Frames in real spaces</h3>
+        <p>Offices, cafés, salons and homes.</p>
+        <div class="chips" id="chips" role="group" aria-label="Filter frames">
         <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
         <button class="chip" type="button" data-f="corp" aria-pressed="false">Corporate</button>
         <button class="chip" type="button" data-f="cafe" aria-pressed="false">Cafés and restaurants</button>
         <button class="chip" type="button" data-f="salon" aria-pressed="false">Salons</button>
         <button class="chip" type="button" data-f="home" aria-pressed="false">Homes and gifts</button>
       </div>
-      <div class="masonry" id="masonry"><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-corporate-posters.jpg" alt="Boardroom wall" loading="lazy"><figcaption><b>Boardroom wall</b><span>Four calm frames for a meeting room</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="family.jpg" alt="Family portrait" loading="lazy"><figcaption><b>Family portrait</b><span>A photo, names and a short line</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><img src="scene-cafe.jpg" alt="Café counter wall" loading="lazy"><figcaption><b>Café counter wall</b><span>Menu lines and mood quotes</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="scene-desk.jpg" alt="Desk frames" loading="lazy"><figcaption><b>Desk frames</b><span>Office quotes in black frames</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="couple.jpg" alt="Playing card frame" loading="lazy"><figcaption><b>Playing card frame</b><span>A couple photo in a red card design</span></figcaption></figure><figure class="gal-tile" data-cat="salon" data-tilt><img src="scene-salon.jpg" alt="Salon wall" loading="lazy"><figcaption><b>Salon wall</b><span>Mirror-side frames for a studio</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="scene-office.jpg" alt="Office set of ten" loading="lazy"><figcaption><b>Office set of ten</b><span>A full set of desk and wall quotes</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="baby.jpg" alt="Newborn keepsake" loading="lazy"><figcaption><b>Newborn keepsake</b><span>Name, date and a first photo</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><img src="cafe-quotes.jpg" alt="Café gallery wall" loading="lazy"><figcaption><b>Café gallery wall</b><span>Photos and words in matching frames</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-three-posters.jpg" alt="Meeting room trio" loading="lazy"><figcaption><b>Meeting room trio</b><span>Three lines on a glass-side wall</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="dog.jpg" alt="Pet portrait" loading="lazy"><figcaption><b>Pet portrait</b><span>A pet photo with a name and a line</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-stay-hungry.jpg" alt="Open office wall" loading="lazy"><figcaption><b>Open office wall</b><span>A single statement frame</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><img src="cafe-wall-home.jpg" alt="Lounge wall" loading="lazy"><figcaption><b>Lounge wall</b><span>Words and photos in mixed sizes</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-secret-start.jpg" alt="Reception frame" loading="lazy"><figcaption><b>Reception frame</b><span>A bold line for the front desk</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="home-new.jpg" alt="Statement frame at home" loading="lazy"><figcaption><b>Statement frame at home</b><span>A line to live by, in oak</span></figcaption></figure></div>
-
-      <div class="gv-block">
-        <h3>Up close</h3>
-        <p>Corporate frames, as they look on the wall.</p>
-        <div class="gv-video"><video id="gvVideo" controls playsinline preload="none" poster="corp-video-poster.jpg" data-src="corp-video.mp4" aria-label="Corporate frames up close"></video></div>
-      </div>
-
-      <div class="gv-block">
-        <h3>Just the words</h3>
-        <p>A few lines to start from. Yours can say anything you like.</p>
-        <div class="qfs"><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper "><p>Build with purpose. Deliver with pride.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-sand"><p>Great teams are built on trust.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-dark"><p>Do the work. Own the result.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-bod" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper "><p>Begin where you are, build what you dream.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-rose"><p>Small steps. Big stories.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-navy"><p>Make today worth framing.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper "><p>Home is where the best stories begin.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-sage"><p>Stay awhile. The kettle is on.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-dark"><p>Grow where life plants you.</p><i></i></div></div><figcaption>Home</figcaption></figure></div></div>
+<div class="gal-grid" id="masonry"><figure class="gal-tile" data-cat="corp" data-tilt><div class="gp "><img src="space-corporate-posters.jpg" alt="Boardroom wall" loading="lazy"></div><figcaption><b>Boardroom wall</b><span>Four calm frames for a meeting room</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><div class="gp "><img src="family.jpg" alt="Family portrait" loading="lazy"></div><figcaption><b>Family portrait</b><span>A photo, names and a short line</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><div class="gp "><img src="scene-cafe.jpg" alt="Café counter wall" loading="lazy"></div><figcaption><b>Café counter wall</b><span>Menu lines and mood quotes</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><div class="gp "><img src="scene-desk.jpg" alt="Desk frames" loading="lazy"></div><figcaption><b>Desk frames</b><span>Office quotes in black frames</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><div class="gp fit"><img src="couple.jpg" alt="Playing card frame" loading="lazy"></div><figcaption><b>Playing card frame</b><span>A couple photo in a red card design</span></figcaption></figure><figure class="gal-tile" data-cat="salon" data-tilt><div class="gp "><img src="scene-salon.jpg" alt="Salon wall" loading="lazy"></div><figcaption><b>Salon wall</b><span>Mirror-side frames for a studio</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><div class="gp "><img src="scene-office.jpg" alt="Office set of ten" loading="lazy"></div><figcaption><b>Office set of ten</b><span>A full set of desk and wall quotes</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><div class="gp fit"><img src="baby.jpg" alt="Newborn keepsake" loading="lazy"></div><figcaption><b>Newborn keepsake</b><span>Name, date and a first photo</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><div class="gp "><img src="cafe-quotes.jpg" alt="Café gallery wall" loading="lazy"></div><figcaption><b>Café gallery wall</b><span>Photos and words in matching frames</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><div class="gp "><img src="space-three-posters.jpg" alt="Meeting room trio" loading="lazy"></div><figcaption><b>Meeting room trio</b><span>Three lines on a glass-side wall</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><div class="gp "><img src="dog.jpg" alt="Pet portrait" loading="lazy"></div><figcaption><b>Pet portrait</b><span>A pet photo with a name and a line</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><div class="gp "><img src="cafe-wall-home.jpg" alt="Lounge wall" loading="lazy"></div><figcaption><b>Lounge wall</b><span>Words and photos in mixed sizes</span></figcaption></figure></div>
       </div>
 
       <div class="gv-cta">
@@ -2327,9 +2338,9 @@ const REVIEWS_URL = '/api/review';
   });
   const v=document.getElementById('gvVideo');
   if(v && 'IntersectionObserver' in window) new IntersectionObserver(es=>es.forEach(en=>{
-    if(en.isIntersecting && !v.src){ v.src=v.dataset.src; v.load(); }
-    if(!en.isIntersecting) v.pause();
-  }),{threshold:.2}).observe(v);
+    if(en.isIntersecting){ if(!v.src){ v.src=v.dataset.src; v.load(); } v.muted=true; const pr=v.play(); if(pr&&pr.catch) pr.catch(()=>{}); }
+    else v.pause();
+  }),{threshold:.35}).observe(v);
   const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCap=document.getElementById('lbCap');
   document.getElementById('masonry').addEventListener('click',e=>{
     const t=e.target.closest('.gal-tile'); if(!t) return;
