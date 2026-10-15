@@ -1018,6 +1018,15 @@ body.gv main>*:not(#galleryView){display:none!important}
 .gal-tile .gp.fit img{object-fit:contain}
 .gal-tile figcaption{min-height:62px}
 @media (max-width:760px){.gal-grid{grid-template-columns:1fr 1fr;gap:12px}.gal-tile figcaption{min-height:0}.gal-tile figcaption span{display:none}}
+.swrow{flex:0 0 100%;display:flex;flex-wrap:wrap;gap:9px;padding:3px;margin:-3px;overflow:hidden;--swh:30px;max-height:calc(var(--swh) + 8px)}
+.swrow.open{max-height:none}
+.cdrop .swrow{--swh:34px}
+.more-sw{flex:0 0 100%;display:inline-block;width:max-content;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:underline;text-underline-offset:4px;cursor:pointer;margin:2px 0 8px;color:var(--ink)}
+.outline-box{margin-top:18px}
+.glabel.sub{margin-bottom:8px}
+.olrow{margin:0}
+.olrow button{display:inline-flex;align-items:center;gap:7px}
+.olrow i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(22,20,26,.3);display:inline-block}
 </style>
 </head>
 <body>
@@ -1159,18 +1168,6 @@ body.gv main>*:not(#galleryView){display:none!important}
 
       <div class="rv ctrl-a">
         <div class="group">
-          <label class="glabel" for="words">Your words</label>
-          <textarea id="words" maxlength="120" rows="3" placeholder="Type the line you want printed"></textarea>
-          <div class="count"><span id="cnt">0</span> / 120</div>
-          <div class="word-tools">
-            <button type="button" class="notext" id="noText" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg><span>No text needed</span></button>
-            <button type="button" class="treset" id="tReset">Reset text</button>
-          </div>
-          <div class="tsize" id="tSizeRow"><label for="tScale">Text size</label><input id="tScale" type="range" min="40" max="260" step="2" value="100"><output id="tScaleOut">100%</output></div>
-          <p class="hint" id="moveHint">Drag the words inside the frame to move them.</p>
-        </div>
-
-        <div class="group">
           <span class="glabel">Wooden frame border</span>
           <div class="swatches" id="borderSw"></div>
           <p class="sel-name" id="borderName">Black</p>
@@ -1187,15 +1184,38 @@ body.gv main>*:not(#galleryView){display:none!important}
         </div>
 
         <div class="group">
+          <label class="glabel" for="words">Your words</label>
+          <textarea id="words" maxlength="120" rows="3" placeholder="Type the line you want printed"></textarea>
+          <div class="count"><span id="cnt">0</span> / 120</div>
+          <div class="word-tools">
+            <button type="button" class="notext" id="noText" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/></svg><span>No text needed</span></button>
+            <button type="button" class="treset" id="tReset">Reset text</button>
+          </div>
+          <div class="tsize" id="tSizeRow"><label for="tScale">Text size</label><input id="tScale" type="range" min="40" max="260" step="2" value="100"><output id="tScaleOut">100%</output></div>
+          <p class="hint" id="moveHint">Drag the words inside the frame to move them.</p>
+        </div>
+
+        <div class="group">
           <span class="glabel">Text colour</span>
           <div class="swatches" id="textSw"></div>
           <p class="sel-name" id="textName">Black</p>
+          <div class="outline-box">
+            <span class="glabel sub">Text outline</span>
+            <div class="orient olrow" id="olRow" role="group" aria-label="Text outline">
+              <button type="button" data-c="" aria-pressed="true">None</button>
+              <button type="button" data-c="#ffffff" aria-pressed="false"><i style="background:#fff"></i>White</button>
+              <button type="button" data-c="#111111" aria-pressed="false"><i style="background:#111"></i>Black</button>
+              <button type="button" data-c="#d9b45a" aria-pressed="false"><i style="background:#d9b45a"></i>Gold</button>
+            </div>
+            <div class="tsize" id="olWRow" hidden><label for="olW">Thickness</label><input id="olW" type="range" min="1" max="6" step="1" value="2"><output id="olWOut">2</output></div>
+          </div>
         </div>
 
         <div class="group">
           <label class="glabel" for="font">Font</label>
           <select id="font"></select>
         </div>
+
       </div>
       </div>
 
@@ -1749,7 +1769,7 @@ const pvLine = document.getElementById('pvLine');
 const wordsEl = document.getElementById('words');
 const fontSel = document.getElementById('font');
 FONTS.forEach(f=>{ const o=document.createElement('option'); o.value=f[1]; o.textContent=f[0]; fontSel.appendChild(o); });
-let state = {border:BORDERS[0], paper:PAPER_COLOURS[0], text:TEXTS[0], font:FONTS[0][1], noText:false, pos:null, scale:1};
+let state = {border:BORDERS[0], paper:PAPER_COLOURS[0], text:TEXTS[0], font:FONTS[0][1], noText:false, pos:null, scale:1, outline:null, olw:2};
 /* The picture inside the frame: move and zoom (works with your own photo and the photo backgrounds) */
 const pvPhoto = document.getElementById('pvPhoto');
 const photoState = {url:null, ar:1, z:1, ox:.5, oy:.5, key:null};
@@ -1844,6 +1864,14 @@ function fitDesign(){
   let fs = Math.min(44, Math.max(8, Math.round(pvMat.clientWidth/6))); pvLine.style.fontSize = fs+'px';
   while((pvLine.scrollWidth>maxW || pvLine.scrollHeight>maxH) && fs>4){ fs--; pvLine.style.fontSize = fs+'px'; }
   pvLine.style.fontSize = (fs*state.scale)+'px';
+  applyOutline();
+}
+function applyOutline(){
+  const o=state.outline;
+  if(!o || state.noText){ pvLine.style.textShadow=''; return; }
+  const fs=parseFloat(pvLine.style.fontSize)||20, t=Math.max(.6,fs*.022*state.olw), sh=[];
+  for(let a=0;a<360;a+=30){ sh.push((Math.cos(a*Math.PI/180)*t).toFixed(2)+'px '+(Math.sin(a*Math.PI/180)*t).toFixed(2)+'px 0 '+o); }
+  pvLine.style.textShadow=sh.join(',');
 }
 /* No text, text size and dragging the words */
 document.getElementById('noText').addEventListener('click',()=>{ state.noText=!state.noText; paintDesign(); });
@@ -1881,9 +1909,23 @@ function pickPaper(c){
   }
   paintDesign();
 }
+function collapseRows(el){
+  let run=[];
+  const flush=()=>{
+    if(!run.length) return;
+    const row=document.createElement('div'); row.className='swrow'; run[0].before(row); run.forEach(b=>row.appendChild(b));
+    const t=document.createElement('span'); t.className='more-sw'; t.setAttribute('role','button'); t.tabIndex=0; t.textContent='More colours'; row.after(t);
+    const tog=()=>{ const o=row.classList.toggle('open'); t.textContent=o?'Fewer colours':'More colours'; };
+    t.addEventListener('click',tog); t.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); tog(); } });
+    run=[];
+  };
+  [...el.children].forEach(k=>{ if(k.matches('button[data-i]')) run.push(k); else flush(); }); flush();
+}
 swatchGroup(document.getElementById('paperSw'), PAPERS, pickPaper, PAPER_SEPS);
+collapseRows(document.getElementById('paperSw'));
 [...document.querySelectorAll('#paperSw button[data-i]')].forEach(b=>b.setAttribute('aria-pressed', PAPERS[+b.dataset.i]===state.paper));
 swatchGroup(document.getElementById('textSw'), TEXTS, c=>{ state.text=c; state.textTouched=true; paintDesign(); });
+collapseRows(document.getElementById('textSw'));
 
 /* Colour dropdowns (phone only; desktop keeps the open swatches) */
 const dropFor = {paperSw:()=>state.paper, textSw:()=>state.text};
@@ -1904,6 +1946,15 @@ Object.keys(dropFor).forEach(id=>{
 });
 syncColourDrops();
 fontSel.addEventListener('change',()=>{ state.font=fontSel.value; paintDesign(); });
+(function(){
+  const row=document.getElementById('olRow'), wr=document.getElementById('olWRow'), w=document.getElementById('olW'), wo=document.getElementById('olWOut');
+  row.addEventListener('click',e=>{
+    const b=e.target.closest('button[data-c]'); if(!b) return;
+    [...row.querySelectorAll('button')].forEach(x=>x.setAttribute('aria-pressed',x===b));
+    state.outline=b.dataset.c||null; wr.hidden=!state.outline; applyOutline(); updateWa(); if(window.__prepPicture) window.__prepPicture();
+  });
+  w.addEventListener('input',()=>{ state.olw=+w.value; wo.textContent=w.value; applyOutline(); if(window.__prepPicture) window.__prepPicture(); });
+})();
 wordsEl.addEventListener('input',paintDesign);
 
 /* CALCULATOR: starts at 400 */
@@ -2015,6 +2066,7 @@ function updateWa(){
   let msg = 'Hi customizedartt, I would like to order a frame.\nSize: '+c.r.label+'\nQuantity: '+c.qty;
   if(c.unit) msg += '\nPrice per frame: ₹'+c.unit+(c.off?' (₹'+c.off+' offer applied)':'')+'\nTotal: ₹'+c.total;
   msg += '\nBorder: '+state.border[0]+'\nPaper: '+state.paper[0]+(state.paper.custom?' (my own photo)':'')+'\nText colour: '+state.text[0]+'\nFont: '+fontSel.options[fontSel.selectedIndex].text;
+  if(state.outline && !state.noText) msg += '\nText outline: '+(({'#ffffff':'White','#111111':'Black','#d9b45a':'Gold'})[state.outline]||'Yes');
   msg += state.noText ? '\nText for the frame: none (photo only)' : '\nText for the frame: '+(wordsEl.value.trim()||'to be confirmed');
   window.__waMsg = msg;
   window.__waInfo = {size:c.r.label, qty:String(c.qty), price:c.unit?('₹'+c.unit+' each, total ₹'+c.total):'', border:state.border[0], paper:state.paper[0], colour:state.text[0], font:fontSel.options[fontSel.selectedIndex].text, text:state.noText?'None (photo only)':(wordsEl.value.trim()||'')};
