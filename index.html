@@ -761,7 +761,7 @@ section{padding-block:32px}
 
 /* DESIGNER: no text, move, size, watermark */
 .dmat{position:relative;display:block}
-.dline{position:absolute;left:var(--tx,50%);top:var(--ty,50%);transform:translate(-50%,-50%);width:max-content;max-width:88%;padding:4px 6px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;outline-offset:2px}
+.dline{position:absolute;left:var(--tx,50%);top:var(--ty,50%);transform:translate(-50%,-50%);width:max-content;max-width:84%;padding:4px 6px;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;outline-offset:2px}
 .dline.drag{cursor:grabbing}
 .dline:hover,.dline:focus-visible{outline:1px dashed rgba(120,120,120,.7)}
 .dline[hidden]{display:none}
@@ -893,6 +893,121 @@ h1,h2,h3{letter-spacing:.012em}
 .cat-head{align-items:center}
 .cat-head>div{min-width:0}
 @media(max-width:560px){.cat-head .cat-title{gap:8px}.cat-head .cat-title .ic{width:22px;height:22px}}
+
+/* ===== v10: professional polish ===== */
+section>.wrap>.lede.rv,.swipe-head .lede{max-width:none}
+.swipe-head>div:first-child{flex:1;min-width:0}
+.rail-note{margin:6px 0 0;text-align:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:var(--ink-soft)}
+/* trust band */
+.trust{background:#16141a;color:#f7f4f1;padding-block:34px;border-block:1px solid rgba(255,255,255,.08)}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.trust-item{text-align:center;padding:6px 14px;border-left:1px solid rgba(255,255,255,.14)}
+.trust-item:first-child{border-left:0}
+.trust-num{font-family:"Playfair Display",serif;font-size:clamp(34px,4.6vw,54px);line-height:1;color:#d9b45a;font-weight:600;font-variant-numeric:tabular-nums}
+.trust-lab{font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-top:10px;color:#e8e1dc}
+@media (max-width:700px){.trust{padding-block:26px}.trust-grid{grid-template-columns:1fr 1fr;row-gap:22px}.trust-item:nth-child(3){border-left:0}.trust-lab{font-size:10px;letter-spacing:.12em}}
+/* 3D tilt */
+[data-tilt]{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px));transition:transform .55s cubic-bezier(.2,.8,.2,1),box-shadow .5s ease;will-change:transform}
+[data-tilt].tilting{transition:transform .12s linear,box-shadow .4s ease;--ty:-6px}
+[data-tilt].tilting{box-shadow:0 34px 50px -30px rgba(22,20,26,.55)}
+.pcard:hover{transform:none}
+.pcard[data-tilt]:hover{transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateY(var(--ty,0px))}
+/* scenes: three real frames on the home page */
+.scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:30px}
+.scene{margin:0;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);position:relative;display:flex;flex-direction:column}
+.scene .pic{aspect-ratio:3/2;overflow:hidden;position:relative;background:#e9e4dc}
+.scene .pic img{width:100%;height:100%;object-fit:cover;object-position:50% 16%;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.scene:hover .pic img{transform:scale(1.06)}
+.scene .shine{position:absolute;inset:0;background:radial-gradient(circle at var(--sx,50%) var(--sy,50%),rgba(255,255,255,.3),transparent 55%);opacity:0;transition:opacity .35s;pointer-events:none}
+.scene:hover .shine{opacity:1}
+.scene figcaption{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1}
+.scene h3{margin:0;font-family:"Playfair Display",serif;font-size:23px;font-weight:600;line-height:1.2}
+.scene figcaption p{margin:0;font-size:13px;color:var(--ink-soft)}
+.scene .lnk{margin-top:auto;padding-top:8px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;align-self:flex-start;padding-bottom:3px}
+.more-row{display:flex;justify-content:center;margin-top:34px}
+.more-row .btn{padding-inline:30px}
+@media (max-width:900px){
+  .scenes{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin-inline:calc(-1*var(--gut,18px));padding:6px var(--gut,18px) 18px;scrollbar-width:none}
+  .scenes::-webkit-scrollbar{display:none}
+  .scene{flex:0 0 84%;scroll-snap-align:center}
+  .more-row{margin-top:10px}
+}
+/* gallery view */
+#galleryView{display:none}
+body.gv #galleryView{display:block}
+body.gv main>*:not(#galleryView){display:none!important}
+.gv-back{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;margin-bottom:22px}
+.gv-back svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 22px}
+.chip{border:1px solid var(--line);background:transparent;padding:9px 16px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:background .25s,color .25s}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.masonry{columns:3 300px;column-gap:20px}
+.gal-tile{break-inside:avoid;margin:0 0 20px;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);cursor:zoom-in;position:relative;overflow:hidden}
+.gal-tile[hidden]{display:none}
+.gal-tile img{width:100%;height:auto;display:block;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.gal-tile:hover img{transform:scale(1.04)}
+.gal-tile figcaption{padding:12px 16px 14px;font-size:12px;letter-spacing:.04em}
+.gal-tile figcaption b{display:block;font-family:"Playfair Display",serif;font-size:17px;font-weight:600;letter-spacing:0;margin-bottom:2px}
+.gal-tile figcaption span{color:var(--ink-soft)}
+.gv-block{margin-top:56px}
+.gv-block h3{font-family:"Playfair Display",serif;font-size:clamp(26px,3.4vw,36px);margin:0 0 6px;font-weight:600}
+.gv-block>p{margin:0 0 22px;color:var(--ink-soft)}
+.gv-video{position:relative;background:#111;border:1px solid var(--line);box-shadow:var(--shadow);aspect-ratio:16/9;overflow:hidden}
+.gv-video video{width:100%;height:100%;object-fit:contain;display:block;background:#111}
+/* just the words */
+.qfs{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.qf{margin:0}
+.qf-frame{padding:clamp(8px,2.2cqw,14px);aspect-ratio:4/5;box-shadow:inset 1px 1px 0 rgba(255,255,255,.4),inset -1px -1px 0 rgba(0,0,0,.25),0 22px 28px -18px rgba(22,20,26,.45);container-type:inline-size;display:block}
+.qf-frame.b1{background:linear-gradient(135deg,#34303a,#121014 45%,#2b2730 70%,#0b0a0c)}
+.qf-frame.b2{background:linear-gradient(135deg,#fff,#ece8e2 45%,#fbfaf7 70%,#e2ddd5);box-shadow:inset 1px 1px 0 #fff,inset -1px -1px 0 rgba(0,0,0,.15),0 22px 28px -18px rgba(22,20,26,.35),0 0 0 1px rgba(22,20,26,.08)}
+.qf-frame.b3{background:repeating-linear-gradient(92deg,rgba(60,30,10,.2) 0 1px,transparent 1px 7px),linear-gradient(135deg,#9a6638,#6b4226 40%,#8a5a34 65%,#5a3520)}
+.qf-paper{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10%;background:#fbfaf7;box-shadow:inset 0 0 0 1px rgba(0,0,0,.14);container-type:inline-size}
+.qf-paper p{margin:0;font-size:11.5cqw;line-height:1.18;font-weight:600;color:#16141a;text-wrap:balance}
+.qf-paper i{display:block;width:16%;height:2px;background:currentColor;opacity:.55;margin:9% auto 0}
+.qf-paper.p-dark{background:#17151b;color:#f4ecd8}.qf-paper.p-dark p{color:#f4ecd8}
+.qf-paper.p-sand{background:#eadcc5}
+.qf-paper.p-rose{background:#f7d4d8}
+.qf-paper.p-sage{background:#cfdcc0}
+.qf-paper.p-navy{background:#1d2a4f}.qf-paper.p-navy p{color:#f6efdc}
+.qf figcaption{margin-top:12px;text-align:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.f-play .qf-paper p{font-family:"Playfair Display",serif}.f-corm .qf-paper p{font-family:"Cormorant Garamond",serif;font-style:italic}.f-cin .qf-paper p{font-family:Cinzel,serif;font-size:9.6cqw;letter-spacing:.04em}.f-dm .qf-paper p{font-family:"DM Serif Display",serif}.f-bod .qf-paper p{font-family:"Bodoni Moda",serif}
+@media (max-width:760px){.qfs{grid-template-columns:1fr 1fr;gap:16px}.masonry{columns:2 150px;column-gap:12px}.gal-tile{margin-bottom:12px}.gal-tile figcaption{padding:9px 10px 11px}.gal-tile figcaption b{font-size:14px}.gv-block{margin-top:40px}}
+.gv-cta{margin-top:56px;background:#16141a;color:#f7f4f1;padding:40px 24px;text-align:center}
+.gv-cta h3{font-family:"Playfair Display",serif;font-size:clamp(26px,3.6vw,38px);margin:0 0 8px;font-weight:600}
+.gv-cta p{margin:0 auto 22px;max-width:56ch;color:#e3dce2}
+.gv-cta .row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.gv-cta .btn{background:transparent;border:1px solid #f7f4f1;color:#f7f4f1}
+.gv-cta .btn.solid{background:#f7f4f1;color:#16141a}
+/* lightbox */
+.lb{position:fixed;inset:0;background:rgba(10,9,12,.92);z-index:200;display:grid;place-items:center;padding:20px}
+.lb[hidden]{display:none}
+.lb img{max-width:100%;max-height:86vh;width:auto;height:auto;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.lb p{color:#f7f4f1;text-align:center;margin:12px 0 0;font-size:13px;letter-spacing:.06em}
+.lb button{position:absolute;top:14px;right:16px;border:0;background:none;color:#fff;font-size:34px;line-height:1;cursor:pointer;padding:6px 12px}
+/* designer additions */
+.dphoto{position:absolute;max-width:none;display:block;user-select:none;-webkit-user-drag:none;pointer-events:none;left:0;top:0}
+.dphoto[hidden]{display:none}
+.dmat.has-photo{cursor:grab;touch-action:none}
+.dmat.pdrag{cursor:grabbing}
+.orient{display:flex;gap:8px;margin:10px 0 16px}
+.orient[hidden]{display:none}
+.orient button{border:1px solid var(--line);background:transparent;padding:9px 16px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.orient button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.offer{margin-top:16px;border:1px solid var(--line);background:var(--card);padding:14px 16px}
+.offer-head{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px}
+.offer-head::before{content:"";width:6px;height:6px;background:#b8902e;transform:rotate(45deg)}
+.offer-tiers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tier{border:1px solid var(--line);padding:10px 12px;display:flex;flex-direction:column;gap:2px;transition:background .3s,border-color .3s,color .3s}
+.tier b{font-family:"Playfair Display",serif;font-size:20px;font-weight:600}
+.tier span{font-size:11px;color:var(--ink-soft);letter-spacing:.04em}
+.tier.on{background:#16141a;border-color:#16141a;color:#f7f4f1}
+.tier.on span{color:#d9b45a}
+.offer-hint{margin:10px 0 0;font-size:12px;color:var(--ink-soft)}
+.lead-time{margin:10px 0 0;font-size:12px;color:var(--ink-soft)}
+.size-help{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-top:36px;padding:20px 24px;border:1px solid var(--line);background:var(--card)}
+.size-help p{margin:0;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:22px;color:var(--ink-soft)}
+@media (max-width:760px){.offer-tiers{gap:8px}.tier b{font-size:17px}.size-help{padding:16px}.size-help p{font-size:18px}.rail-note{font-size:18px}}
+.wm{font-size:var(--wmfs,12px)!important}
 </style>
 </head>
 <body>
@@ -904,6 +1019,7 @@ h1,h2,h3{letter-spacing:.012em}
     <a class="mark" href="#top">customizedartt</a>
     <ul class="links" id="navLinks">
       <li><a href="#frames">Frames</a></li>
+      <li><a href="#gallery">Gallery</a></li>
       <li><a href="#design">Design</a></li>
       <li><a href="#finish">Finish</a></li>
       <li><a href="#enquire">Enquire</a></li>
@@ -955,6 +1071,15 @@ h1,h2,h3{letter-spacing:.012em}
 
 <div class="strip"><p id="stripLine">Where words meet wood.</p></div>
 
+<section class="trust" aria-label="customizedartt in numbers">
+  <div class="wrap trust-grid">
+    <div class="trust-item"><div class="trust-num"><span data-count="100" data-suffix="+">100+</span></div><div class="trust-lab">Orders completed</div></div>
+    <div class="trust-item"><div class="trust-num"><span data-count="7" data-suffix="+">7+</span></div><div class="trust-lab">Years of framing</div></div>
+    <div class="trust-item"><div class="trust-num"><span data-count="3">3</span></div><div class="trust-lab">Border finishes</div></div>
+    <div class="trust-item"><div class="trust-num"><span data-count="10">10</span></div><div class="trust-lab">Days notice to order</div></div>
+  </div>
+</section>
+
 <!-- FRAMES: swipe -->
 <section id="frames">
   <div class="wrap">
@@ -970,10 +1095,7 @@ h1,h2,h3{letter-spacing:.012em}
       </div>
     </div>
     <div class="rail" id="rail" tabindex="0" aria-label="Frame gallery"></div>
-    <div class="mascot-slot rv" style="margin-top:6px">
-      <img class="mascot" src="mascot.png" alt="customizedartt mascot" loading="lazy">
-      <p>Tell us which frame you like. We will reply with the size and price.</p>
-    </div>
+    <p class="rail-note rv">Tell us which frame you like. We will reply with the size and price.</p>
   </div>
 </section>
 
@@ -994,9 +1116,17 @@ h1,h2,h3{letter-spacing:.012em}
 <section id="collections">
   <div class="wrap">
     <p class="kicker rv">The gallery</p>
-    <h2 class="fit rv" data-max="52" data-min="26">Words worth<br>framing</h2>
-    <p class="lede rv">Real frames in real spaces, and the lines that fill them. Yours can say anything you like.</p>
-    <div class="cats" id="cats"></div>
+    <h2 class="fit rv" data-max="52" data-min="26">Words worth framing</h2>
+    <p class="lede rv">Real frames in real spaces. Yours can say anything you like.</p>
+    <div class="scenes rv" id="scenes">
+      <figure class="scene" data-tilt><div class="pic"><img src="scene-desk.jpg" alt="Three black framed quotes on an office desk" loading="lazy"><span class="shine"></span></div>
+        <figcaption><h3>Corporate spaces</h3><p>For reception walls, desks and meeting rooms.</p><a class="lnk" target="_blank" rel="noopener" href="https://wa.me/919004217186?text=Hi%20customizedartt%2C%20I%20would%20like%20frames%20for%20my%20office.">Ask about this wall</a></figcaption></figure>
+      <figure class="scene" data-tilt><div class="pic"><img src="scene-cafe.jpg" alt="Three framed posters on a café wall" loading="lazy"><span class="shine"></span></div>
+        <figcaption><h3>Cafés and restaurants</h3><p>For counters, menus and dining walls.</p><a class="lnk" target="_blank" rel="noopener" href="https://wa.me/919004217186?text=Hi%20customizedartt%2C%20I%20would%20like%20frames%20for%20my%20caf%C3%A9%20or%20restaurant.">Ask about this wall</a></figcaption></figure>
+      <figure class="scene" data-tilt><div class="pic"><img src="scene-salon.jpg" alt="Three framed posters in a salon" loading="lazy"><span class="shine"></span></div>
+        <figcaption><h3>Salons and studios</h3><p>For mirrors, reception and waiting areas.</p><a class="lnk" target="_blank" rel="noopener" href="https://wa.me/919004217186?text=Hi%20customizedartt%2C%20I%20would%20like%20frames%20for%20my%20salon.">Ask about this wall</a></figcaption></figure>
+    </div>
+    <div class="more-row rv"><a class="btn btn-ink" href="#gallery" id="seeMore">See more frames</a></div>
   </div>
 </section>
 
@@ -1011,10 +1141,10 @@ h1,h2,h3{letter-spacing:.012em}
       <div class="dz-a">
       <div class="preview rv">
         <div class="dframe" id="pvFrame">
-          <div class="dmat" id="pvMat"><p class="dline" id="pvLine" tabindex="0" aria-label="Your words. Drag to move.">Your line appears here</p></div>
+          <div class="dmat" id="pvMat"><img class="dphoto" id="pvPhoto" alt="" hidden draggable="false"><p class="dline" id="pvLine" tabindex="0" aria-label="Your words. Drag to move.">Your line appears here</p></div>
           <span class="wm" id="wm" aria-hidden="true">customizedartt</span>
         </div>
-        <p class="preview-note">Preview only. Colours may look slightly different on print.</p>
+        <p class="preview-note" id="pvNote">Shown to scale. Colours may look slightly different on print.</p>
       </div>
 
       <div class="rv ctrl-a">
@@ -1042,6 +1172,13 @@ h1,h2,h3{letter-spacing:.012em}
           <p class="sel-name" id="paperName">Pure white</p>
         </div>
 
+        <div class="group" id="photoTools" hidden>
+          <span class="glabel">Your picture inside the frame</span>
+          <div class="tsize"><label for="pZoom">Zoom</label><input id="pZoom" type="range" min="100" max="300" step="2" value="100"><output id="pZoomOut">100%</output></div>
+          <div class="word-tools"><button type="button" class="treset" id="pReset">Reset picture</button></div>
+          <p class="hint">Drag the picture to move it inside the frame. Drag the words to move them.</p>
+        </div>
+
         <div class="group">
           <span class="glabel">Text colour</span>
           <div class="swatches" id="textSw"></div>
@@ -1062,6 +1199,7 @@ h1,h2,h3{letter-spacing:.012em}
             <label for="size">Size</label>
             <select id="size"></select>
           </div>
+          <div class="orient" id="orient" role="group" aria-label="Frame direction"><button type="button" data-o="p" aria-pressed="true">Portrait</button><button type="button" data-o="l" aria-pressed="false">Landscape</button></div>
           <div class="dims" id="dims" hidden>
             <div class="field">
               <label for="w">Width</label>
@@ -1076,10 +1214,19 @@ h1,h2,h3{letter-spacing:.012em}
             <label for="qty">Quantity</label>
             <input id="qty" type="number" min="1" max="500" step="1" value="1">
           </div>
+          <div class="offer" id="offer">
+            <div class="offer-head">Multi-frame offer</div>
+            <div class="offer-tiers">
+              <div class="tier" data-t="2"><b>₹25 off</b><span>each, on 2 or 3 frames</span></div>
+              <div class="tier" data-t="4"><b>₹50 off</b><span>each, on 4 or more frames</span></div>
+            </div>
+            <p class="offer-hint" id="offerHint"></p>
+          </div>
           <div class="price-box" aria-live="polite">
             <div class="row"><span>Frame size</span><span id="outSize">3 × 3</span></div>
             <div class="row"><span>Price per frame</span><span id="outUnit">₹400</span></div>
             <div class="row"><span>Quantity</span><span id="outQty">1</span></div>
+            <div class="row" id="offRow"><span>Offer</span><span id="outOff">None</span></div>
             <div class="total" id="outTotal">₹400</div>
           </div>
           <p class="bulk">Bulk orders can be negotiated. Message us on WhatsApp with your quantity.</p>
@@ -1088,14 +1235,15 @@ h1,h2,h3{letter-spacing:.012em}
 
         <div class="ctas">
           <a class="btn btn-ink" id="buildGo" href="https://wa.me/919004217186" target="_blank" rel="noopener">Send this design on WhatsApp</a>
-          <p class="send-note" id="sendNote" role="status" aria-live="polite">Your frame picture goes with the message.</p>
+          <p class="send-note" id="sendNote" role="status" aria-live="polite">Your design picture goes with the message as a short link.</p>
+          <p class="lead-time">Please order at least 10 days before you need the frame.</p>
         </div>
       </div>
     </div>
 
-    <div class="mascot-slot rv" style="margin-top:36px">
-      <img class="mascot lg" src="mascot.png" alt="" loading="lazy">
+    <div class="size-help rv">
       <p>Not sure which size suits your wall? Send us a photo of the space and we will suggest one.</p>
+      <a class="btn" target="_blank" rel="noopener" href="https://wa.me/919004217186?text=Hi%20customizedartt%2C%20I%20am%20not%20sure%20which%20size%20suits%20my%20wall.%20Here%20is%20a%20photo.">Send a photo of your wall</a>
     </div>
   </div>
 </section>
@@ -1137,10 +1285,6 @@ h1,h2,h3{letter-spacing:.012em}
       <h2 class="fit" data-max="52" data-min="26">Custom frames,<br>made around you</h2>
       <p class="lede">customizedartt makes personalised wooden frames for people and businesses. We print, frame and finish each piece by hand.</p>
       <p class="about-more">From a single gift for someone special to a full wall for an office or café, every frame starts with your idea and ends with a finish we are proud of.</p>
-      <div class="mascot-slot" style="justify-content:flex-start;margin-top:18px">
-        <img class="mascot" src="mascot.png" alt="" loading="lazy" style="width:80px">
-        <p>Every piece starts as your idea.</p>
-      </div>
     </div>
     <div class="stats rv">
       <div class="stat"><span class="ic" data-icon="calendar"></span><b>7+</b><span>years of framing</span></div>
@@ -1235,7 +1379,7 @@ h1,h2,h3{letter-spacing:.012em}
       <div class="reach rv">
         <a class="reach-card" href="https://wa.me/919004217186" target="_blank" rel="noopener"><span class="ic" data-icon="phone"></span><div><b>WhatsApp and phone</b><strong>+91 90042 17186</strong><em>Chat now</em></div></a>
         <a class="reach-card" href="mailto:customizedarttbytuba@gmail.com"><span class="ic" data-icon="mail"></span><div><b>Email</b><strong>customizedarttbytuba@gmail.com</strong><em>Write to us</em></div></a>
-        <div class="reach-card"><span class="ic" data-icon="calendar"></span><div><b>Plan ahead</b><strong>Order a week before you need it</strong><em style="text-decoration:none">Made to order, finished by hand</em></div></div>
+        <div class="reach-card"><span class="ic" data-icon="calendar"></span><div><b>Plan ahead</b><strong>Order at least 10 days before you need it</strong><em style="text-decoration:none">Made to order, finished by hand</em></div></div>
       </div>
     </div>
   </div>
@@ -1294,7 +1438,47 @@ h1,h2,h3{letter-spacing:.012em}
   </div>
 </section>
 
+
+<!-- FULL GALLERY (its own view) -->
+<div id="galleryView" aria-label="Full gallery">
+  <section style="padding-bottom:20px">
+    <div class="wrap">
+      <a class="gv-back" href="#top"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>Back to home</a>
+      <p class="kicker">The gallery</p>
+      <h2 class="fit" data-max="52" data-min="26">Frames in real spaces</h2>
+      <p class="lede" style="max-width:none">Offices, cafés, salons and homes. Every frame is made to order, with your words, your photo and your colours.</p>
+      <div class="chips" id="chips" role="group" aria-label="Filter frames">
+        <button class="chip" type="button" data-f="all" aria-pressed="true">All</button>
+        <button class="chip" type="button" data-f="corp" aria-pressed="false">Corporate</button>
+        <button class="chip" type="button" data-f="cafe" aria-pressed="false">Cafés and restaurants</button>
+        <button class="chip" type="button" data-f="salon" aria-pressed="false">Salons</button>
+        <button class="chip" type="button" data-f="home" aria-pressed="false">Homes and gifts</button>
+      </div>
+      <div class="masonry" id="masonry"><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-corporate-posters.jpg" alt="Boardroom wall" loading="lazy"><figcaption><b>Boardroom wall</b><span>Four calm frames for a meeting room</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="family.jpg" alt="Family portrait" loading="lazy"><figcaption><b>Family portrait</b><span>A photo, names and a short line</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><img src="scene-cafe.jpg" alt="Café counter wall" loading="lazy"><figcaption><b>Café counter wall</b><span>Menu lines and mood quotes</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="scene-desk.jpg" alt="Desk frames" loading="lazy"><figcaption><b>Desk frames</b><span>Office quotes in black frames</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="couple.jpg" alt="Playing card frame" loading="lazy"><figcaption><b>Playing card frame</b><span>A couple photo in a red card design</span></figcaption></figure><figure class="gal-tile" data-cat="salon" data-tilt><img src="scene-salon.jpg" alt="Salon wall" loading="lazy"><figcaption><b>Salon wall</b><span>Mirror-side frames for a studio</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="scene-office.jpg" alt="Office set of ten" loading="lazy"><figcaption><b>Office set of ten</b><span>A full set of desk and wall quotes</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="baby.jpg" alt="Newborn keepsake" loading="lazy"><figcaption><b>Newborn keepsake</b><span>Name, date and a first photo</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><img src="cafe-quotes.jpg" alt="Café gallery wall" loading="lazy"><figcaption><b>Café gallery wall</b><span>Photos and words in matching frames</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-three-posters.jpg" alt="Meeting room trio" loading="lazy"><figcaption><b>Meeting room trio</b><span>Three lines on a glass-side wall</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="dog.jpg" alt="Pet portrait" loading="lazy"><figcaption><b>Pet portrait</b><span>A pet photo with a name and a line</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-stay-hungry.jpg" alt="Open office wall" loading="lazy"><figcaption><b>Open office wall</b><span>A single statement frame</span></figcaption></figure><figure class="gal-tile" data-cat="cafe" data-tilt><img src="cafe-wall-home.jpg" alt="Lounge wall" loading="lazy"><figcaption><b>Lounge wall</b><span>Words and photos in mixed sizes</span></figcaption></figure><figure class="gal-tile" data-cat="corp" data-tilt><img src="space-secret-start.jpg" alt="Reception frame" loading="lazy"><figcaption><b>Reception frame</b><span>A bold line for the front desk</span></figcaption></figure><figure class="gal-tile" data-cat="home" data-tilt><img src="home-new.jpg" alt="Statement frame at home" loading="lazy"><figcaption><b>Statement frame at home</b><span>A line to live by, in oak</span></figcaption></figure></div>
+
+      <div class="gv-block">
+        <h3>Up close</h3>
+        <p>Corporate frames, as they look on the wall.</p>
+        <div class="gv-video"><video id="gvVideo" controls playsinline preload="none" poster="corp-video-poster.jpg" data-src="corp-video.mp4" aria-label="Corporate frames up close"></video></div>
+      </div>
+
+      <div class="gv-block">
+        <h3>Just the words</h3>
+        <p>A few lines to start from. Yours can say anything you like.</p>
+        <div class="qfs"><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper "><p>Build with purpose. Deliver with pride.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-sand"><p>Great teams are built on trust.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-dark"><p>Do the work. Own the result.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-bod" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper "><p>Begin where you are, build what you dream.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-rose"><p>Small steps. Big stories.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-navy"><p>Make today worth framing.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper "><p>Home is where the best stories begin.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-sage"><p>Stay awhile. The kettle is on.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-dark"><p>Grow where life plants you.</p><i></i></div></div><figcaption>Home</figcaption></figure></div></div>
+      </div>
+
+      <div class="gv-cta">
+        <h3>Want one made for your wall?</h3>
+        <p>Design it here and see it before you order, or send us your idea on WhatsApp. Please order at least 10 days before you need it.</p>
+        <div class="row"><a class="btn solid" href="#design">Design your frame</a><a class="btn" target="_blank" rel="noopener" href="https://wa.me/919004217186?text=Hi%20customizedartt%2C%20I%20saw%20your%20gallery%20and%20would%20like%20to%20order%20a%20frame.">Send on WhatsApp</a></div>
+      </div>
+    </div>
+  </section>
+</div>
 </main>
+
+<div class="lb" id="lb" hidden role="dialog" aria-label="Frame photo"><button type="button" id="lbX" aria-label="Close">×</button><div><img id="lbImg" alt=""><p id="lbCap"></p></div></div>
 
 <footer class="site-footer">
   <div class="wrap foot-grid">
@@ -1400,7 +1584,7 @@ const FRAMES = [
 ];
 const rail = document.getElementById('rail');
 rail.innerHTML = FRAMES.map(f=>`
-  <article class="pcard${f.wide?' wide':''}">
+  <article class="pcard${f.wide?' wide':''}" data-tilt>
     <div class="pimg"><img src="${f.img}" alt="${f.name}" loading="lazy"></div>
     <div class="pbody">
       <h3>${f.name}</h3>
@@ -1414,53 +1598,6 @@ const cardStep = () => {
 document.getElementById('prev').addEventListener('click',()=>rail.scrollBy({left:-cardStep(),behavior:'smooth'}));
 document.getElementById('next').addEventListener('click',()=>rail.scrollBy({left:cardStep(),behavior:'smooth'}));
 
-/* COLLECTIONS */
-const CATS = [
-  {name:'Corporate spaces', note:'For reception walls, desks and meeting rooms.', icon:'office', wall:'w2', items:[
-    {photo:'tile-desk-coffee.jpg', t:'Good ideas start with good coffee', c:'Office desk'},
-    {q:['Build with purpose. Deliver with pride.','bk','f2','t-grid']},
-    {photo:'tile-desk-team.jpg', t:'Same team, bigger things', c:'Team room'},
-    {q:['Great teams are built on trust.','bp','f1','t-hatch']},
-    {photo:'tile-desk-email.jpg', t:'Meetings could have been an email', c:'Work desk'},
-    {q:['Do the work. Own the result.','wd','f3','t-concrete']}],
-    video:true},
-  {name:'Cafés and restaurants', note:'For counters, menus and dining walls.', icon:'store', wall:'w1', items:[
-    {photo:'tile-cafe-chai.jpg', t:'Chai makes everything better', c:'Café wall'},
-    {photo:'tile-cafe-food.jpg', t:'Good food, good mood', c:'Dining room'},
-    {photo:'tile-cafe-eat.jpg', t:'People who love to eat are always good people', c:'Restaurant'}]},
-  {name:'Salons and studios', note:'For mirrors, reception and waiting areas.', icon:'sparkle', wall:'w1', items:[
-    {photo:'tile-salon-hair.jpg', t:'Good hair days hit different', c:'Salon wall'},
-    {photo:'tile-salon-care.jpg', t:'Self care looks good on you', c:'Studio'},
-    {photo:'tile-salon-fresh.jpg', t:'Fresh look, brighter you', c:'Beauty bar'}]},
-  {name:'Motivational', note:'Lines that start the day.', icon:'sparkle', wall:'w1', items:[
-    {q:['Begin where you are, build what you dream.','bk','f2','t-rays']},
-    {q:['Small steps. Big stories.','bp','f1','t-wash']},
-    {q:['Make today worth framing.','wd','f3','t-sun']}]},
-  {name:'Home and warmth', note:'For living rooms, kitchens and bedrooms.', icon:'home', wall:'w3', items:[
-    {q:['Home is where the best stories begin.','wd','f1','t-sprig']},
-    {q:['Stay awhile. The kettle is on.','bp','f2','t-gingham']},
-    {q:['Grow where life plants you.','bk','f3','t-leaf']}]}
-];
-const catsEl = document.getElementById('cats');
-CATS.forEach((c,ci)=>{
-  const block = document.createElement('div');
-  block.className='cat rv';
-  const tiles = c.items.map(it=> it.photo
-    ? `<figure class="ptile"><div class="pt-img"><img src="${it.photo}" alt="${it.t}"></div><figcaption><b>${it.t}</b><span>${it.c}</span></figcaption></figure>`
-    : `<div class="wall ${c.wall}"><div class="hang"><div class="frame"><div class="mat"><div class="poster ${it.q[1]} ${it.q[3]||''}"><p class="q ${it.q[2]||''}" data-q>${it.q[0]}</p></div></div></div></div></div>`).join('');
-  block.innerHTML = `<div class="cat-head"><span class="cat-no">${String(ci+1).padStart(2,'0')}</span><div><h3 class="cat-title"><span class="ic" data-icon="${c.icon}"></span>${c.name}</h3><p class="cat-note">${c.note}</p></div></div>
-    <div class="posters">${tiles}</div>
-    ${c.video?`<div class="vid-band"><video muted loop playsinline preload="none" poster="corp-video-poster.jpg" data-src="corp-video.mp4" aria-label="Corporate frames up close"></video><span>Corporate frames, up close</span></div>`:''}`;
-  catsEl.appendChild(block);
-});
-(function(){
-  const v=document.querySelector('.vid-band video'); if(!v) return;
-  if(!('IntersectionObserver' in window)) return;
-  new IntersectionObserver(es=>es.forEach(e=>{
-    if(e.isIntersecting){ if(!v.src) v.src=v.dataset.src; v.play().catch(()=>{}); } else v.pause();
-  }),{threshold:.35}).observe(v);
-})();
-
 /* FIND */
 const FIND = [
   {icon:'home', t:'Homes', d:'Small to medium frames for living rooms and bedrooms.'},
@@ -1473,7 +1610,7 @@ document.getElementById('find').innerHTML = FIND.map(f=>`
 
 /* STEPS */
 const STEPS = [
-  {icon:'calendar', t:'Order a week ahead', d:'Message us at least a week before you need the frame, so we can plan, print and finish it.'},
+  {icon:'calendar', t:'Order 10 days ahead', d:'Message us at least 10 days before you need the frame, so we can plan, print and finish it.'},
   {icon:'camera', t:'Show your space and idea', d:'Send a photo of the wall, the words you want and any logo or picture.'},
   {icon:'phone', t:'Online call', d:'We talk through the size, layout and colours on a short video or phone call.'},
   {icon:'chat', t:'Share references and preferences', d:'Send examples you like, your colours and your finish choice.'},
@@ -1487,6 +1624,8 @@ document.getElementById('steps').innerHTML = STEPS.map((s,i)=>`
 const FAQ = [
   ['Can I use my own words or photo?','Yes. Send the text, photo or logo you want printed, ideally as a clear, high resolution file.'],
   ['Can I choose a custom size?','Yes. Choose Custom size in the designer and enter your width and height. Above 12 × 18 we confirm the price on WhatsApp.'],
+  ['How early should I order?','Please place your order at least 10 days before you need the frame. Each piece is printed, framed and finished by hand.'],
+  ['Is there an offer for more than one frame?','Yes. Order 2 or 3 frames and each one is ₹25 less. Order 4 or more and each one is ₹50 less.'],
   ['Where do you deliver, and how do I pay?','Message us your city and we confirm delivery. Price and payment are confirmed on WhatsApp once you approve the preview.']
 ];
 document.getElementById('faqList').innerHTML = FAQ.map((f,i)=>`<details><summary>${f[0]}</summary><p>${f[1]}</p></details>`).join('');
@@ -1600,9 +1739,67 @@ const wordsEl = document.getElementById('words');
 const fontSel = document.getElementById('font');
 FONTS.forEach(f=>{ const o=document.createElement('option'); o.value=f[1]; o.textContent=f[0]; fontSel.appendChild(o); });
 let state = {border:BORDERS[0], paper:PAPER_COLOURS[0], text:TEXTS[0], font:FONTS[0][1], noText:false, pos:null, scale:1};
+/* The picture inside the frame: move and zoom (works with your own photo and the photo backgrounds) */
+const pvPhoto = document.getElementById('pvPhoto');
+const photoState = {url:null, ar:1, z:1, ox:.5, oy:.5, key:null};
+const POS_WORD = {left:0,center:.5,right:1,top:0,bottom:1};
+function parseFocus(css){
+  const m=/\)\s*([^\/)]*?)\s*\//.exec(css||''); let x=.5,y=.5;
+  if(m){
+    const t=m[1].trim().split(/\s+/).filter(Boolean);
+    const v=k=>k in POS_WORD?POS_WORD[k]:(/%$/.test(k)?parseFloat(k)/100:.5);
+    if(t.length===1){ if(t[0]==='top'||t[0]==='bottom') y=v(t[0]); else x=v(t[0]); }
+    else if(t.length>=2){ x=v(t[0]); y=v(t[1]); }
+  }
+  return {x,y};
+}
+function photoUrl(css){ const m=/^url\(\s*["']?([^"')]+)["']?\s*\)/.exec(css||''); return m?m[1]:null; }
+function syncPhoto(){
+  const css=state.paper[1], u=photoUrl(css), tools=document.getElementById('photoTools');
+  if(!u){ pvPhoto.hidden=true; photoState.url=null; photoState.key=null; tools.hidden=true; pvMat.classList.remove('has-photo'); return false; }
+  pvMat.classList.add('has-photo'); tools.hidden=false;
+  if(photoState.key!==css){
+    photoState.key=css; photoState.url=u; photoState.z=1;
+    const f=parseFocus(css); photoState.ox=f.x; photoState.oy=f.y;
+    document.getElementById('pZoom').value=100; document.getElementById('pZoomOut').textContent='100%';
+    pvPhoto.hidden=true;
+    const im=new Image();
+    im.onload=()=>{ if(photoState.key!==css) return; photoState.ar=im.naturalWidth/im.naturalHeight; pvPhoto.src=u; pvPhoto.hidden=false; layoutPhoto(); if(window.__prepPicture) window.__prepPicture(); };
+    im.src=u;
+  }
+  return true;
+}
+function layoutPhoto(){
+  if(pvPhoto.hidden || !photoState.url) return;
+  const matAR=pvMat.clientWidth/Math.max(1,pvMat.clientHeight), ar=photoState.ar, z=photoState.z;
+  const W=z*Math.max(1,ar/matAR)*100, H=z*Math.max(1,matAR/ar)*100;
+  pvPhoto.style.width=W+'%'; pvPhoto.style.height=H+'%';
+  pvPhoto.style.left=(-(W-100)*photoState.ox)+'%'; pvPhoto.style.top=(-(H-100)*photoState.oy)+'%';
+}
+(function(){
+  let d=null; const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+  pvMat.addEventListener('pointerdown',e=>{
+    if(e.target.closest('#pvLine') || pvPhoto.hidden || !photoState.url) return;
+    d={x:e.clientX,y:e.clientY,ox:photoState.ox,oy:photoState.oy};
+    pvMat.setPointerCapture(e.pointerId); pvMat.classList.add('pdrag'); e.preventDefault();
+  });
+  pvMat.addEventListener('pointermove',e=>{
+    if(!d) return;
+    const ex=pvPhoto.offsetWidth-pvMat.clientWidth, ey=pvPhoto.offsetHeight-pvMat.clientHeight;
+    if(ex>.5) photoState.ox=clamp(d.ox-(e.clientX-d.x)/ex,0,1);
+    if(ey>.5) photoState.oy=clamp(d.oy-(e.clientY-d.y)/ey,0,1);
+    layoutPhoto();
+  });
+  const end=()=>{ if(d){ d=null; pvMat.classList.remove('pdrag'); if(window.__prepPicture) window.__prepPicture(); } };
+  pvMat.addEventListener('pointerup',end); pvMat.addEventListener('pointercancel',end);
+  const z=document.getElementById('pZoom'), zo=document.getElementById('pZoomOut');
+  z.addEventListener('input',()=>{ photoState.z=z.value/100; zo.textContent=z.value+'%'; layoutPhoto(); if(window.__prepPicture) window.__prepPicture(); });
+  document.getElementById('pReset').addEventListener('click',()=>{ const f=parseFocus(state.paper[1]); photoState.z=1; photoState.ox=f.x; photoState.oy=f.y; z.value=100; zo.textContent='100%'; layoutPhoto(); if(window.__prepPicture) window.__prepPicture(); });
+})();
 function paintDesign(){
   pvFrame.style.background = state.border[2];
-  pvMat.style.background = state.paper[1];
+  const hasPhoto = syncPhoto();
+  pvMat.style.background = hasPhoto ? '#e9e4dc' : state.paper[1];
   const topText = state.paper[3]==='top';
   pvLine.hidden = state.noText;
   wordsEl.disabled = state.noText;
@@ -1627,14 +1824,14 @@ function paintDesign(){
   updateWa();
   if(window.__prepPicture) window.__prepPicture();
 }
-function placeWm(){ pvFrame.style.setProperty('--pad', pvMat.offsetLeft+'px'); }
+function placeWm(){ pvFrame.style.setProperty('--pad', pvMat.offsetLeft+'px'); layoutPhoto(); }
 if(window.ResizeObserver) new ResizeObserver(placeWm).observe(pvFrame);
 function fitDesign(){
   if(state.noText) return;
   const topText = ['top','high'].includes(state.paper[3]) && !state.pos;
   const maxW = pvMat.clientWidth*.84, maxH = pvMat.clientHeight*(topText?.3:.6);
-  let fs = 44; pvLine.style.fontSize = fs+'px';
-  while((pvLine.scrollWidth>maxW || pvLine.scrollHeight>maxH) && fs>12){ fs--; pvLine.style.fontSize = fs+'px'; }
+  let fs = Math.min(44, Math.max(8, Math.round(pvMat.clientWidth/6))); pvLine.style.fontSize = fs+'px';
+  while((pvLine.scrollWidth>maxW || pvLine.scrollHeight>maxH) && fs>4){ fs--; pvLine.style.fontSize = fs+'px'; }
   pvLine.style.fontSize = (fs*state.scale)+'px';
 }
 /* No text, text size and dragging the words */
@@ -1700,99 +1897,119 @@ wordsEl.addEventListener('input',paintDesign);
 
 /* CALCULATOR: starts at 400 */
 const CONFIG = {
-  base:400, stepSingle:50, stepBulk:25, bulkFrom:4,
-  discount:25, discountFrom:2,
+  base:400,
+  tiers:[[4,50],[2,25]],
   sizes:[[3,3,400],[3,4,425],[4,4,450],[4,6,475],[5,5,490],[5,7,515],[6,6,535],[6,8,560],[8,8,600],[8,10,625],[9,9,650],[9,12,690],[10,12,720],[12,12,750],[11,14,765],[12,16,780],[12,18,800],[16,16,null],[16,20,null],[18,24,null],[20,30,null],[24,36,null]],
   wa:WA
 };
+/* Standard sizes shown in the list. Custom size is first. The full table above prices any custom size. */
+const STD = [[3,3],[4,6],[5,7],[6,8],[8,10],[12,12],[12,18]];
 const sizeSel = document.getElementById('size');
 const dims = document.getElementById('dims');
 const wIn = document.getElementById('w'), hIn = document.getElementById('h');
 const qtyIn = document.getElementById('qty');
-CONFIG.sizes.forEach((s,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=s[0]+' × '+s[1]+(s[2]==null?'  ·  price on request':''); sizeSel.appendChild(o); });
-const oc = document.createElement('option'); oc.value='custom'; oc.textContent='Custom size'; sizeSel.appendChild(oc);
-sizeSel.value='0';
+const orient = document.getElementById('orient');
+let land = false;
+const idxOf = (a,b)=>CONFIG.sizes.findIndex(z=>z[0]===a && z[1]===b);
+(function(){
+  const oc=document.createElement('option'); oc.value='custom'; oc.textContent='Custom size (any width and height)'; sizeSel.appendChild(oc);
+  STD.forEach(z=>{ const i=idxOf(z[0],z[1]); const o=document.createElement('option'); o.value=i; o.textContent=z[0]+' × '+z[1]+' in  ·  ₹'+CONFIG.sizes[i][2]; sizeSel.appendChild(o); });
+  sizeSel.value=String(idxOf(5,7));
+})();
+const fmtIn = n => String(+(+n).toFixed(2));
+function dimsIn(){
+  if(sizeSel.value==='custom'){
+    const w=parseFloat(wIn.value), h=parseFloat(hIn.value);
+    if(w>0 && h>0) return {w,h,custom:true};
+    return {w:8,h:10,custom:true,placeholder:true};
+  }
+  const z=CONFIG.sizes[+sizeSel.value], a=Math.min(z[0],z[1]), b=Math.max(z[0],z[1]);
+  return (land && a!==b) ? {w:b,h:a} : {w:a,h:b};
+}
 function resolveSize(){
   const S = CONFIG.sizes;
   const info = i => ({idx:i, price:S[i][2], onRequest:S[i][2]==null});
   if(sizeSel.value!=='custom'){
-    const i = +sizeSel.value;
-    return {...info(i), label:S[i][0]+' × '+S[i][1], oversize:false};
+    const i = +sizeSel.value, d = dimsIn();
+    return {...info(i), label:d.w+' × '+d.h+' in', oversize:false};
   }
   const w = parseFloat(wIn.value), h = parseFloat(hIn.value);
   if(!w || !h || w<=0 || h<=0) return {idx:-1, label:'Enter width and height', pending:true};
   const a = Math.min(w,h), b = Math.max(w,h);
   const idx = S.findIndex(s=>a<=Math.min(s[0],s[1]) && b<=Math.max(s[0],s[1]));
-  if(idx===-1) return {idx:-1, label:w+' × '+h, oversize:true};
-  return {...info(idx), label:w+' × '+h+' (nearest size '+S[idx][0]+' × '+S[idx][1]+')', oversize:false};
+  if(idx===-1) return {idx:-1, label:fmtIn(w)+' × '+fmtIn(h)+' in', oversize:true};
+  return {...info(idx), label:fmtIn(w)+' × '+fmtIn(h)+' in (priced as '+S[idx][0]+' × '+S[idx][1]+')', oversize:false};
 }
+/* The frame in the preview is drawn to scale: a 12 × 12 is visibly bigger than a 6 × 6 */
 function previewShape(){
-  let ar = 4/5;
-  if(sizeSel.value==='custom'){
-    const w=parseFloat(wIn.value), h=parseFloat(hIn.value);
-    if(w>0 && h>0) ar = w/h;
-  } else {
-    const z = CONFIG.sizes[+sizeSel.value]; ar = Math.min(z[0],z[1])/Math.max(z[0],z[1]);
-  }
-  ar = Math.min(2.6, Math.max(.38, ar));
-  pvFrame.style.setProperty('--ar', ar.toFixed(4));
-  fitDesign();
+  const d=dimsIn(), mobile=matchMedia('(max-width:900px)').matches;
+  const par=pvFrame.parentElement, cs=getComputedStyle(par);
+  const col=Math.max(120,(par.clientWidth||320)-parseFloat(cs.paddingLeft||0)-parseFloat(cs.paddingRight||0));
+  const kmax=mobile?19:40, maxH=mobile?236:560;
+  const k=Math.min(kmax, maxH/(d.h+1.1), col/(d.w+1.1));
+  const bw=Math.max(4,Math.min(26,k*.55));
+  pvFrame.style.maxWidth='none';
+  pvFrame.style.width=Math.max(44,d.w*k+2*bw).toFixed(1)+'px';
+  pvFrame.style.padding=bw.toFixed(1)+'px';
+  pvFrame.style.setProperty('--ar',(d.w/d.h).toFixed(4));
+  const nt=document.getElementById('pvNote');
+  if(nt) nt.textContent = d.placeholder ? 'Enter a width and height to see it to scale' : 'Shown to scale · '+fmtIn(d.w)+' × '+fmtIn(d.h)+' in';
+  pvFrame.style.setProperty('--wmfs',Math.max(5,Math.min(12.5,(d.w*k)/17)).toFixed(1)+'px');
+  placeWm(); fitDesign();
+}
+let _rz; window.addEventListener('resize',()=>{ clearTimeout(_rz); _rz=setTimeout(previewShape,120); });
+orient.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-o]'); if(!b) return;
+  land = b.dataset.o==='l';
+  [...orient.querySelectorAll('button')].forEach(x=>x.setAttribute('aria-pressed', x===b));
+  updateWa(); if(window.__prepPicture) window.__prepPicture();
+});
+function offerFor(q){ const t=CONFIG.tiers.find(t=>q>=t[0]); return t?t[1]:0; }
+function paintOffer(q,off){
+  document.querySelectorAll('#offer .tier').forEach(t=>{ const m=+t.dataset.t; t.classList.toggle('on', m===4 ? q>=4 : (q>=2 && q<4)); });
+  const h=document.getElementById('offerHint');
+  h.textContent = q<2 ? 'Add 1 more frame to get ₹25 off each.'
+    : q===2 ? '₹25 off each is applied. Add 2 more frames to get ₹50 off each.'
+    : q===3 ? '₹25 off each is applied. Add 1 more frame to get ₹50 off each.'
+    : '₹50 off each is applied. You save ₹'+(off*q).toLocaleString('en-IN')+' on this order.';
+  document.getElementById('outOff').textContent = off ? '− ₹'+off+' each' : 'None yet';
 }
 function calc(){
   dims.hidden = sizeSel.value!=='custom';
+  const stdSq = sizeSel.value!=='custom' && (z=>z[0]===z[1])(CONFIG.sizes[+sizeSel.value]);
+  orient.hidden = sizeSel.value==='custom' || stdSq;
   const qty = Math.max(1, Math.floor(+qtyIn.value||1));
   const r = resolveSize();
   previewShape();
   document.getElementById('outQty').textContent = qty;
   document.getElementById('outSize').textContent = r.label;
+  const off = offerFor(qty);
+  paintOffer(qty,off);
   if(r.pending||r.oversize||r.onRequest){
     const ask = r.oversize||r.onRequest;
     document.getElementById('outUnit').textContent = ask?'Confirmed on WhatsApp':'Enter size';
     document.getElementById('outTotal').textContent = ask?'On request':'Enter size';
     document.getElementById('note').textContent = ask ? 'Large sizes are priced on WhatsApp, so we can quote the right glass and finish.' : 'Enter a width and height to see the price.';
-    return {r, qty, unit:0, total:0};
+    return {r, qty, unit:0, total:0, off};
   }
-  const off = qty>=CONFIG.discountFrom ? CONFIG.discount : 0;
   const unit = r.price - off;
   const total = unit*qty;
   document.getElementById('outUnit').textContent = '₹'+unit.toLocaleString('en-IN');
   document.getElementById('outTotal').textContent = '₹'+total.toLocaleString('en-IN');
-  document.getElementById('note').textContent = 'Prices start at ₹'+CONFIG.base+' for 3 × 3 and rise with the size. Order 2 or more frames and each one is ₹'+CONFIG.discount+' less.'+(off?' Your ₹'+off+' discount is applied.':'');
-  return {r, qty, unit, total};
+  document.getElementById('note').textContent = 'Prices start at ₹'+CONFIG.base+' for 3 × 3 and rise with the size. Standard sizes are listed. Choose Custom size for any other width and height.';
+  return {r, qty, unit, total, off};
 }
-function designLink(){
-  try{
-    const d={b:state.border[0],p:state.paper.custom?'':state.paper[0],t:state.text[0],f:fontSel.selectedIndex,w:state.noText?'':wordsEl.value.trim(),n:state.noText?1:0,
-      s:sizeSel.value,wd:wIn.value,ht:hIn.value,q:qtyIn.value,x:state.pos?+state.pos.x.toFixed(1):null,y:state.pos?+state.pos.y.toFixed(1):null,k:state.scale};
-    const b=btoa(unescape(encodeURIComponent(JSON.stringify(d)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
-    return location.origin+location.pathname+'?d='+b+'#design';
-  }catch(e){ return location.origin; }
-}
-(function loadSharedDesign(){
-  const m=/[?&]d=([^&#]+)/.exec(location.search); if(!m) return;
-  try{
-    let b=m[1].replace(/-/g,'+').replace(/_/g,'/'); while(b.length%4) b+='=';
-    const d=JSON.parse(decodeURIComponent(escape(atob(b))));
-    const pick=(id,name)=>{ const el=[...document.querySelectorAll('#'+id+' button')].find(x=>(x.title||x.textContent.trim())===name); if(el) el.click(); };
-    pick('borderSw',d.b); if(d.p) pick('paperSw',d.p); pick('textSw',d.t);
-    if(d.f>=0) fontSel.selectedIndex=d.f; state.font=fontSel.value;
-    wordsEl.value=d.w||''; if(d.n) state.noText=true;
-    sizeSel.value=d.s; wIn.value=d.wd||''; hIn.value=d.ht||''; qtyIn.value=d.q||1;
-    if(d.x!=null){ state.pos={x:d.x,y:d.y}; } if(d.k){ state.scale=d.k; tScale.value=Math.round(d.k*100); tScaleOut.textContent=tScale.value+'%'; }
-    setTimeout(()=>{ paintDesign(); previewShape(); updateWa(); document.getElementById('design').scrollIntoView(); },300);
-  }catch(e){}
-})();
 function updateWa(){
   const c = calc();
   let msg = 'Hi customizedartt, I would like to order a frame.\nSize: '+c.r.label+'\nQuantity: '+c.qty;
-  if(c.unit) msg += '\nPrice per frame: ₹'+c.unit+'\nTotal: ₹'+c.total;
-  msg += '\nBorder: '+state.border[0]+'\nPaper: '+state.paper[0]+(state.paper.custom?' (I will send my photo here)':'')+'\nText colour: '+state.text[0]+'\nFont: '+fontSel.options[fontSel.selectedIndex].text;
+  if(c.unit) msg += '\nPrice per frame: ₹'+c.unit+(c.off?' (₹'+c.off+' offer applied)':'')+'\nTotal: ₹'+c.total;
+  msg += '\nBorder: '+state.border[0]+'\nPaper: '+state.paper[0]+(state.paper.custom?' (my own photo)':'')+'\nText colour: '+state.text[0]+'\nFont: '+fontSel.options[fontSel.selectedIndex].text;
   msg += state.noText ? '\nText for the frame: none (photo only)' : '\nText for the frame: '+(wordsEl.value.trim()||'to be confirmed');
-  msg += '\nSee my design: '+designLink()+'\n(I will attach my design picture here.)';
   window.__waMsg = msg;
-  document.getElementById('buildGo').href = 'https://wa.me/'+CONFIG.wa+'?text='+encodeURIComponent(msg);
+  window.__waInfo = {size:c.r.label, qty:String(c.qty), price:c.unit?('₹'+c.unit+' each, total ₹'+c.total):'', border:state.border[0], paper:state.paper[0], colour:state.text[0], font:fontSel.options[fontSel.selectedIndex].text, text:state.noText?'None (photo only)':(wordsEl.value.trim()||'')};
+  document.getElementById('buildGo').href = 'https://wa.me/'+CONFIG.wa+'?text='+encodeURIComponent(msg+'\n(I will attach my design picture here.)');
 }
-/* Send the design: opens your WhatsApp chat directly, the picture is saved for attaching */
+/* Send the design: the clean picture (wallpaper and words, no border) is saved to a short link and the link goes in the WhatsApp message */
 (function(){
   const btn=document.getElementById('buildGo'), note=document.getElementById('sendNote');
   let lib=null, cache=null, timer=null, ver=0;
@@ -1805,25 +2022,46 @@ function updateWa(){
   async function picture(){
     await loadLib();
     if(document.fonts && document.fonts.ready) await document.fonts.ready;
-    const blob = await htmlToImage.toBlob(pvMat,{pixelRatio:2,cacheBust:false,style:{boxShadow:'none',transition:'none'}});
+    const pr=Math.max(1,Math.min(8,1500/Math.max(pvMat.clientWidth,pvMat.clientHeight)));
+    const url=await htmlToImage.toJpeg(pvMat,{pixelRatio:pr,quality:.88,backgroundColor:'#ffffff',cacheBust:false,style:{boxShadow:'none',transition:'none'}});
+    const blob=await (await fetch(url)).blob();
     if(!blob) throw new Error('no picture');
     return blob;
   }
   window.__framePicture = picture;
+  const toData=b=>new Promise((ok,no)=>{ const r=new FileReader(); r.onload=()=>ok(r.result); r.onerror=no; r.readAsDataURL(b); });
   function save(blob){
-    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-frame-design.png';
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='my-frame-design.jpg';
     document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000);
   }
-  /* get the picture ready in the background so the click is instant */
   window.__prepPicture = function(){
     ver++; const v=ver; cache=null; clearTimeout(timer);
     timer=setTimeout(()=>{ picture().then(b=>{ if(v===ver) cache=b; }).catch(()=>{}); },700);
   };
-  btn.addEventListener('click',async()=>{
-    updateWa();
-    if(cache){ save(cache); note.textContent='WhatsApp is opening. Your design picture is saved. Attach it to the chat.'; return; }
-    note.textContent='WhatsApp is opening. Your design picture is being saved. Attach it to the chat.';
-    try{ save(await picture()); }catch(e){ note.textContent='WhatsApp is opening. Please attach a screenshot of your design.'; }
+  async function upload(blob){
+    const ctl=new AbortController(), to=setTimeout(()=>ctl.abort(),20000);
+    try{
+      const r=await fetch('/api/design',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:await toData(blob),info:window.__waInfo||{}}),signal:ctl.signal});
+      if(!r.ok) return '';
+      const j=await r.json(); return j && j.url ? location.origin+j.url : '';
+    }catch(e){ return ''; } finally{ clearTimeout(to); }
+  }
+  btn.addEventListener('click',async e=>{
+    e.preventDefault(); updateWa();
+    const w=window.open('','_blank');
+    btn.setAttribute('aria-busy','true'); note.textContent='Preparing your design link...';
+    let blob=null, link='';
+    try{ blob=cache||await picture(); link=await upload(blob); }catch(err){}
+    let msg=window.__waMsg;
+    if(link){ msg+='\nMy design: '+link; note.textContent='WhatsApp is opening. Your design picture is in the message as a link.'; }
+    else{
+      msg+='\n(I will attach my design picture here.)';
+      if(blob){ save(blob); note.textContent='WhatsApp is opening. Your design picture is saved. Please attach it to the chat.'; }
+      else note.textContent='WhatsApp is opening. Please attach a screenshot of your design.';
+    }
+    btn.removeAttribute('aria-busy');
+    const url='https://wa.me/'+CONFIG.wa+'?text='+encodeURIComponent(msg);
+    if(w && !w.closed) w.location.href=url; else location.href=url;
   });
 })();
 [sizeSel,wIn,hIn,qtyIn].forEach(el=>el.addEventListener('input',updateWa));
@@ -2004,8 +2242,8 @@ let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(l
   setInterval(()=>{ el.style.opacity=0; setTimeout(()=>{ i=(i+1)%lines.length; el.textContent=lines[i]; el.style.opacity=1; },450); },3800);
 })();
 
-/* REVIEWS: approved reviews from the Google Sheet */
-const REVIEWS_URL = ''; /* paste the Google Apps Script web app URL here (same as in review.html) */
+/* REVIEWS: approved reviews */
+const REVIEWS_URL = '/api/review';
 (async function(){
   if(!REVIEWS_URL) return;
   try{
@@ -2024,6 +2262,82 @@ const REVIEWS_URL = ''; /* paste the Google Apps Script web app URL here (same a
     document.getElementById('reviews').hidden = false;
     if(typeof fitHeads==='function') fitHeads();
   }catch(e){}
+})();
+
+/* ===== v10 site behaviour: counters, 3D tilt, gallery view ===== */
+(function(){
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* animated counters */
+  const els=[...document.querySelectorAll('[data-count]')];
+  const run=el=>{
+    const to=+el.dataset.count, suf=el.dataset.suffix||'';
+    if(reduced){ el.textContent=to+suf; return; }
+    const t0=performance.now(), dur=1700;
+    (function step(t){ const p=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-p,3); el.textContent=Math.round(to*e)+suf; if(p<1) requestAnimationFrame(step); })(t0);
+  };
+  if('IntersectionObserver' in window && !reduced){
+    els.forEach(el=>{ el.textContent='0'+(el.dataset.suffix||''); });
+    const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ run(e.target); io.unobserve(e.target); } }),{threshold:.6});
+    els.forEach(el=>io.observe(el));
+  }
+  /* 3D tilt on hover (mouse only) */
+  if(matchMedia('(hover:hover) and (pointer:fine)').matches && !reduced){
+    let cur=null;
+    const reset=el=>{ el.classList.remove('tilting'); el.style.removeProperty('--rx'); el.style.removeProperty('--ry'); };
+    document.addEventListener('pointermove',e=>{
+      if(e.pointerType!=='mouse') return;
+      const el=e.target.closest && e.target.closest('[data-tilt]');
+      if(cur && cur!==el) reset(cur);
+      cur=el; if(!el) return;
+      const r=el.getBoundingClientRect(), px=(e.clientX-r.left)/r.width, py=(e.clientY-r.top)/r.height;
+      el.classList.add('tilting');
+      el.style.setProperty('--ry',((px-.5)*9).toFixed(2)+'deg');
+      el.style.setProperty('--rx',((.5-py)*7).toFixed(2)+'deg');
+      el.style.setProperty('--sx',(px*100).toFixed(0)+'%'); el.style.setProperty('--sy',(py*100).toFixed(0)+'%');
+    },{passive:true});
+    document.addEventListener('pointerleave',()=>{ if(cur){ reset(cur); cur=null; } });
+  }
+  /* full gallery as its own view */
+  const body=document.body, gv=document.getElementById('galleryView');
+  const open=(push)=>{
+    body.classList.add('gv');
+    if(push) history.pushState({gv:1},'','#gallery');
+    window.scrollTo({top:0,behavior:'instant'});
+    document.querySelectorAll('#galleryView .rv').forEach(x=>x.classList.add('in'));
+    if(typeof fitHeads==='function') fitHeads();
+  };
+  const close=()=>{ body.classList.remove('gv'); const v=document.getElementById('gvVideo'); if(v) v.pause(); };
+  document.addEventListener('click',e=>{
+    const a=e.target.closest('a[href^="#"]'); if(!a) return;
+    const h=a.getAttribute('href');
+    if(h==='#gallery'){ e.preventDefault(); open(true); return; }
+    if(body.classList.contains('gv')){
+      close();
+      if(h==='#top'||h==='#'){ e.preventDefault(); history.pushState(null,'',location.pathname); window.scrollTo({top:0,behavior:'instant'}); }
+    }
+  },true);
+  window.addEventListener('popstate',()=>{ if(location.hash==='#gallery') open(false); else close(); });
+  if(location.hash==='#gallery') open(false);
+  /* gallery filters, video, lightbox */
+  const chips=document.getElementById('chips');
+  chips.addEventListener('click',e=>{
+    const b=e.target.closest('.chip'); if(!b) return;
+    chips.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));
+    document.querySelectorAll('#masonry .gal-tile').forEach(t=>{ t.hidden = b.dataset.f!=='all' && t.dataset.cat!==b.dataset.f; });
+  });
+  const v=document.getElementById('gvVideo');
+  if(v && 'IntersectionObserver' in window) new IntersectionObserver(es=>es.forEach(en=>{
+    if(en.isIntersecting && !v.src){ v.src=v.dataset.src; v.load(); }
+    if(!en.isIntersecting) v.pause();
+  }),{threshold:.2}).observe(v);
+  const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCap=document.getElementById('lbCap');
+  document.getElementById('masonry').addEventListener('click',e=>{
+    const t=e.target.closest('.gal-tile'); if(!t) return;
+    const im=t.querySelector('img'); lbImg.src=im.src; lbImg.alt=im.alt; lbCap.textContent=im.alt; lb.hidden=false;
+  });
+  const shut=()=>{ lb.hidden=true; lbImg.removeAttribute('src'); };
+  lb.addEventListener('click',e=>{ if(e.target!==lbImg) shut(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !lb.hidden) shut(); });
 })();
 </script>
 </body>

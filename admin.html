@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Reviews admin</title>
+<style>
+body{margin:0;background:#fdfcfa;color:#1a171c;font:16px/1.5 Georgia,serif;padding:24px 16px}
+main{max-width:720px;margin:0 auto}
+h1{font-size:26px;margin:0 0 4px}p.s{color:#6a636d;margin:0 0 18px}
+input{font:inherit;padding:11px 12px;border:1px solid #cfc8bd;background:#fff;width:100%;box-sizing:border-box}
+button{font:inherit;font-size:13px;letter-spacing:.06em;text-transform:uppercase;border:0;padding:10px 16px;cursor:pointer;background:#1a171c;color:#fff}
+button.o{background:transparent;color:#1a171c;border:1px solid #1a171c}
+.row{display:flex;gap:10px;margin-bottom:18px}.row input{flex:1}
+article{border:1px solid #e5dfd6;background:#fff;padding:14px 16px;margin-bottom:12px}
+article.pending{border-left:4px solid #b8902e}article.approved{border-left:4px solid #1f6b46}
+.st{color:#b8902e;letter-spacing:2px}.meta{font-size:13px;color:#6a636d}.tag{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+.acts{display:flex;gap:8px;margin-top:10px}#msg{color:#9a2b2b;min-height:22px}
+</style></head><body><main>
+<h1>Reviews</h1><p class="s">Approve a review to show it on the website. Delete spam.</p>
+<div class="row"><input id="key" type="password" placeholder="Admin password" autocomplete="current-password"><button id="go">Open</button></div>
+<p id="msg"></p><div id="list"></div>
+</main>
+<script>
+const $=id=>document.getElementById(id), esc=t=>String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let key=''; try{ key=sessionStorage.getItem('ak')||''; }catch(e){}
+$('key').value=key;
+async function api(method,body){
+  const r=await fetch('/api/admin',{method,headers:{'x-admin-key':key,'Content-Type':'application/json'},body:body?JSON.stringify(body):undefined});
+  if(r.status===401) throw new Error('Wrong password.'); if(!r.ok) throw new Error('Something went wrong. Try again.'); return r.json();
+}
+async function load(){
+  $('msg').textContent='';
+  try{
+    const rows=await api('GET'); try{sessionStorage.setItem('ak',key);}catch(e){}
+    $('list').innerHTML=rows.length?rows.map(r=>`<article class="${r.state}"><div class="st">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+      <div>${esc(r.comment||r.tags||'(no comment)')}</div><div class="meta">${esc(r.name)} · ${new Date(r.time).toLocaleDateString()} · <span class="tag">${r.state}</span>${r.tags&&r.comment?' · '+esc(r.tags):''}</div>
+      <div class="acts">${r.state==='pending'?`<button data-a="approve" data-id="${r.id}">Approve</button>`:`<button class="o" data-a="unapprove" data-id="${r.id}">Hide</button>`}<button class="o" data-a="delete" data-id="${r.id}">Delete</button></div></article>`).join(''):'<p class="s">No reviews yet.</p>';
+  }catch(e){ $('msg').textContent=e.message; }
+}
+$('go').onclick=()=>{ key=$('key').value.trim(); load(); };
+$('key').addEventListener('keydown',e=>{ if(e.key==='Enter') $('go').click(); });
+$('list').addEventListener('click',async e=>{
+  const b=e.target.closest('button[data-a]'); if(!b) return;
+  if(b.dataset.a==='delete' && !confirm('Delete this review?')) return;
+  b.disabled=true; try{ await api('POST',{action:b.dataset.a,id:b.dataset.id}); }catch(err){ $('msg').textContent=err.message; } load();
+});
+if(key) load();
+</script></body></html>

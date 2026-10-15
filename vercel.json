@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/d/:id", "destination": "/api/design?id=:id" },
+    { "source": "/admin", "destination": "/admin.html" }
+  ],
+  "headers": [
+    { "source": "/admin.html", "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }] }
+  ]
+}

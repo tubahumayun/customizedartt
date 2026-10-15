@@ -1,0 +1,9 @@
+{
+  "name": "customizedartt-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "customizedartt: static site with small serverless functions for reviews and design links",
+  "dependencies": {
+    "@vercel/blob": "^1.1.1"
+  }
+}
