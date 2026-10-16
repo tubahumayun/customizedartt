@@ -1027,6 +1027,30 @@ body.gv main>*:not(#galleryView){display:none!important}
 .olrow{margin:0}
 .olrow button{display:inline-flex;align-items:center;gap:7px}
 .olrow i{width:14px;height:14px;border-radius:50%;border:1px solid rgba(22,20,26,.3);display:inline-block}
+#revSum{display:none}
+.rev-empty{grid-column:1/-1;margin:0;padding:26px;border:1px dashed var(--line);text-align:center;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:21px;color:var(--ink-soft)}
+.rev-cta{display:flex;justify-content:center;margin-top:22px}
+#about .lede,.chat-copy .lede,.about-more,.tabpan .lede{max-width:none}
+.lede,.about-more{text-wrap:pretty}
+#reviews .rev-card.extra{display:none}
+#revGrid.all .rev-card.extra{display:flex}
+.rev-cta{gap:12px;flex-wrap:wrap}
+.qfs{display:flex;flex-wrap:wrap;justify-content:center;gap:26px}
+.qf{flex:0 0 calc((100% - 52px)/3)}
+.gal-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:22px;align-items:flex-start}
+.gal-tile{flex:0 0 calc((100% - 44px)/3)}
+.gal-tile[hidden]{display:none}
+@media (max-width:760px){
+  .qfs{gap:16px}.qf{flex-basis:calc((100% - 16px)/2)}.qf:nth-child(9){display:none}
+  .gal-grid{gap:12px}.gal-tile{flex-basis:calc((100% - 12px)/2)}
+}
+.glass{position:absolute;left:var(--bw,20px);top:var(--bw,20px);right:var(--bw,20px);bottom:var(--bw,20px);pointer-events:none;z-index:2;overflow:hidden;
+  background:
+    radial-gradient(ellipse 55% 40% at var(--gx,30%) var(--gy,18%),rgba(255,255,255,.38),transparent 70%),
+    linear-gradient(135deg,rgba(196,210,232,.26) 0%,rgba(255,255,255,.05) 34%,rgba(255,255,255,0) 62%,rgba(190,204,226,.22) 100%);
+  box-shadow:inset 1.5px 1.5px 0 rgba(255,255,255,.7),inset -1px -1px 0 rgba(20,30,50,.16),inset 0 0 26px rgba(255,255,255,.18),inset 0 -16px 30px -20px rgba(20,30,50,.3)}
+.glass::before{content:"";position:absolute;top:-25%;bottom:-25%;left:var(--sx,26%);width:9%;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(150,170,205,.12) 28%,rgba(255,255,255,.36) 50%,rgba(150,170,205,.12) 72%,transparent);transition:left .5s cubic-bezier(.2,.8,.2,1)}
+.glass::after{content:"";position:absolute;top:-25%;bottom:-25%;left:calc(var(--sx,26%) + 13%);width:3%;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transition:left .5s cubic-bezier(.2,.8,.2,1)}
 </style>
 </head>
 <body>
@@ -1042,6 +1066,7 @@ body.gv main>*:not(#galleryView){display:none!important}
       <li><a href="#design">Design</a></li>
       <li><a href="#finish">Finish</a></li>
       <li><a href="#enquire">Enquire</a></li>
+      <li><a href="#reviews">Reviews</a></li>
       <li><a href="#more" data-tab="process">More</a></li>
     </ul>
     <div class="nav-tools">
@@ -1161,9 +1186,10 @@ body.gv main>*:not(#galleryView){display:none!important}
       <div class="preview rv">
         <div class="dframe" id="pvFrame">
           <div class="dmat" id="pvMat"><img class="dphoto" id="pvPhoto" alt="" hidden draggable="false"><p class="dline" id="pvLine" tabindex="0" aria-label="Your words. Drag to move.">Your line appears here</p></div>
+          <span class="glass" id="glass" aria-hidden="true"></span>
           <span class="wm" id="wm" aria-hidden="true">customizedartt</span>
         </div>
-        <p class="preview-note" id="pvNote">Shown to scale. Colours may look slightly different on print.</p>
+        <p class="preview-note" id="pvNote">Preview only. Colours may look slightly different on print.</p>
       </div>
 
       <div class="rv ctrl-a">
@@ -1310,7 +1336,7 @@ body.gv main>*:not(#galleryView){display:none!important}
     <div class="rv">
       <p class="kicker">About</p>
       <h2 class="fit" data-max="52" data-min="26">Custom frames,<br>made around you</h2>
-      <p class="lede">customizedartt makes personalised wooden frames for people and businesses. We print, frame and finish each piece by hand.</p>
+      <p class="lede">Customizedartt makes personalised wooden frames for people and businesses. We print, frame and finish each piece by hand.</p>
       <p class="about-more">From a single gift for someone special to a full wall for an office or café, every frame starts with your idea and ends with a finish we are proud of.</p>
     </div>
     <div class="stats rv">
@@ -1323,19 +1349,6 @@ body.gv main>*:not(#galleryView){display:none!important}
 </section>
 
 <!-- CHAT MOCK -->
-<!-- REVIEWS (appears once approved reviews exist) -->
-<section id="reviews" hidden>
-  <div class="wrap">
-    <p class="kicker rv">Reviews</p>
-    <h2 class="fit rv" data-max="52" data-min="26">Loved by our customers</h2>
-    <div class="rev-sum rv">
-      <b id="revAvg">5.0</b>
-      <div><div class="rev-stars" id="revStars" aria-hidden="true"></div><span id="revCount"></span></div>
-      <a class="btn" href="review.html">Rate your frame</a>
-    </div>
-    <div class="rev-grid" id="revGrid"></div>
-  </div>
-</section>
 
 <section>
   <div class="wrap chat">
@@ -1412,6 +1425,20 @@ body.gv main>*:not(#galleryView){display:none!important}
   </div>
 </section>
 
+<!-- REVIEWS -->
+<section id="reviews">
+  <div class="wrap">
+    <p class="kicker rv">Reviews</p>
+    <h2 class="fit rv" data-max="52" data-min="26">Loved by our customers</h2>
+    <div class="rev-sum rv" id="revSum">
+      <b id="revAvg">5.0</b>
+      <div><div class="rev-stars" id="revStars" aria-hidden="true"></div><span id="revCount"></span></div>
+    </div>
+    <div class="rev-grid" id="revGrid"><p class="rev-empty">Reviews from our customers will appear here. Be the first to rate your frame.</p></div>
+    <div class="rev-cta rv"><button class="btn" type="button" id="revMore" hidden>More reviews</button><a class="btn btn-ink" href="review.html">Rate your frame</a></div>
+  </div>
+</section>
+
 <!-- FINISHED ON BOTH SIDES (compact) -->
 <section id="both" class="both-compact" style="padding-block:8px 28px">
   <div class="wrap">
@@ -1449,6 +1476,7 @@ body.gv main>*:not(#galleryView){display:none!important}
   </div>
 </section>
 
+
 <!-- CONTACT -->
 <section style="padding:0 0 12px">
   <div class="contact">
@@ -1477,7 +1505,7 @@ body.gv main>*:not(#galleryView){display:none!important}
       <div class="gv-block" style="margin-top:34px">
         <h3>Just the words</h3>
         <p>A few lines to start from. Yours can say anything you like.</p>
-        <div class="qfs"><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper "><p>Build with purpose. Deliver with pride.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-sand"><p>Great teams are built on trust.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-dark"><p>Do the work. Own the result.</p><i></i></div></div><figcaption>Corporate</figcaption></figure></div><div class="f-bod" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper "><p>Begin where you are, build what you dream.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-rose"><p>Small steps. Big stories.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-play" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper p-navy"><p>Make today worth framing.</p><i></i></div></div><figcaption>Motivational</figcaption></figure></div><div class="f-corm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b3"><div class="qf-paper "><p>Home is where the best stories begin.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-dm" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b1"><div class="qf-paper p-sage"><p>Stay awhile. The kettle is on.</p><i></i></div></div><figcaption>Home</figcaption></figure></div><div class="f-cin" style="display:contents"><figure class="qf" data-tilt><div class="qf-frame b2"><div class="qf-paper p-dark"><p>Grow where life plants you.</p><i></i></div></div><figcaption>Home</figcaption></figure></div></div>
+        <div class="qfs"><figure class="qf f-play" data-tilt><div class="qf-frame b1"><div class="qf-paper "><p>Build with purpose. Deliver with pride.</p><i></i></div></div><figcaption>Corporate</figcaption></figure><figure class="qf f-corm" data-tilt><div class="qf-frame b2"><div class="qf-paper p-sand"><p>Great teams are built on trust.</p><i></i></div></div><figcaption>Corporate</figcaption></figure><figure class="qf f-cin" data-tilt><div class="qf-frame b3"><div class="qf-paper p-dark"><p>Do the work. Own the result.</p><i></i></div></div><figcaption>Corporate</figcaption></figure><figure class="qf f-bod" data-tilt><div class="qf-frame b2"><div class="qf-paper "><p>Begin where you are, build what you dream.</p><i></i></div></div><figcaption>Motivational</figcaption></figure><figure class="qf f-dm" data-tilt><div class="qf-frame b1"><div class="qf-paper p-rose"><p>Small steps. Big stories.</p><i></i></div></div><figcaption>Motivational</figcaption></figure><figure class="qf f-play" data-tilt><div class="qf-frame b3"><div class="qf-paper p-navy"><p>Make today worth framing.</p><i></i></div></div><figcaption>Motivational</figcaption></figure><figure class="qf f-corm" data-tilt><div class="qf-frame b3"><div class="qf-paper "><p>Home is where the best stories begin.</p><i></i></div></div><figcaption>Home</figcaption></figure><figure class="qf f-dm" data-tilt><div class="qf-frame b1"><div class="qf-paper p-sage"><p>Stay awhile. The kettle is on.</p><i></i></div></div><figcaption>Home</figcaption></figure><figure class="qf f-cin" data-tilt><div class="qf-frame b2"><div class="qf-paper p-dark"><p>Grow where life plants you.</p><i></i></div></div><figcaption>Home</figcaption></figure></div>
       </div>
 
       <div class="gv-block">
@@ -2007,18 +2035,26 @@ function previewShape(){
   const d=dimsIn(), mobile=matchMedia('(max-width:900px)').matches;
   const par=pvFrame.parentElement, cs=getComputedStyle(par);
   const col=Math.max(120,(par.clientWidth||320)-parseFloat(cs.paddingLeft||0)-parseFloat(cs.paddingRight||0));
-  const kmax=mobile?19:40, maxH=mobile?236:560;
-  const k=Math.min(kmax, maxH/(d.h+1.1), col/(d.w+1.1));
+  const maxH=mobile?280:560;
+  const k=Math.min(maxH/(d.h+1.1), col/(d.w+1.1));
   const bw=Math.max(4,Math.min(26,k*.55));
   pvFrame.style.maxWidth='none';
   pvFrame.style.width=Math.max(44,d.w*k+2*bw).toFixed(1)+'px';
-  pvFrame.style.padding=bw.toFixed(1)+'px';
+  pvFrame.style.padding=bw.toFixed(1)+'px'; pvFrame.style.setProperty('--bw',bw.toFixed(1)+'px');
   pvFrame.style.setProperty('--ar',(d.w/d.h).toFixed(4));
   const nt=document.getElementById('pvNote');
-  if(nt) nt.textContent = d.placeholder ? 'Enter a width and height to see it to scale' : 'Shown to scale · '+fmtIn(d.w)+' × '+fmtIn(d.h)+' in';
+  if(nt) nt.textContent = d.placeholder ? 'Enter a width and height to see the shape' : 'Preview · '+fmtIn(d.w)+' × '+fmtIn(d.h)+' in · clear glass front';
   pvFrame.style.setProperty('--wmfs',Math.max(5,Math.min(12.5,(d.w*k)/17)).toFixed(1)+'px');
   placeWm(); fitDesign();
 }
+(function(){
+  const pv=document.getElementById('pvFrame');
+  pv.addEventListener('pointermove',e=>{
+    if(e.pointerType!=='mouse') return;
+    const r=pv.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+    pv.style.setProperty('--gx',(x*100).toFixed(0)+'%'); pv.style.setProperty('--gy',(y*100).toFixed(0)+'%'); pv.style.setProperty('--sx',(8+x*70).toFixed(0)+'%');
+  });
+})();
 let _rz; window.addEventListener('resize',()=>{ clearTimeout(_rz); _rz=setTimeout(previewShape,120); });
 orient.addEventListener('click',e=>{
   const b=e.target.closest('button[data-o]'); if(!b) return;
@@ -2315,14 +2351,18 @@ const REVIEWS_URL = '/api/review';
     const esc = t => String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const stars = n => '★'.repeat(n)+'☆'.repeat(5-n);
     const avg = list.reduce((a,r)=>a+(+r.stars||0),0)/list.length;
-    document.getElementById('revAvg').textContent = avg.toFixed(1);
+    document.getElementById('revSum').style.display='flex'; document.getElementById('revAvg').textContent = avg.toFixed(1);
     document.getElementById('revStars').textContent = stars(Math.round(avg));
     document.getElementById('revCount').textContent = list.length+' review'+(list.length>1?'s':'');
-    document.getElementById('revGrid').innerHTML = list.slice(0,9).map(r=>{
+    document.getElementById('revGrid').innerHTML = list.slice(0,24).map((r,n)=>{
       const text = r.comment || r.tags || 'Lovely frame.';
-      return `<article class="rev-card"><div class="rev-stars" aria-label="${+r.stars} out of 5">${stars(+r.stars||5)}</div><p>“${esc(text)}”</p><small>${esc(r.name||'Happy customer')}</small></article>`;
+      return `<article class="rev-card${n>2?' extra':''}"><div class="rev-stars" aria-label="${+r.stars} out of 5">${stars(+r.stars||5)}</div><p>“${esc(text)}”</p><small>${esc(r.name||'Happy customer')}</small></article>`;
     }).join('');
-    document.getElementById('reviews').hidden = false;
+    const mb=document.getElementById('revMore');
+    if(list.length>3){
+      mb.hidden=false;
+      mb.addEventListener('click',()=>{ const g=document.getElementById('revGrid'), o=g.classList.toggle('all'); mb.textContent=o?'Fewer reviews':'More reviews'; });
+    }
     if(typeof fitHeads==='function') fitHeads();
   }catch(e){}
 })();
