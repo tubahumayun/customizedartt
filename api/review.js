@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
           out.push({ name: r.name, stars: r.stars, tags: r.tags, comment: r.comment });
         } catch (e) { /* skip */ }
       }
-      res.setHeader('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+      res.setHeader('Cache-Control', 'no-store');
       return json(res, 200, out);
     }
     res.setHeader('Allow', 'GET, POST');

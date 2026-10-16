@@ -2346,7 +2346,7 @@ const REVIEWS_URL = '/api/review';
 (async function(){
   if(!REVIEWS_URL) return;
   try{
-    const list = await (await fetch(REVIEWS_URL)).json();
+    const list = await (await fetch(REVIEWS_URL,{cache:'no-store'})).json();
     if(!Array.isArray(list) || !list.length) return;
     const esc = t => String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
     const stars = n => '★'.repeat(n)+'☆'.repeat(5-n);
