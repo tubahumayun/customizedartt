@@ -15,5 +15,13 @@ module.exports = async (req, res) => {
     for (const b of blobs) { const r = await fetch(b.url + '?v=' + b.uploadedAt.getTime()); o.push(b.pathname + ' -> ' + r.status + ' ' + (await r.text()).slice(0, 120)); }
     return o;
   });
+  const call = (h, req) => new Promise(ok => {
+    const r = { statusCode: 0, headers: {}, setHeader(k, v) { this.headers[k] = v; }, end(b) { ok({ status: this.statusCode, body: String(b).slice(0, 300) }); } };
+    Promise.resolve(h(req, r)).catch(e => ok({ err: String(e && e.message) }));
+  });
+  const rv = require('./review');
+  await step('reviewGET', () => call(rv, { method: 'GET', headers: {} }));
+  await step('reviewPOST', () => call(rv, { method: 'POST', headers: {}, body: { stars: 5, name: 'diag', comment: 'diag test' } }));
+  await step('cleanupPending', async () => { const { blobs } = await list({ prefix: 'reviews/pending/' }); let n = 0; for (const b of blobs) { const t = await (await fetch(b.url + '?v=' + b.uploadedAt.getTime())).text(); if (t.includes('"diag"')) { await del(b.url); n++; } } return 'removed ' + n; });
   res.end(JSON.stringify(out, null, 1));
 };
