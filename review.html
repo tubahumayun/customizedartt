@@ -54,7 +54,7 @@ textarea{min-height:80px;resize:vertical}
     <textarea id="comment" maxlength="300" placeholder="Tell us about your frame"></textarea>
     <label class="lab" for="name">Your name (optional)</label>
     <input id="name" maxlength="50" placeholder="e.g. Aisha, Mira Road" autocomplete="name">
-    <input class="hp" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <input class="hp" id="hpx" name="hpx" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <button class="go" id="send" type="button" disabled>Submit review</button>
     <p class="msg" id="msg">Your review is shown on our website after we approve it.</p>
@@ -81,13 +81,21 @@ function paint(){ [...stars.children].forEach((b,i)=>b.classList.toggle('on',i<r
 TAGS.forEach(t=>{ const b=document.createElement('button'); b.type='button'; b.textContent=t; b.setAttribute('aria-pressed','false'); b.addEventListener('click',()=>b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true')); tagBox.appendChild(b); });
 send.addEventListener('click',async()=>{
   if(!rating) return;
-    send.disabled=true; send.textContent='Sending...';
-  const body={stars:rating,tags:[...tagBox.querySelectorAll('[aria-pressed=true]')].map(b=>b.textContent),comment:document.getElementById('comment').value.trim(),name:document.getElementById('name').value.trim(),website:document.getElementById('website').value};
-  try{
-    const r=await fetch(REVIEWS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
-    if(!r.ok) throw new Error('bad');
-    document.getElementById('formView').hidden=true; document.getElementById('doneView').hidden=false;
-  }catch(e){ send.disabled=false; send.textContent='Submit review'; msg.textContent='Could not send. Please check your connection and try again.'; }
+  send.disabled=true; send.textContent='Sending...'; msg.textContent='';
+  const body={stars:rating,tags:[...tagBox.querySelectorAll('[aria-pressed=true]')].map(b=>b.textContent),comment:document.getElementById('comment').value.trim(),name:document.getElementById('name').value.trim(),website:document.getElementById('hpx').value};
+  let code=0, ok=false;
+  for(let n=0;n<2 && !ok;n++){
+    try{
+      const r=await fetch(REVIEWS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});
+      code=r.status; ok=r.ok;
+    }catch(e){ code=0; }
+    if(!ok && n===0) await new Promise(r=>setTimeout(r,1200));
+  }
+  if(ok){ document.getElementById('formView').hidden=true; document.getElementById('doneView').hidden=false; }
+  else{
+    send.disabled=false; send.textContent='Submit review';
+    msg.textContent = code ? 'Could not send (error '+code+'). Please try again in a minute.' : 'Could not reach the server. Please check your connection and try again.';
+  }
 });
 </script>
 </body>
