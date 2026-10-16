@@ -83,18 +83,18 @@ send.addEventListener('click',async()=>{
   if(!rating) return;
   send.disabled=true; send.textContent='Sending...'; msg.textContent='';
   const body={stars:rating,tags:[...tagBox.querySelectorAll('[aria-pressed=true]')].map(b=>b.textContent),comment:document.getElementById('comment').value.trim(),name:document.getElementById('name').value.trim(),website:document.getElementById('hpx').value};
-  let code=0, ok=false;
+  let code=0, ok=false, detail='';
   for(let n=0;n<2 && !ok;n++){
     try{
       const r=await fetch(REVIEWS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body),cache:'no-store'});
-      code=r.status; ok=r.ok;
+      code=r.status; ok=r.ok; if(!ok){ try{ detail=(await r.json()).detail||''; }catch(e){} }
     }catch(e){ code=0; }
     if(!ok && n===0) await new Promise(r=>setTimeout(r,1200));
   }
   if(ok){ document.getElementById('formView').hidden=true; document.getElementById('doneView').hidden=false; }
   else{
     send.disabled=false; send.textContent='Submit review';
-    msg.textContent = code ? 'Could not send (error '+code+'). Please try again in a minute.' : 'Could not reach the server. Please check your connection and try again.';
+    msg.textContent = code ? 'Could not send (error '+code+(detail?': '+detail:'')+'). Please try again in a minute.' : 'Could not reach the server. Please check your connection and try again.';
   }
 });
 </script>

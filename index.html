@@ -1044,13 +1044,6 @@ body.gv main>*:not(#galleryView){display:none!important}
   .qfs{gap:16px}.qf{flex-basis:calc((100% - 16px)/2)}.qf:nth-child(9){display:none}
   .gal-grid{gap:12px}.gal-tile{flex-basis:calc((100% - 12px)/2)}
 }
-.glass{position:absolute;left:var(--bw,20px);top:var(--bw,20px);right:var(--bw,20px);bottom:var(--bw,20px);pointer-events:none;z-index:2;overflow:hidden;
-  background:
-    radial-gradient(ellipse 55% 40% at var(--gx,30%) var(--gy,18%),rgba(255,255,255,.38),transparent 70%),
-    linear-gradient(135deg,rgba(196,210,232,.26) 0%,rgba(255,255,255,.05) 34%,rgba(255,255,255,0) 62%,rgba(190,204,226,.22) 100%);
-  box-shadow:inset 1.5px 1.5px 0 rgba(255,255,255,.7),inset -1px -1px 0 rgba(20,30,50,.16),inset 0 0 26px rgba(255,255,255,.18),inset 0 -16px 30px -20px rgba(20,30,50,.3)}
-.glass::before{content:"";position:absolute;top:-25%;bottom:-25%;left:var(--sx,26%);width:9%;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(150,170,205,.12) 28%,rgba(255,255,255,.36) 50%,rgba(150,170,205,.12) 72%,transparent);transition:left .5s cubic-bezier(.2,.8,.2,1)}
-.glass::after{content:"";position:absolute;top:-25%;bottom:-25%;left:calc(var(--sx,26%) + 13%);width:3%;transform:rotate(20deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);transition:left .5s cubic-bezier(.2,.8,.2,1)}
 </style>
 </head>
 <body>
@@ -1186,7 +1179,6 @@ body.gv main>*:not(#galleryView){display:none!important}
       <div class="preview rv">
         <div class="dframe" id="pvFrame">
           <div class="dmat" id="pvMat"><img class="dphoto" id="pvPhoto" alt="" hidden draggable="false"><p class="dline" id="pvLine" tabindex="0" aria-label="Your words. Drag to move.">Your line appears here</p></div>
-          <span class="glass" id="glass" aria-hidden="true"></span>
           <span class="wm" id="wm" aria-hidden="true">customizedartt</span>
         </div>
         <p class="preview-note" id="pvNote">Preview only. Colours may look slightly different on print.</p>
@@ -2043,18 +2035,10 @@ function previewShape(){
   pvFrame.style.padding=bw.toFixed(1)+'px'; pvFrame.style.setProperty('--bw',bw.toFixed(1)+'px');
   pvFrame.style.setProperty('--ar',(d.w/d.h).toFixed(4));
   const nt=document.getElementById('pvNote');
-  if(nt) nt.textContent = d.placeholder ? 'Enter a width and height to see the shape' : 'Preview · '+fmtIn(d.w)+' × '+fmtIn(d.h)+' in · clear glass front';
+  if(nt) nt.textContent = d.placeholder ? 'Enter a width and height to see the shape' : 'Preview · '+fmtIn(d.w)+' × '+fmtIn(d.h)+' in';
   pvFrame.style.setProperty('--wmfs',Math.max(5,Math.min(12.5,(d.w*k)/17)).toFixed(1)+'px');
   placeWm(); fitDesign();
 }
-(function(){
-  const pv=document.getElementById('pvFrame');
-  pv.addEventListener('pointermove',e=>{
-    if(e.pointerType!=='mouse') return;
-    const r=pv.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
-    pv.style.setProperty('--gx',(x*100).toFixed(0)+'%'); pv.style.setProperty('--gy',(y*100).toFixed(0)+'%'); pv.style.setProperty('--sx',(8+x*70).toFixed(0)+'%');
-  });
-})();
 let _rz; window.addEventListener('resize',()=>{ clearTimeout(_rz); _rz=setTimeout(previewShape,120); });
 orient.addEventListener('click',e=>{
   const b=e.target.closest('button[data-o]'); if(!b) return;

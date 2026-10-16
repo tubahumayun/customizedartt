@@ -47,6 +47,6 @@ module.exports = async (req, res) => {
     }
     return json(res, 405, { error: 'method' });
   } catch (e) {
-    return json(res, 500, { error: 'server' });
+    return json(res, 500, { error: 'server', detail: String((e && e.name) || '') + ': ' + String((e && e.message) || '').slice(0, 160) });
   }
 };
