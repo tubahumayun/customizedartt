@@ -23,5 +23,10 @@ module.exports = async (req, res) => {
   await step('reviewGET', () => call(rv, { method: 'GET', headers: {} }));
   await step('reviewPOST', () => call(rv, { method: 'POST', headers: {}, body: { stars: 5, name: 'diag', comment: 'diag test' } }));
   await step('cleanupPending', async () => { const { blobs } = await list({ prefix: 'reviews/pending/' }); let n = 0; for (const b of blobs) { const t = await (await fetch(b.url + '?v=' + b.uploadedAt.getTime())).text(); if (t.includes('"diag"')) { await del(b.url); n++; } } return 'removed ' + n; });
+  const host = 'https://' + req.headers.host;
+  await step('realPOST', async () => { const r = await fetch(host + '/api/review', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ stars: 5, tags: ['Great value'], name: 'diag', comment: 'diag real', website: '' }) }); return r.status + ' ' + (await r.text()).slice(0, 100); });
+  await step('realGET', async () => { const r = await fetch(host + '/api/review?z=' + Date.now()); return r.status + ' ' + (await r.text()).slice(0, 200); });
+  await step('realAdminList', async () => { const r = await fetch(host + '/api/admin', { headers: { 'x-admin-key': process.env.ADMIN_KEY } }); return r.status + ' ' + (await r.text()).slice(0, 200); });
+  await step('cleanup2', async () => { const { blobs } = await list({ prefix: 'reviews/pending/' }); let n = 0; for (const b of blobs) { const t = await (await fetch(b.url + '?v=' + b.uploadedAt.getTime())).text(); if (t.includes('"diag"')) { await del(b.url); n++; } } return 'removed ' + n; });
   res.end(JSON.stringify(out, null, 1));
 };
