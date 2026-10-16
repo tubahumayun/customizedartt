@@ -1,5 +1,5 @@
 const { put, list } = require('@vercel/blob');
-const { rid, clean, json, body } = require('./_util');
+const { rid, clean, json, body, retry } = require('./_util');
 
 /* Reviews: visitors POST a review (kept as pending). GET returns only approved reviews. */
 module.exports = async (req, res) => {
@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
         comment: clean(d.comment, 300)
       };
       const id = Date.now() + '-' + rid(5);
-      await put('reviews/pending/' + id + '.json', JSON.stringify(rec), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true });
+      await retry(() => put('reviews/pending/' + id + '.json', JSON.stringify(rec), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true }));
       return json(res, 200, { ok: true });
     }
     if (req.method === 'GET') {

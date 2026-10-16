@@ -9,3 +9,4 @@ exports.body = async req => {
   const chunks = []; for await (const c of req) chunks.push(c);
   try { return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}'); } catch (e) { return {}; }
 };
+exports.retry = async (fn, n = 3) => { let last; for (let i = 0; i < n; i++) { try { return await fn(); } catch (e) { last = e; await new Promise(r => setTimeout(r, 400 * (i + 1))); } } throw last; };

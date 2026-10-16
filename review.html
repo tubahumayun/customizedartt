@@ -58,6 +58,7 @@ textarea{min-height:80px;resize:vertical}
 
     <button class="go" id="send" type="button" disabled>Submit review</button>
     <p class="msg" id="msg">Your review is shown on our website after we approve it.</p>
+    <a class="go wa-fb" id="waFb" hidden target="_blank" rel="noopener" style="display:none;text-align:center;text-decoration:none;margin-top:12px">Send my review on WhatsApp instead</a>
   </div>
   <div class="done" id="doneView" hidden>
     <div class="big">★</div>
@@ -94,6 +95,8 @@ send.addEventListener('click',async()=>{
   if(ok){ document.getElementById('formView').hidden=true; document.getElementById('doneView').hidden=false; }
   else{
     send.disabled=false; send.textContent='Submit review';
+    const wa=document.getElementById('waFb'); const nm=document.getElementById('name').value.trim(); const cm=document.getElementById('comment').value.trim();
+    wa.href='https://wa.me/919004217186?text='+encodeURIComponent('Hi customizedartt, here is my review: '+'★'.repeat(rating)+'☆'.repeat(5-rating)+(cm?'\n'+cm:'')+(nm?'\n- '+nm:'')); wa.hidden=false; wa.style.display='block';
     msg.textContent = code ? 'Could not send (error '+code+(detail?': '+detail:'')+'). Please try again in a minute.' : 'Could not reach the server. Please check your connection and try again.';
   }
 });
