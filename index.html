@@ -2371,40 +2371,6 @@ let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(l
   setInterval(()=>{ el.style.opacity=0; setTimeout(()=>{ i=(i+1)%lines.length; el.textContent=lines[i]; el.style.opacity=1; },450); },3800);
 })();
 
-/* REVIEWS: approved reviews */
-const REVIEWS_URL = '/api/review';
-(async function(){
-  if(!REVIEWS_URL) return;
-  try{
-    const list = await (await fetch(REVIEWS_URL,{cache:'no-store'})).json();
-    if(!Array.isArray(list) || !list.length) return;
-    const esc = t => String(t||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-    const stars = n => '★'.repeat(n)+'☆'.repeat(5-n);
-    const avg = list.reduce((a,r)=>a+(+r.stars||0),0)/list.length;
-    document.getElementById('revSum').style.display='flex'; document.getElementById('revAvg').textContent = avg.toFixed(1);
-    document.getElementById('revStars').textContent = stars(Math.round(avg));
-    document.getElementById('revCount').textContent = list.length+' review'+(list.length>1?'s':'');
-    document.getElementById('revGrid').innerHTML = list.slice(0,24).map((r,n)=>{
-      const text = r.comment || r.tags || 'Lovely frame.';
-      const ph = r.photo ? `<img class="rev-photo" src="${esc(r.photo)}" alt="Frame received by ${esc(r.name||'a customer')}" loading="lazy">` : '';
-      return `<article class="rev-card${r.photo?' has-photo':''}${n>1?' extra':''}">${ph}<div class="rev-stars" aria-label="${+r.stars} out of 5">${stars(+r.stars||5)}</div><p>“${esc(text)}”</p><small>${esc(r.name||'Happy customer')}</small></article>`;
-    }).join('');
-    document.getElementById('revGrid').addEventListener('click',e=>{ const im=e.target.closest('.rev-photo'); if(!im) return; const lb=document.getElementById('lb'), li=document.getElementById('lbImg'), lc=document.getElementById('lbCap'); li.src=im.src; li.alt=im.alt; lc.textContent=im.alt; lb.hidden=false; });
-    const grid=document.getElementById('revGrid'), mb=document.getElementById('revMore'), ap=document.querySelector('.rev-arrow.prev'), an=document.querySelector('.rev-arrow.next');
-    if(list.length>2){
-      mb.hidden=false;
-      mb.addEventListener('click',()=>{ const o=grid.classList.toggle('all'); mb.innerHTML=o?'Fewer reviews &#8963;':'More reviews &#8964;'; });
-    }
-    const wide=()=>window.innerWidth>760;
-    const upd=()=>{ const more=wide() && grid.scrollWidth>grid.clientWidth+4; ap.hidden=!(more && grid.scrollLeft>4); an.hidden=!(more && grid.scrollLeft<grid.scrollWidth-grid.clientWidth-4); };
-    const step=()=>{ const c=grid.querySelector('.rev-card'); return c? c.getBoundingClientRect().width+18 : 300; };
-    ap.addEventListener('click',()=>grid.scrollBy({left:-step(),behavior:'smooth'}));
-    an.addEventListener('click',()=>grid.scrollBy({left:step(),behavior:'smooth'}));
-    grid.addEventListener('scroll',upd,{passive:true}); window.addEventListener('resize',upd); upd(); setTimeout(upd,400);
-    if(typeof fitHeads==='function') fitHeads();
-  }catch(e){}
-})();
-
 /* ===== v10 site behaviour: counters, 3D tilt, gallery view ===== */
 (function(){
   const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -2494,5 +2460,6 @@ const REVIEWS_URL = '/api/review';
   document.addEventListener('keydown',e=>{ if(e.key==='Escape' && !lb.hidden) shut(); });
 })();
 </script>
+<script src="reviews.js?v=3" defer></script>
 </body>
 </html>
