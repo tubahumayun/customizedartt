@@ -1,17 +1,18 @@
 const { list } = require('@vercel/blob');
+const review = require('./review');
 module.exports = async (req, res) => {
+  const out = { now: new Date().toISOString(), handler: null, per: [] };
   try {
-    const out = { now: new Date().toISOString(), blobs: [] };
-    let cursor;
-    do {
-      const r = await list({ prefix: 'reviews/', limit: 1000, cursor });
-      for (const b of r.blobs) {
-        const row = { p: b.pathname, size: b.size, up: b.uploadedAt };
-        if (b.pathname.endsWith('.json')) { try { const t = await (await fetch(b.url + '?v=' + b.uploadedAt.getTime())).text(); row.body = t.slice(0, 260); } catch (e) { row.err = String(e.message); } }
-        out.blobs.push(row);
-      }
-      cursor = r.hasMore ? r.cursor : undefined;
-    } while (cursor);
-    res.setHeader('Cache-Control', 'no-store'); res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(out, null, 1));
-  } catch (e) { res.statusCode = 500; res.end(String(e && e.stack || e)); }
+    let body = '', code = 0;
+    const fres = { statusCode: 200, setHeader() {}, end(b) { body = b; } };
+    await review({ method: 'GET', headers: {} }, fres);
+    out.handler = { code: fres.statusCode, body: body.slice(0, 600) };
+    const { blobs } = await list({ prefix: 'reviews/approved/', limit: 100 });
+    for (const b of blobs) {
+      const row = { p: b.pathname, upType: typeof b.uploadedAt, up: String(b.uploadedAt) };
+      try { const r = await fetch(b.url + '?v=' + b.uploadedAt.getTime()); row.status = r.status; row.ct = r.headers.get('content-type'); const t = await r.text(); row.len = t.length; try { JSON.parse(t); row.json = 'ok'; } catch (e) { row.json = 'BAD ' + t.slice(0, 80); } } catch (e) { row.err = String(e.message); }
+      out.per.push(row);
+    }
+  } catch (e) { out.fatal = String(e && e.stack || e); }
+  res.setHeader('Cache-Control', 'no-store'); res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(out, null, 1));
 };
