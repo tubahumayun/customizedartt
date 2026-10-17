@@ -32,6 +32,13 @@ textarea{min-height:80px;resize:vertical}
 .go{width:100%;font:inherit;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:15px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);cursor:pointer}
 .go:disabled{opacity:.45;cursor:not-allowed}
 .msg{text-align:center;font-size:13px;color:var(--ink-soft);margin:14px 0 0}
+.photo{margin-bottom:18px}
+.pbtns{display:flex;gap:10px;flex-wrap:wrap}
+.pbtn{flex:1 1 150px;text-align:center;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:13px 12px;border:1px dashed var(--ink);border-radius:999px;cursor:pointer;transition:background .2s,color .2s}
+.pbtn:hover{background:var(--ink);color:var(--paper)}
+.pprev{position:relative;margin-top:12px;border:1px solid var(--line);background:var(--paper)}
+.pprev img{display:block;width:100%;max-height:300px;object-fit:contain}
+.pprev button{position:absolute;right:8px;top:8px;font:inherit;font-size:11px;letter-spacing:.1em;text-transform:uppercase;border:0;border-radius:999px;padding:7px 12px;background:rgba(22,20,26,.85);color:#fff;cursor:pointer}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
 .done{text-align:center}
 .done .big{font-size:54px;color:var(--gold);line-height:1;margin-bottom:10px}
@@ -52,12 +59,20 @@ textarea{min-height:80px;resize:vertical}
 
     <label class="lab" for="comment">Add a line (optional)</label>
     <textarea id="comment" maxlength="300" placeholder="Tell us about your frame"></textarea>
-    <label class="lab" for="name">Your name (optional)</label>
-    <input id="name" maxlength="50" placeholder="e.g. Aisha, Mira Road" autocomplete="name">
+    <span class="lab">Photo of your frame (optional)</span>
+    <div class="photo" id="photoBox">
+      <div class="pbtns">
+        <label class="pbtn">Take a photo<input type="file" id="pCam" accept="image/*" capture="environment" hidden></label>
+        <label class="pbtn">Choose from gallery<input type="file" id="pFile" accept="image/*" hidden></label>
+      </div>
+      <div class="pprev" id="pPrev" hidden><img id="pImg" alt="Your frame"><button type="button" id="pDel" aria-label="Remove photo">Remove</button></div>
+    </div>
+    <label class="lab" for="name">Your name *</label>
+    <input id="name" maxlength="50" placeholder="e.g. Aisha, Mira Road" autocomplete="name" required>
     <input class="hp" id="hpx" name="hpx" tabindex="-1" autocomplete="off" aria-hidden="true">
 
     <button class="go" id="send" type="button" disabled>Submit review</button>
-    <p class="msg" id="msg">Your review is shown on our website after we approve it.</p>
+    <p class="msg" id="msg">Your name is needed. Your review and photo are shown on our website after we approve them.</p>
     <a class="go wa-fb" id="waFb" hidden target="_blank" rel="noopener" style="display:none;text-align:center;text-decoration:none;margin-top:12px">Send my review on WhatsApp instead</a>
   </div>
   <div class="done" id="doneView" hidden>
@@ -78,12 +93,31 @@ for(let i=1;i<=5;i++){
   const b=document.createElement('button'); b.type='button'; b.textContent='★'; b.setAttribute('role','radio'); b.setAttribute('aria-label',i+' star'+(i>1?'s':''));
   b.addEventListener('click',()=>{ rating=i; paint(); }); stars.appendChild(b);
 }
-function paint(){ [...stars.children].forEach((b,i)=>b.classList.toggle('on',i<rating)); word.textContent=WORDS[rating]; send.disabled=!rating; }
+const nameEl=document.getElementById('name');
+let photoData='';
+function ready(){ send.disabled=!(rating && nameEl.value.trim()); }
+function paint(){ [...stars.children].forEach((b,i)=>b.classList.toggle('on',i<rating)); word.textContent=WORDS[rating]; ready(); }
+nameEl.addEventListener('input',ready);
+function setPhoto(file){
+  if(!file) return;
+  const url=URL.createObjectURL(file), im=new Image();
+  im.onload=()=>{
+    const m=1100, k=Math.min(1,m/Math.max(im.naturalWidth,im.naturalHeight)), c=document.createElement('canvas');
+    c.width=Math.round(im.naturalWidth*k); c.height=Math.round(im.naturalHeight*k);
+    c.getContext('2d').drawImage(im,0,0,c.width,c.height);
+    photoData=c.toDataURL('image/jpeg',.82); URL.revokeObjectURL(url);
+    document.getElementById('pImg').src=photoData; document.getElementById('pPrev').hidden=false;
+  };
+  im.onerror=()=>{ URL.revokeObjectURL(url); msg.textContent='That photo could not be opened. Please try another one.'; };
+  im.src=url;
+}
+['pCam','pFile'].forEach(id=>document.getElementById(id).addEventListener('change',e=>{ setPhoto(e.target.files[0]); e.target.value=''; }));
+document.getElementById('pDel').addEventListener('click',()=>{ photoData=''; document.getElementById('pPrev').hidden=true; document.getElementById('pImg').removeAttribute('src'); });
 TAGS.forEach(t=>{ const b=document.createElement('button'); b.type='button'; b.textContent=t; b.setAttribute('aria-pressed','false'); b.addEventListener('click',()=>b.setAttribute('aria-pressed',b.getAttribute('aria-pressed')!=='true')); tagBox.appendChild(b); });
 send.addEventListener('click',async()=>{
-  if(!rating) return;
+  if(!rating || !nameEl.value.trim()){ msg.textContent='Please add your name.'; nameEl.focus(); return; }
   send.disabled=true; send.textContent='Sending...'; msg.textContent='';
-  const body={stars:rating,tags:[...tagBox.querySelectorAll('[aria-pressed=true]')].map(b=>b.textContent),comment:document.getElementById('comment').value.trim(),name:document.getElementById('name').value.trim(),website:document.getElementById('hpx').value};
+  const body={stars:rating,tags:[...tagBox.querySelectorAll('[aria-pressed=true]')].map(b=>b.textContent),comment:document.getElementById('comment').value.trim(),name:document.getElementById('name').value.trim(),photo:photoData,website:document.getElementById('hpx').value};
   let code=0, ok=false, detail='';
   for(let n=0;n<2 && !ok;n++){
     try{
@@ -95,6 +129,7 @@ send.addEventListener('click',async()=>{
   if(ok){ document.getElementById('formView').hidden=true; document.getElementById('doneView').hidden=false; }
   else{
     send.disabled=false; send.textContent='Submit review';
+    if(code===413){ msg.textContent='That photo is too big. Please remove it or pick a smaller one.'; return; }
     const wa=document.getElementById('waFb'); const nm=document.getElementById('name').value.trim(); const cm=document.getElementById('comment').value.trim();
     wa.href='https://wa.me/919004217186?text='+encodeURIComponent('Hi customizedartt, here is my review: '+'★'.repeat(rating)+'☆'.repeat(5-rating)+(cm?'\n'+cm:'')+(nm?'\n- '+nm:'')); wa.hidden=false; wa.style.display='block';
     msg.textContent = code ? 'Could not send (error '+code+(detail?': '+detail:'')+'). Please try again in a minute.' : 'Could not reach the server. Please check your connection and try again.';

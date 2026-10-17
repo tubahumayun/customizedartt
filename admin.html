@@ -31,7 +31,7 @@ async function load(){
   try{
     const rows=await api('GET'); try{sessionStorage.setItem('ak',key);}catch(e){}
     $('list').innerHTML=rows.length?rows.map(r=>`<article class="${r.state}"><div class="st">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
-      <div>${esc(r.comment||r.tags||'(no comment)')}</div><div class="meta">${esc(r.name)} · ${new Date(r.time).toLocaleDateString()} · <span class="tag">${r.state}</span>${r.tags&&r.comment?' · '+esc(r.tags):''}</div>
+      ${r.photo?`<a href="${esc(r.photo)}" target="_blank"><img src="${esc(r.photo)}" alt="Customer photo" style="max-width:100%;max-height:220px;display:block;margin:6px 0 8px;border:1px solid #e5dfd6"></a>`:''}<div>${esc(r.comment||r.tags||'(no comment)')}</div><div class="meta">${esc(r.name)} · ${new Date(r.time).toLocaleDateString()} · <span class="tag">${r.state}</span>${r.tags&&r.comment?' · '+esc(r.tags):''}</div>
       <div class="acts">${r.state==='pending'?`<button data-a="approve" data-id="${r.id}">Approve</button>`:`<button class="o" data-a="unapprove" data-id="${r.id}">Hide</button>`}<button class="o" data-a="delete" data-id="${r.id}">Delete</button></div></article>`).join(''):'<p class="s">No reviews yet.</p>';
   }catch(e){ $('msg').textContent=e.message; }
 }

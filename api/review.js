@@ -9,14 +9,29 @@ module.exports = async (req, res) => {
       if (d.website) return json(res, 200, { ok: true });             // spam trap
       const stars = Math.min(5, Math.max(1, parseInt(d.stars, 10) || 0));
       if (!stars) return json(res, 400, { error: 'stars' });
+      const name = clean(d.name, 50);
+      if (!name) return json(res, 400, { error: 'name', detail: 'Please add your name.' });
+      const id = Date.now() + '-' + rid(5);
+      let photo = '';
+      if (typeof d.photo === 'string' && d.photo.startsWith('data:image/')) {
+        const b64 = d.photo.slice(d.photo.indexOf(',') + 1);
+        if (b64.length > 2400000) return json(res, 413, { error: 'photo', detail: 'Photo is too large.' });
+        const buf = Buffer.from(b64, 'base64');
+        if (buf.length > 10 && buf[0] === 0xff && buf[1] === 0xd8) {
+          try {
+            const p = await retry(() => put('reviews/photos/' + id + '.jpg', buf, { access: 'public', contentType: 'image/jpeg', addRandomSuffix: false, allowOverwrite: true }));
+            photo = p.url;
+          } catch (e) { /* keep the review even if the photo could not be stored */ }
+        }
+      }
       const rec = {
         time: new Date().toISOString(),
-        name: clean(d.name, 50) || 'A happy customer',
+        name,
+        photo,
         stars,
         tags: clean(Array.isArray(d.tags) ? d.tags.join(', ') : d.tags, 200),
         comment: clean(d.comment, 300)
       };
-      const id = Date.now() + '-' + rid(5);
       await retry(() => put('reviews/pending/' + id + '.json', JSON.stringify(rec), { access: 'public', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true }));
       return json(res, 200, { ok: true });
     }
@@ -27,7 +42,7 @@ module.exports = async (req, res) => {
       for (const b of blobs.slice(0, 40)) {
         try {
           const r = await (await fetch(b.url + '?v=' + b.uploadedAt.getTime())).json();
-          out.push({ name: r.name, stars: r.stars, tags: r.tags, comment: r.comment });
+          out.push({ name: r.name, stars: r.stars, tags: r.tags, comment: r.comment, photo: r.photo || '' });
         } catch (e) { /* skip */ }
       }
       res.setHeader('Cache-Control', 'no-store');

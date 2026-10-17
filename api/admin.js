@@ -40,7 +40,13 @@ module.exports = async (req, res) => {
         return json(res, 200, { ok: true });
       }
       if (d.action === 'delete') {
-        for (const s of ['pending', 'approved']) { const b = await find(s); if (b) await del(b.url); }
+        for (const s of ['pending', 'approved']) {
+          const b = await find(s);
+          if (b) {
+            try { const rec = await (await fetch(b.url + '?v=' + b.uploadedAt.getTime())).json(); if (rec.photo) await del(rec.photo); } catch (e) { /* photo already gone */ }
+            await del(b.url);
+          }
+        }
         return json(res, 200, { ok: true });
       }
       return json(res, 400, { error: 'action' });
